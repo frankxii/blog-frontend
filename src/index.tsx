@@ -5,9 +5,11 @@ import './index.css';
 import 'antd/dist/antd.min.css'
 import axios from 'axios'
 import {
-  BrowserRouter as Router
+  BrowserRouter as Router,
+  Route, Switch
 } from "react-router-dom"
 import FrontPage from "./page/front/FrontPage"
+import BackPage from "./page/back/BackPage"
 
 
 axios.defaults.baseURL = 'http://localhost:8000'
@@ -15,7 +17,10 @@ axios.defaults.baseURL = 'http://localhost:8000'
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <FrontPage/>
+      <Switch>
+        <Route path="/blog" component={FrontPage}/>
+        <Route path="/backend" component={BackPage}/>
+      </Switch>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')

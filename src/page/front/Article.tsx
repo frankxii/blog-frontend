@@ -1,9 +1,10 @@
 import React from "react"
 
-class Article extends React.Component {
+class Article extends React.Component<any, any> {
   render() {
     return (
-      <h1>Hello</h1>
+      <div>
+      </div>
     )
   }
 }

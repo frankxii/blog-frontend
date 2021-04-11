@@ -12,14 +12,14 @@ export default class FrontPage extends React.Component<any, any> {
       <div>
         <Row>
           <Col span={8} offset={8}>
-            <Navigator/>
+            <Route path={`${this.props.match.path}`} component={Navigator}/>
           </Col>
         </Row>
         <Row>
           <Col span={10} offset={6}>
-            <Route exact path="/" component={ArticleList}/>
-            <Route path="/article" component={Article}/>
-            <Route path="/about" component={ArticleList}/>
+            <Route exact path={`${this.props.match.path}`} component={Article}/>
+            <Route path={`${this.props.match.path}/article`} component={ArticleList}/>
+            <Route path={`${this.props.match.path}/about`} component={ArticleList}/>
           </Col>
         </Row>
       </div>
