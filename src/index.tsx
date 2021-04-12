@@ -5,7 +5,7 @@ import './index.css';
 import 'antd/dist/antd.min.css'
 import axios from 'axios'
 import {
-  BrowserRouter as Router,
+  BrowserRouter as Router, Redirect,
   Route, Switch
 } from "react-router-dom"
 import FrontPage from "./page/front/FrontPage"
@@ -20,6 +20,8 @@ ReactDOM.render(
       <Switch>
         <Route path="/blog" component={FrontPage}/>
         <Route path="/backend" component={BackPage}/>
+        {/*react 重定向 https://www.jianshu.com/p/a5268ac7b566*/}
+        <Redirect to="/blog"/>
       </Switch>
     </Router>
   </React.StrictMode>,
