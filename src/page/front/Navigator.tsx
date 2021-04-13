@@ -6,11 +6,16 @@ import {MenuInfo} from "rc-menu/lib/interface"
 export default class Navigator extends React.Component<any, any> {
 
   state = {
-    current: 'index'
+    current: ""
+  }
+
+  componentDidMount() {
+    // 取url斜杠后最后一个路由地址作为导航栏的高亮展示的key
+    let url = window.location.pathname
+    this.setState({current: url.split("/").pop()})
   }
 
   handClick = (e: MenuInfo) => {
-    console.log(e)
     this.setState({current: e.key})
   }
 
