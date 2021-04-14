@@ -6,13 +6,20 @@ import Welcome from "./Welcome"
 import ArticleList from "./ArticleList"
 import Article from "./Article"
 import About from "./About"
+import {CustomerServiceOutlined} from "@ant-design/icons"
 
 export default class FrontPage extends React.Component<any, any> {
   render() {
     return (
       <div>
-        <Row style={{marginBottom:50}}>
-          <Col span={8} offset={8}>
+        <Row style={{marginBottom:50}} align="middle">
+          <Col offset={6}>
+            <div>
+              <CustomerServiceOutlined />
+              <span style={{marginLeft:10}}>frankxii's blog</span>
+            </div>
+          </Col>
+          <Col span={7}>
             <Route path={`${this.props.match.path}`} component={Navigator}/>
           </Col>
         </Row>

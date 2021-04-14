@@ -26,6 +26,7 @@ export default class Navigator extends React.Component<any, any> {
         onClick={this.handClick}
         mode={"horizontal"}
         selectedKeys={[current]}
+        style={{borderBottomWidth: 0}}
       >
         <Menu.Item/>
         <Menu.Item key="index"><Link to={`${this.props.match.path}`}>首页</Link></Menu.Item>
@@ -37,4 +38,5 @@ export default class Navigator extends React.Component<any, any> {
       </Menu>
     )
   }
+
 }
