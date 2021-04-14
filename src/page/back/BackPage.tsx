@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+import Sidebar from "./Sidebar"
+import Navigator from "./Navigator"
 
 export default class BackPage extends Component<any, any> {
   componentDidMount() {
@@ -7,7 +9,10 @@ export default class BackPage extends Component<any, any> {
 
   render() {
     return (
-      <p>hello back page</p>
+      <div>
+        <Navigator/>
+        <Sidebar/>
+      </div>
     )
   }
 }
