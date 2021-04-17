@@ -15,7 +15,7 @@ import BackPage from "./page/back/BackPage"
 axios.defaults.baseURL = 'http://localhost:8000'
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <Router>
       <Switch>
         <Route path="/blog" component={FrontPage}/>
@@ -24,7 +24,7 @@ ReactDOM.render(
         <Redirect to="/blog"/>
       </Switch>
     </Router>
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById('root')
 );
 
