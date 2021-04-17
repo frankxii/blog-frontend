@@ -5,9 +5,9 @@ import {Link} from "react-router-dom"
 const {SubMenu} = Menu
 
 export default class Siderbar extends Component<any, any> {
-  componentDidMount() {
-    console.log(this.props)
-  }
+  // componentDidMount() {
+  //   console.log(this.props)
+  // }
 
   render() {
     return (
@@ -23,7 +23,6 @@ export default class Siderbar extends Component<any, any> {
           <Menu.Item>
             <Link to={`${this.props.match.path}/article/1`}>文章列表</Link>
           </Menu.Item>
-
         </SubMenu>
       </Menu>
     )
