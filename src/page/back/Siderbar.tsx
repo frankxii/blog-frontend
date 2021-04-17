@@ -12,16 +12,16 @@ export default class Siderbar extends Component<any, any> {
   render() {
     return (
       <Menu
-        style={{width: 200, height: "100vh"}}
+        style={{width: 208, height: "100vh"}}
         defaultOpenKeys={["articles"]}
         mode="inline"
       >
         <SubMenu key="articles" title="文章编辑">
           <Menu.Item key="articleList">
-            <Link to={`${this.props.match.path}/articleList`}>文章列表</Link>
+            <Link to={`${this.props.match.path}/article`}>文章列表</Link>
           </Menu.Item>
           <Menu.Item>
-            <Link to={`${this.props.match.path}/article`}>文章列表</Link>
+            <Link to={`${this.props.match.path}/article/1`}>文章列表</Link>
           </Menu.Item>
 
         </SubMenu>
