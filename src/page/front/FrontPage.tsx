@@ -8,30 +8,28 @@ import Article from "./Article"
 import About from "./About"
 import {CustomerServiceOutlined} from "@ant-design/icons"
 
-export default class FrontPage extends React.Component<any, any> {
-  render() {
-    return (
-      <div>
-        <Row style={{marginBottom:50}} align="middle">
-          <Col offset={6}>
-            <div>
-              <CustomerServiceOutlined />
-              <span style={{marginLeft:10}}>frankxii's blog</span>
-            </div>
-          </Col>
-          <Col span={7}>
-            <Route path={`${this.props.match.path}`} component={Navigator}/>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={10} offset={6}>
-            <Route exact path={`${this.props.match.path}`} component={Welcome}/>
-            <Route exact path={`${this.props.match.path}/article`} component={ArticleList}/>
-            <Route path={`${this.props.match.path}/article/:id`} component={Article}/>
-            <Route path={`${this.props.match.path}/about`} component={About}/>
-          </Col>
-        </Row>
-      </div>
-    )
-  }
+export default function FrontPage(props: any) {
+  return (
+    <div>
+      <Row style={{marginBottom: 50}} align="middle">
+        <Col offset={6}>
+          <div>
+            <CustomerServiceOutlined/>
+            <span style={{marginLeft: 10}}>frankxii's blog</span>
+          </div>
+        </Col>
+        <Col span={7}>
+          <Route path={`${props.match.path}`} component={Navigator}/>
+        </Col>
+      </Row>
+      <Row>
+        <Col span={10} offset={6}>
+          <Route exact path={`${props.match.path}`} component={Welcome}/>
+          <Route exact path={`${props.match.path}/article`} component={ArticleList}/>
+          <Route path={`${props.match.path}/article/:id`} component={Article}/>
+          <Route path={`${props.match.path}/about`} component={About}/>
+        </Col>
+      </Row>
+    </div>
+  )
 }

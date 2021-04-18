@@ -1,21 +1,19 @@
-import React, {Component} from "react"
+import React, {useEffect, useState} from "react"
 import axios from "axios"
 import {Table, Button, Space} from "antd"
 import {Link} from "react-router-dom"
 
 
-export default class ArticleList extends Component<any, any> {
-  state = {
-    articleList: [{id: null, title: ""}],
-    show: true
-  }
+export default function ArticleList(props: any) {
+  const [articleList, setArticleList] = useState([{id: 0, title: ""}])
+  const [show, setShow] = useState(true)
 
-  columns = [
+  const columns = [
     {
       key: "id",
       title: "id",
       dataIndex: "id",
-      render: (id: bigint) => <Link to={`${this.props.match.url}/${id}`}>{id}</Link>
+      render: (id: bigint) => <Link to={`${props.match.url}/${id}`}>{id}</Link>
     },
     {
       key: "title",
@@ -31,16 +29,16 @@ export default class ArticleList extends Component<any, any> {
           <Button
             type="primary"
             size={"small"}
-            onClick={() => this.handleDelete(record)}
-            disabled={!this.state.show}
+            onClick={() => handleDelete(record)}
+            disabled={!show}
           >编辑
           </Button>
           <Button
             danger
             type="primary"
             size={"small"}
-            onClick={() => this.handleDelete(record)}
-            disabled={!this.state.show}
+            onClick={() => handleDelete(record)}
+            disabled={!show}
           >删除
           </Button>
         </Space>
@@ -48,32 +46,29 @@ export default class ArticleList extends Component<any, any> {
     }
   ]
 
-  handleDelete(record: any) {
-    // console.log(record)
-    this.setState({show: !this.state.show})
+  function handleDelete(record: any) {
+    setShow(!show)
   }
 
-  componentDidMount() {
+  useEffect(() => {
     axios.get("/blog/articleList")
       .then(r => {
         // console.log(r.data)
         if (r.data.ret === 0) {
-          this.setState({articleList: r.data.data.lists})
+          setArticleList(r.data.data.lists)
         }
       })
-  }
+  })
 
-  render() {
-    return (
-      <div>
-        <Table
-          //解决antd Table key缺失警告
-          //https://www.jianshu.com/p/2e99e7c0b241?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation
-          rowKey={(record) => `${record.id}`}
-          dataSource={this.state.articleList}
-          columns={this.columns}
-        />
-      </div>
-    )
-  }
+  return (
+    <div>
+      <Table
+        //解决antd Table key缺失警告
+        //https://www.jianshu.com/p/2e99e7c0b241?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation
+        rowKey={(record) => `${record.id}`}
+        dataSource={articleList}
+        columns={columns}
+      />
+    </div>
+  )
 }
