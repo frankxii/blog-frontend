@@ -5,7 +5,7 @@ import {Link} from "react-router-dom"
 
 
 export default function ArticleList(props: any) {
-  const [articleList, setArticleList] = useState([{id: 0, title: ""}])
+  const [articleList, setArticleList] = useState([{id: null, title: ""}])
   const [show, setShow] = useState(true)
 
   const columns = [
@@ -13,18 +13,26 @@ export default function ArticleList(props: any) {
       key: "id",
       title: "id",
       dataIndex: "id",
+      width: 300,
       render: (id: bigint) => <Link to={`${props.match.url}/${id}`}>{id}</Link>
     },
     {
       key: "title",
       title: "标题",
-      dataIndex: "title"
+      dataIndex: "title",
+      width: 300,
     },
     {
       key: "action",
       title: "操作",
       width: 200,
-      render: (record: any) => (
+      render: renderOperate
+    }
+  ]
+
+  function renderOperate(record: any) {
+    if (record.id) {
+      return (
         <Space>
           <Button
             type="primary"
@@ -44,7 +52,8 @@ export default function ArticleList(props: any) {
         </Space>
       )
     }
-  ]
+  }
+
 
   function handleDelete(record: any) {
     setShow(!show)
@@ -58,7 +67,7 @@ export default function ArticleList(props: any) {
           setArticleList(r.data.data.lists)
         }
       })
-  })
+  }, [])
 
   return (
     <div>

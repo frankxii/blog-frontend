@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react"
 // import {Link} from "react-router-dom"
 import {Table, Button, Space} from "antd"
+import axios from "axios"
 
 export default function Category() {
-  const [categories, setCategories] = useState([{id: 0, name: 'null'}])
+  const [categories, setCategories] = useState([{id: 0, name: ''}])
   const columns = [
     {
       key: "id",
@@ -20,7 +21,13 @@ export default function Category() {
       key: "action",
       title: "操作",
       width: 200,
-      render: (record: any) => (
+      render: renderOperation
+    }
+  ]
+
+  function renderOperation(record: any) {
+    if (record && record.id !== 0) {
+      return (
         <Space>
           <Button
             type="primary"
@@ -38,7 +45,7 @@ export default function Category() {
         </Space>
       )
     }
-  ]
+  }
 
   function handleDelete(record: any) {
 
@@ -46,7 +53,12 @@ export default function Category() {
 
 
   useEffect(() => {
-    setCategories([{id: 1, name: 'frank'}])
+    axios.get('/blog/categoryList')
+      .then(r => {
+        if (r.data.ret === 0) {
+          setCategories(r.data.data)
+        }
+      })
   }, [])
 
   return (
