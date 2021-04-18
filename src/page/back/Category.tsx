@@ -1,10 +1,14 @@
 import React, {useEffect, useState} from "react"
 // import {Link} from "react-router-dom"
-import {Table, Button, Space} from "antd"
+import {Table, Button, Space, Modal, Input} from "antd"
 import axios from "axios"
 
 export default function Category() {
   const [categories, setCategories] = useState([{id: 0, name: ''}])
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  // const [modalTitle, setModalTitle] = useState('新增分类')
+  const [modalProps, setModalProps] = useState({type: 'add', id: 0, name: ''})
+  const [inputValue, setInputValue] = useState('')
   const columns = [
     {
       key: "id",
@@ -23,6 +27,7 @@ export default function Category() {
       width: 200,
       render: renderOperation
     }
+
   ]
 
   function renderOperation(record: any) {
@@ -48,9 +53,15 @@ export default function Category() {
   }
 
   function handleDelete(record: any) {
-
+    setModalProps({type: 'edit', id: record.id, name: record.name})
+    setIsModalVisible(true)
   }
 
+
+  function handleOk(event: any) {
+    console.log(modalProps.id, modalProps.type)
+    console.log(inputValue)
+  }
 
   useEffect(() => {
     axios.get('/blog/categoryList')
@@ -63,11 +74,30 @@ export default function Category() {
 
   return (
     <div>
+      <Button
+        type={"primary"}
+        onClick={() => {
+          setModalProps({type: 'add', id: 0, name: ''})
+          setIsModalVisible(true)
+        }}
+      >新增</Button>
       <Table
         rowKey={(record) => `${record.id}`}
         dataSource={categories}
         columns={columns}
       />
+      <Modal
+        title={modalProps.type === 'add' ? '新增分类' : '编辑分类'}
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={() => setIsModalVisible(false)}
+      >
+        <Input
+          addonBefore='分类名称'
+          allowClear={true}
+          onChange={event => setInputValue(event.target.value)}
+        />
+      </Modal>
     </div>
   )
 }
