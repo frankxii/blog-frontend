@@ -6,7 +6,7 @@ import axios from "axios"
 
 export default function ArticleEditor(props: any) {
 
-  const [value, setValue] = useState('# hello world')
+  const [value, setValue] = useState('')
   const [id, setId] = useState(0)
   const inputRef = useRef(null)
 
@@ -15,6 +15,11 @@ export default function ArticleEditor(props: any) {
     if (inputRef) {
       // @ts-ignore
       const title = inputRef.current.state.value
+      console.log(title)
+      if (title === undefined || value === '') {
+        message.warning('标题和内容不得为空', 2).then()
+        return
+      }
 
       axios({
         url: '/blog/article',
@@ -29,7 +34,7 @@ export default function ArticleEditor(props: any) {
               setId(r.data.data.id)
             }
           } else (
-            message.error(r.data.msg).then()
+            message.error(r.data.msg, 2).then()
           )
         })
     }
