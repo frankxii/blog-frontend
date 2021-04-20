@@ -9,6 +9,7 @@ import Welcome from "../front/Welcome"
 import Siderbar from "./Siderbar"
 import ArticleList from "./ArticleList"
 import Category from "./Category"
+import ArticleEditor from "./ArticleEditor"
 
 const {Header, Content, Sider} = Layout
 export default function BackPage(props: any) {
@@ -48,6 +49,7 @@ export default function BackPage(props: any) {
               <Route exact path={`${props.match.path}/article`} component={ArticleList}/>
               <Route path={`${props.match.path}/article/:id`} component={About}/>
               <Route path={`${props.match.path}/category`} component={Category}/>
+              <Route path={`${props.match.path}/addArticle`} component={ArticleEditor}/>
             </Switch>
           </Content>
         </Layout>

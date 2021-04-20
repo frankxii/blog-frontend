@@ -100,7 +100,6 @@ export default function Category() {
 
   // 删除分类
   function handleDelete(record: any) {
-    console.log(record)
     let isMessageShowed: boolean = false
     axios
       .delete('/blog/category', {data: {id: record.id}})
