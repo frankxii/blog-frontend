@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react"
 import axios from "axios"
+import MDEditor from "@uiw/react-md-editor"
 
 
 export default function Article(props: any) {
@@ -24,7 +25,7 @@ export default function Article(props: any) {
   return (
     <div>
       <p>{article.title}</p>
-      <p>{article.body}</p>
+      <MDEditor.Markdown>{article.body}</MDEditor.Markdown>
     </div>
   )
 }
