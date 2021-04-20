@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react"
 import axios from "axios"
-import {Table, Button, Space} from "antd"
-import {Link} from "react-router-dom"
+import {Table, Button, Space, message} from "antd"
 
 
 export default function ArticleList(props: any) {
   const [articleList, setArticleList] = useState([{id: null, title: ""}])
-  const [show, setShow] = useState(true)
+  const [refresh, setRefresh] = useState(0)
+  const [loading, setLoading] = useState(false)
 
   const columns = [
     {
@@ -14,7 +14,6 @@ export default function ArticleList(props: any) {
       title: "id",
       dataIndex: "id",
       width: 300,
-      render: (id: bigint) => <Link to={`${props.match.url}/${id}`}>{id}</Link>
     },
     {
       key: "title",
@@ -37,8 +36,8 @@ export default function ArticleList(props: any) {
           <Button
             type="primary"
             size={"small"}
-            onClick={() => handleDelete(record)}
-            disabled={!show}
+            // 点击编辑后，跳转路由到编辑
+            onClick={() => props.history.push(`/backend/editArticle/${record.id}`)}
           >编辑
           </Button>
           <Button
@@ -46,7 +45,6 @@ export default function ArticleList(props: any) {
             type="primary"
             size={"small"}
             onClick={() => handleDelete(record)}
-            disabled={!show}
           >删除
           </Button>
         </Space>
@@ -54,12 +52,20 @@ export default function ArticleList(props: any) {
     }
   }
 
-
   function handleDelete(record: any) {
-    setShow(!show)
+    axios.delete('/blog/article', {data: {id: record.id}})
+      .then(r => {
+        if (r.data.ret === 0) {
+          message.success('删除成功', 2).then()
+          setRefresh(refresh + 1)
+        } else {
+          message.error(r.data.msg, 2).then()
+        }
+      })
   }
 
   useEffect(() => {
+    setLoading(true)
     axios.get("/blog/articleList")
       .then(r => {
         // console.log(r.data)
@@ -67,7 +73,9 @@ export default function ArticleList(props: any) {
           setArticleList(r.data.data.lists)
         }
       })
-  }, [])
+      .finally(() => setLoading(false)
+      )
+  }, [refresh])
 
   return (
     <div>
@@ -77,6 +85,7 @@ export default function ArticleList(props: any) {
         rowKey={(record) => `${record.id}`}
         dataSource={articleList}
         columns={columns}
+        loading={loading}
       />
     </div>
   )
