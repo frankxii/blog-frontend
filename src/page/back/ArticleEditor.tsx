@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 import MDEditor from '@uiw/react-md-editor'
 import {Input, Divider, Button, message} from "antd"
 import {Row, Col} from "antd"
@@ -10,12 +10,31 @@ export default function ArticleEditor(props: any) {
   const [id, setId] = useState(0)
   const inputRef = useRef(null)
 
+  useEffect(() => {
+    let id = props.match.params.id
+    // 如果路由带id，说明是编辑，请求文章详情填充编辑器
+    if (id !== undefined) {
+      axios.get('/blog/article', {params: {id: id}})
+        .then(r => {
+          if (r.data.ret === 0) {
+            setValue(r.data.data.body)
+            // @ts-ignore
+            inputRef.current.state.value = r.data.data.title
+            setId(id)
+          }
+        })
+    } else {
+      // 清空标题和内容，主要应用场景为编辑后跳转新建页面
+      setValue('')
+      // @ts-ignore
+      inputRef.current.setValue('')
+    }
+  }, [props])
 
   function saveArticle() {
     if (inputRef) {
       // @ts-ignore
       const title = inputRef.current.state.value
-      console.log(title)
       if (title === undefined || value === '') {
         message.warning('标题和内容不得为空', 2).then()
         return
@@ -57,7 +76,6 @@ export default function ArticleEditor(props: any) {
         onChange={setValue}
         height={770}
       />
-      {/*<MDEditor.Markdown source={value}/>*/}
     </div>
   )
 }

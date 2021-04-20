@@ -50,6 +50,7 @@ export default function BackPage(props: any) {
               <Route path={`${props.match.path}/article/:id`} component={About}/>
               <Route path={`${props.match.path}/category`} component={Category}/>
               <Route path={`${props.match.path}/addArticle`} component={ArticleEditor}/>
+              <Route path={`${props.match.path}/editArticle/:id`} component={ArticleEditor}/>
             </Switch>
           </Content>
         </Layout>
