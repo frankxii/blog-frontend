@@ -11,10 +11,14 @@ export default function Category() {
   const [modalProps, setModalProps] = useState({type: 'add', id: 0, name: ''})
   // 弹窗确定按钮loading bool值
   const [confirmLoading, setConfirmLoading] = useState(false)
+  // 列表loading值
+  const [listLoading, setListLoading] = useState(false)
   // 提交成功后刷新列表
   const [refresh, setRefresh] = useState(0)
   // 弹窗input组件引用
   const inputRef = useRef(null)
+  // loading加载时间
+  const duration = 2
   // 表格列结构
   const columns = [
     {
@@ -80,16 +84,16 @@ export default function Category() {
       .then(response => {
         if (response.data.ret === 0) {
           setIsModalVisible(false)
-          message.success(`${isAdd ? '新增' : '更新'}分类成功`,).then()
+          message.success(`${isAdd ? '新增' : '更新'}分类成功`, duration).then()
           setRefresh(refresh + 1)
         } else {
-          message.error(response.data.msg,).then()
+          message.error(response.data.msg, duration).then()
         }
         isMessageShowed = true
       })
       .catch(() => {
         if (!isMessageShowed) {
-          message.error('网络异常').then()
+          message.error('网络异常', duration).then()
         }
       })
       .finally(() => {
@@ -105,28 +109,30 @@ export default function Category() {
       .delete('/blog/category', {data: {id: record.id}})
       .then(r => {
         if (r.data.ret === 0) {
-          message.success('删除成功').then()
+          message.success('删除成功', duration).then()
           setRefresh(refresh + 1)
         } else {
-          message.error('删除失败').then()
+          message.error('删除失败', duration).then()
         }
         isMessageShowed = true
       })
       .catch(() => {
         if (!isMessageShowed) {
-          message.error('网络异常').then()
+          message.error('网络异常', duration).then()
         }
       })
   }
 
   // 刷新表格
   useEffect(() => {
+    setListLoading(true)
     axios.get('/blog/categoryList')
       .then(r => {
         if (r.data.ret === 0) {
           setCategories(r.data.data)
         }
       })
+      .finally(() => setListLoading(false))
   }, [refresh])
 
   // 每次弹窗关开启清理input的值
@@ -139,6 +145,7 @@ export default function Category() {
 
   return (
     <div>
+      {/*新增按钮*/}
       <Button
         type={"primary"}
         onClick={() => {
@@ -150,7 +157,9 @@ export default function Category() {
         rowKey={(record) => `${record.id}`}
         dataSource={categories}
         columns={columns}
+        loading={listLoading}
       />
+      {/*模态弹窗组件，内含一个输入框*/}
       <Modal
         title={modalProps.type === 'add' ? '新增分类' : '编辑分类'}
         visible={isModalVisible}
