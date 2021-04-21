@@ -7,6 +7,9 @@ export default function ArticleList(props: any) {
   const [articleList, setArticleList] = useState([{id: null, title: ""}])
   const [refresh, setRefresh] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [pageSize, setPageSize] = useState(5)
+  const [current, setCurrent] = useState(1)
+  const [total, setTotal] = useState(0)
 
   const columns = [
     {
@@ -66,17 +69,22 @@ export default function ArticleList(props: any) {
 
   useEffect(() => {
     setLoading(true)
-    axios.get("/blog/articleList")
+    axios.get("/blog/articleList", {params: {current: current, page_size: pageSize}})
       .then(r => {
         // console.log(r.data)
         if (r.data.ret === 0) {
-          setArticleList(r.data.data.lists)
+          let data = r.data.data
+          setArticleList(data.lists)
+          setCurrent(data.current)
+          setPageSize(data.page_size)
+          setTotal(data.total)
         }
       })
       .finally(() => setLoading(false)
       )
-  }, [refresh])
+  }, [refresh, current, pageSize])
 
+  // @ts-ignore
   return (
     <div>
       <Table
@@ -86,6 +94,11 @@ export default function ArticleList(props: any) {
         dataSource={articleList}
         columns={columns}
         loading={loading}
+
+        pagination={{
+          // @ts-ignore
+          pageSize: pageSize, current: current, total: total, onChange: setCurrent
+        }}
       />
     </div>
   )
