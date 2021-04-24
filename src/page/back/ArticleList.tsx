@@ -25,6 +25,24 @@ export default function ArticleList(props: any) {
       width: 300,
     },
     {
+      key: "category_name",
+      title: "分类",
+      dataIndex: "category_name",
+      width: 200
+    },
+    {
+      key: "create_time",
+      title: "创建时间",
+      dataIndex: "create_time",
+      width: 200
+    },
+    {
+      key: "update_time",
+      title: "更新时间",
+      dataIndex: "update_time",
+      width: 200
+    },
+    {
       key: "action",
       title: "操作",
       width: 200,
