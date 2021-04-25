@@ -1,6 +1,6 @@
 import React from "react"
 
-import {Row, Col, Layout, Card} from "antd"
+import {Row, Col, Layout, Card, Affix} from "antd"
 import {Content} from "antd/es/layout/layout"
 import {CustomerServiceOutlined} from "@ant-design/icons"
 
@@ -45,7 +45,9 @@ export default function FrontPage(props: any) {
             </Col>
             {/*分类挂件*/}
             <Col offset={1}>
-              <CategoryPendant/>
+              <Affix offsetTop={113}>
+                <CategoryPendant/>
+              </Affix>
             </Col>
           </Row>
         </Content>
