@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react"
-import axios from "axios"
 import MDEditor from "@uiw/react-md-editor"
-
+import {api} from "../../api"
+import request from "../../request"
 
 export default function Article(props: any) {
 // 博客正文页组件
@@ -9,16 +9,8 @@ export default function Article(props: any) {
 
   useEffect(() => {
     let id = props.match.params.id
-    axios({
-      method: "get",
-      url: "/blog/article",
-      params: {
-        id: id
-      }
-    }).then(response => {
-      if (response.data.ret === 0) {
-        setArticle(response.data.data)
-      }
+    request(api.getArticle, {id: id}).then((res: any) => {
+      setArticle(res.data)
     })
   }, [props])
 

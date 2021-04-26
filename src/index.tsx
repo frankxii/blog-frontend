@@ -2,16 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import 'antd/dist/antd.min.css'
-import axios from 'axios'
 import {
   BrowserRouter as Router, Redirect,
   Route, Switch
 } from "react-router-dom"
 import FrontPage from "./page/front/FrontPage"
 import BackPage from "./page/back/BackPage"
-
-
-axios.defaults.baseURL = 'http://localhost:8000'
 
 ReactDOM.render(
   <React.Fragment>

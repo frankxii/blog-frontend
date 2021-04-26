@@ -2,7 +2,8 @@ import React, {useEffect, useRef, useState} from "react"
 import MDEditor from '@uiw/react-md-editor'
 import {Input, Divider, Button, message, Select} from "antd"
 import {Row, Col} from "antd"
-import axios from "axios"
+import request from "../../request"
+import {api} from "../../api"
 
 export default function ArticleEditor(props: any) {
 
@@ -23,16 +24,14 @@ export default function ArticleEditor(props: any) {
     let id = props.match.params.id
     // 如果路由带id，说明是编辑，请求文章详情填充编辑器
     if (id !== undefined) {
-      axios.get('/blog/article', {params: {id: id}})
-        .then(r => {
-          if (r.data.ret === 0) {
-            let article = r.data.data
-            setValue(article.body)
-            // @ts-ignore
-            inputRef.current.state.value = article.title
-            setId(id)
-            setCategory({id: article.category_id, name: article.category_name})
-          }
+      request(api.getArticle, {id: id})
+        .then(res => {
+          let article = res.data
+          setValue(article.body)
+          // @ts-ignore
+          inputRef.current.state.value = article.title
+          setId(id)
+          setCategory({id: article.category_id, name: article.category_name})
         })
     } else {
       // 清空标题和内容，主要应用场景为编辑后跳转新建页面
@@ -44,15 +43,11 @@ export default function ArticleEditor(props: any) {
   }, [props])
   // 获取分类
   useEffect(function getCategories() {
-    axios.get('/blog/categoryList')
-      .then(response => {
-        if (response.data.ret === 0) {
-          let categories = response.data.data
-          setCategories(categories)
-          setCategory(categories[0])
-        }
-      })
-
+    request(api.getCategoryList).then(res => {
+      let categories = res.data
+      setCategories(categories)
+      setCategory(categories[0])
+    })
   }, [])
 
   function saveArticle() {
@@ -65,22 +60,14 @@ export default function ArticleEditor(props: any) {
         return
       }
 
-      axios({
-        url: '/blog/article',
-        method: id === 0 ? 'post' : 'put',
-        data: {id: id, title: title, body: value, category_id: category.id}
+      request(id === 0 ? api.addArticle : api.updateArticle,
+        {id: id, title: title, body: value, category_id: category.id}
+      ).then(res => {
+        message.success(id === 0 ? '创建成功' : '保存成功', 2).then()
+        if ('data' in res) {
+          setId(res.data.id)
+        }
       })
-        .then(r => {
-          if (r.data.ret === 0) {
-            message.success(id === 0 ? '创建成功' : '保存成功', 2).then()
-            // 新建文章后会返回文章id，记录文章id以识别后面的修改
-            if ('data' in r.data) {
-              setId(r.data.data.id)
-            }
-          } else (
-            message.error(r.data.msg, 2).then()
-          )
-        })
     }
   }
 

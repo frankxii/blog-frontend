@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import axios from 'axios'
 import {List} from "antd"
 import {Link} from "react-router-dom"
-
+import {api} from "../../api"
+import request from "../../request"
 
 export default function ArticleList(props: any) {
 
@@ -13,14 +13,9 @@ export default function ArticleList(props: any) {
     // 开启加载组件
     setLoading(true)
     // 获取博客文章列表
-    axios({
-      method: 'get',
-      url: '/blog/articleList'
-    }).then(response => {
-      setLists(response.data.data.lists)
-    }).finally(() =>
-      setLoading(false)
-    )
+    request(api.getArticleList).then((res: any) => {
+      setLists(res.data.lists)
+    }).finally(() => setLoading(false))
   }, [])
 
   return (
