@@ -28,6 +28,7 @@ export default function request(
   params?: Object
 ) {
   let [url, method] = config
+  // get请求用url传递参数，其他请求传递json
   if (method === 'get') {
     return axios({
       method: method,

@@ -5,11 +5,14 @@ import {api} from "../../api"
 import request from "../../request"
 
 export default function ArticleList(props: any) {
-
   const [lists, setLists] = useState([])
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    if (props.hasOwnProperty('setNavigatorKey')) {
+      props.setNavigatorKey('article')
+    }
+
     // 过滤条件，直接请求列表不过滤，按分类获取用category_name过滤
     let filter = {}
     let params = props.match.params

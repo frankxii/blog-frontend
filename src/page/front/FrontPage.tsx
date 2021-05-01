@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 
 import {Row, Col, Layout, Card, Affix} from "antd"
 import {Content} from "antd/es/layout/layout"
@@ -14,6 +14,9 @@ import Navigator from "./Navigator"
 import CategoryPendant from "../../component/CategoryPendant"
 
 export default function FrontPage(props: any) {
+
+  const [navigatorKey, setNavigatorKey] = useState('/blog')
+
   return (
     <div>
       {/*导航栏*/}
@@ -26,7 +29,15 @@ export default function FrontPage(props: any) {
             </div>
           </Col>
           <Col span={12}>
-            <Route path={`${props.match.path}`} component={Navigator}/>
+            <Route
+              path={`${props.match.path}`}
+              component={(props: any) =>
+                <Navigator
+                  navigatorKey={navigatorKey}
+                  {...props}
+                />
+              }
+            />
           </Col>
         </Row>
       </Card>
@@ -41,7 +52,14 @@ export default function FrontPage(props: any) {
                 <Route exact path={`${props.match.path}/article`} component={ArticleList}/>
                 <Route path={`${props.match.path}/article/:id`} component={Article}/>
                 <Route path={`${props.match.path}/about`} component={About}/>
-                <Route path={`${props.match.path}/category/:category_name`} component={ArticleList}/>
+                <Route
+                  path={`${props.match.path}/category/:category_name`}
+                  component={(props: any) =>
+                    <ArticleList
+                      setNavigatorKey={setNavigatorKey} {...props}
+                    />
+                  }
+                />
               </Card>
             </Col>
             {/*分类挂件*/}
