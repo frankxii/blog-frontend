@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
-import axios from "axios"
 import {Table, Button, Space, message} from "antd"
+import request from "../../request"
+import {api} from "../../api"
 
 
 export default function ArticleList(props: any) {
@@ -74,32 +75,24 @@ export default function ArticleList(props: any) {
   }
 
   function handleDelete(record: any) {
-    axios.delete('/blog/article', {data: {id: record.id}})
-      .then(r => {
-        if (r.data.ret === 0) {
-          message.success('删除成功', 2).then()
-          setRefresh(refresh + 1)
-        } else {
-          message.error(r.data.msg, 2).then()
-        }
+    request(api.deleteArticle, {id: record.id})
+      .then(res => {
+        message.success('删除成功', 2).then()
+        setRefresh(refresh + 1)
       })
   }
 
   useEffect(() => {
     setLoading(true)
-    axios.get("/blog/articleList", {params: {current: current, page_size: pageSize}})
-      .then(r => {
-        // console.log(r.data)
-        if (r.data.ret === 0) {
-          let data = r.data.data
-          setArticleList(data.lists)
-          setCurrent(data.current)
-          setPageSize(data.page_size)
-          setTotal(data.total)
-        }
+    request(api.getArticleList, {current: current, page_size: pageSize})
+      .then(res => {
+        let data = res.data
+        setArticleList(data.lists)
+        setCurrent(data.current)
+        setPageSize(data.page_size)
+        setTotal(data.total)
       })
-      .finally(() => setLoading(false)
-      )
+      .finally(() => setLoading(false))
   }, [refresh, current, pageSize])
 
   // @ts-ignore

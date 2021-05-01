@@ -51,7 +51,6 @@ export default function ArticleEditor(props: any) {
   }, [])
 
   function saveArticle() {
-    console.log(category)
     if (inputRef) {
       // @ts-ignore
       const title = inputRef.current.state.value

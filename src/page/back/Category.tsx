@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from "react"
 import {Table, Button, Space, Modal, Input, message} from "antd"
-import axios from "axios"
+import request from "../../request"
+import {api} from "../../api"
 
 export default function Category() {
   // 分类列表数据
@@ -73,64 +74,33 @@ export default function Category() {
     setConfirmLoading(true)
     let isAdd = modalProps.type === 'add'
     // 如果then抛出异常，则catch不处理
-    let isMessageShowed: boolean = false
     // @ts-ignore
     let data = {id: modalProps.id, name: inputRef.current.state.value}
-    axios({
-      method: isAdd ? 'post' : 'put',
-      url: '/blog/category',
-      data: data,
-    })
-      .then(response => {
-        if (response.data.ret === 0) {
-          setIsModalVisible(false)
-          message.success(`${isAdd ? '新增' : '更新'}分类成功`, duration).then()
-          setRefresh(refresh + 1)
-        } else {
-          message.error(response.data.msg, duration).then()
-        }
-        isMessageShowed = true
+
+    request(isAdd ? api.addCategory : api.updateCategory, data)
+      .then(() => {
+        setIsModalVisible(false)
+        message.success(`${isAdd ? '新增' : '更新'}分类成功`, duration).then()
+        setRefresh(refresh + 1)
       })
-      .catch(() => {
-        if (!isMessageShowed) {
-          message.error('网络异常', duration).then()
-        }
-      })
-      .finally(() => {
-          setConfirmLoading(false)
-        }
-      )
+      .finally(() => setConfirmLoading(false))
   }
 
   // 删除分类
   function handleDelete(record: any) {
-    let isMessageShowed: boolean = false
-    axios
-      .delete('/blog/category', {data: {id: record.id}})
-      .then(r => {
-        if (r.data.ret === 0) {
-          message.success('删除成功', duration).then()
-          setRefresh(refresh + 1)
-        } else {
-          message.error('删除失败', duration).then()
-        }
-        isMessageShowed = true
-      })
-      .catch(() => {
-        if (!isMessageShowed) {
-          message.error('网络异常', duration).then()
-        }
-      })
+    request(api.deleteCategory, {id: record.id})
+      .then(() => {
+        message.success('删除成功', duration).then()
+        setRefresh(refresh + 1)
+      }).catch(() => message.error('删除失败', duration).then())
   }
 
   // 刷新表格
   useEffect(() => {
     setListLoading(true)
-    axios.get('/blog/categoryList')
-      .then(r => {
-        if (r.data.ret === 0) {
-          setCategories(r.data.data)
-        }
+    request(api.getCategoryList)
+      .then(res => {
+        setCategories(res.data)
       })
       .finally(() => setListLoading(false))
   }, [refresh])
