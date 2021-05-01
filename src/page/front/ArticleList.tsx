@@ -10,13 +10,20 @@ export default function ArticleList(props: any) {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    // 过滤条件，直接请求列表不过滤，按分类获取用category_name过滤
+    let filter = {}
+    let params = props.match.params
+    if (params.hasOwnProperty('category_name')) {
+      let category_name = params.category_name
+      filter = {filter: 'category', category_name: category_name}
+    }
     // 开启加载组件
     setLoading(true)
     // 获取博客文章列表
-    request(api.getArticleList).then((res: any) => {
+    request(api.getArticleList, filter).then((res: any) => {
       setLists(res.data.lists)
     }).finally(() => setLoading(false))
-  }, [])
+  }, [props])
 
   return (
     <List
@@ -28,7 +35,7 @@ export default function ArticleList(props: any) {
         <List.Item>
           <List.Item.Meta
             title={
-              <Link to={`${props.match.url}/${item.id}`}>
+              <Link to={`/blog/article/${item.id}`}>
                 <p>{item.title}</p>
               </Link>
             }

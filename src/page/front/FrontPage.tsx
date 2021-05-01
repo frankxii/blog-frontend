@@ -41,6 +41,7 @@ export default function FrontPage(props: any) {
                 <Route exact path={`${props.match.path}/article`} component={ArticleList}/>
                 <Route path={`${props.match.path}/article/:id`} component={Article}/>
                 <Route path={`${props.match.path}/about`} component={About}/>
+                <Route path={`${props.match.path}/category/:category_name`} component={ArticleList}/>
               </Card>
             </Col>
             {/*分类挂件*/}
