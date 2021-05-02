@@ -2,22 +2,33 @@ import React, {useEffect, useState} from "react"
 import {Table, Button, Space, message} from "antd"
 import request from "../../request"
 import {api} from "../../api"
+import ArticleTag from "../../component/ArticleTag"
 
 
 export default function ArticleList(props: any) {
+  // 文章列表数据源
   const [articleList, setArticleList] = useState([{id: null, title: ""}])
+  // 刷新标识，当数据变动时，刷新列表
   const [refresh, setRefresh] = useState(0)
+  // 列表loading特性开关
   const [loading, setLoading] = useState(false)
+  // 每页列表的条数
   const [pageSize, setPageSize] = useState(5)
+  // 当前分页数
   const [current, setCurrent] = useState(1)
+  // 列表总条数
   const [total, setTotal] = useState(0)
 
+  // 标签对象
+  const [tagMap, setTagMap] = useState<Map<number, string>>()
+
+  // 列表设置
   const columns = [
     {
       key: "id",
       title: "id",
       dataIndex: "id",
-      width: 300,
+      width: 150,
     },
     {
       key: "title",
@@ -30,6 +41,13 @@ export default function ArticleList(props: any) {
       title: "分类",
       dataIndex: "category_name",
       width: 200
+    },
+    {
+      key: "tags",
+      title: "标签",
+      dataIndex: "tags",
+      width: 300,
+      render: renderTags
     },
     {
       key: "create_time",
@@ -46,27 +64,43 @@ export default function ArticleList(props: any) {
     {
       key: "action",
       title: "操作",
+      dataIndex: "id",
       width: 200,
       render: renderOperate
     }
   ]
 
-  function renderOperate(record: any) {
-    if (record.id) {
+  // 渲染标签
+  function renderTags(tagIds: number[]) {
+    let tagNameList: string[] = []
+    // 标签字典和有属性值时才渲染
+    if (tagMap && tagIds) {
+      // 从map里通过id取出对应的name，组合成string[]
+      for (let tagId of tagIds) {
+        tagNameList.push(tagMap.get(tagId) as string)
+      }
+      return (
+        <ArticleTag tagList={tagNameList}/>
+      )
+    }
+  }
+
+  function renderOperate(id: number) {
+    if (id) {
       return (
         <Space>
           <Button
             type="primary"
             size={"small"}
             // 点击编辑后，跳转路由到编辑
-            onClick={() => props.history.push(`/backend/editArticle/${record.id}`)}
+            onClick={() => props.history.push(`/backend/editArticle/${id}`)}
           >编辑
           </Button>
           <Button
             danger
             type="primary"
             size={"small"}
-            onClick={() => handleDelete(record)}
+            onClick={() => handleDelete(id)}
           >删除
           </Button>
         </Space>
@@ -74,15 +108,30 @@ export default function ArticleList(props: any) {
     }
   }
 
-  function handleDelete(record: any) {
-    request(api.deleteArticle, {id: record.id})
-      .then(res => {
+  function handleDelete(id: number) {
+    request(api.deleteArticle, {id: id})
+      .then(() => {
         message.success('删除成功', 2).then()
         setRefresh(refresh + 1)
       })
   }
 
-  useEffect(() => {
+  // 获取标签map
+  useEffect(function getTagMap() {
+    request(api.getTagMap)
+      .then(res => {
+        let tempTagMap = new Map<number, string>()
+        // object to map
+        for (const key in res.data) {
+          if (res.data.hasOwnProperty(key)) {
+            tempTagMap.set(Number(key), res.data[key])
+          }
+        }
+        setTagMap(tempTagMap)
+      })
+  }, [])
+
+  useEffect(function constructor() {
     setLoading(true)
     request(api.getArticleList, {current: current, page_size: pageSize})
       .then(res => {

@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import {List, Space, Tag} from "antd"
+import {List, Space} from "antd"
 import {Link} from "react-router-dom"
 import {api} from "../../api"
 import request from "../../request"
+import ArticleTag from "../../component/ArticleTag"
 import {FieldTimeOutlined, UnorderedListOutlined} from '@ant-design/icons'
 
 export default function ArticleList(props: any) {
@@ -59,7 +60,7 @@ export default function ArticleList(props: any) {
                 <p>{item.title}</p>
               </Link>
             }
-            description={<Space><Tag>123</Tag><Tag>123</Tag></Space>}
+            description={<ArticleTag tagList={['abc','cbd']}/>}
           />
           "Ant Design, a design language for background applications, is refined by Ant UED Team"
           "Ant Design, a design language for background applications, is refined by Ant UED Team"
