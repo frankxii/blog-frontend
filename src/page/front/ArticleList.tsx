@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import {List} from "antd"
+import {List, Space, Tag} from "antd"
 import {Link} from "react-router-dom"
 import {api} from "../../api"
 import request from "../../request"
+import {FieldTimeOutlined, UnorderedListOutlined} from '@ant-design/icons'
 
 export default function ArticleList(props: any) {
   const [lists, setLists] = useState([])
@@ -31,19 +32,37 @@ export default function ArticleList(props: any) {
   return (
     <List
       size='large'
-      itemLayout="horizontal"
+      itemLayout="vertical"
       dataSource={lists}
       loading={loading}
       renderItem={(item: any) => (
-        <List.Item>
+        <List.Item
+          actions={[
+            <Space>
+              <UnorderedListOutlined/>
+              {item.category_name}
+              <FieldTimeOutlined/>
+              {item.create_time}
+            </Space>
+          ]}
+          extra={
+            <img
+              width={272}
+              alt="logo"
+              src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+            />
+          }
+        >
           <List.Item.Meta
             title={
               <Link to={`/blog/article/${item.id}`}>
                 <p>{item.title}</p>
               </Link>
             }
-            description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+            description={<Space><Tag>123</Tag><Tag>123</Tag></Space>}
           />
+          "Ant Design, a design language for background applications, is refined by Ant UED Team"
+          "Ant Design, a design language for background applications, is refined by Ant UED Team"
         </List.Item>
       )}
     />
