@@ -19,7 +19,7 @@ export default function ArticleList(props: any) {
   // 列表总条数
   const [total, setTotal] = useState(0)
 
-  // 标签对象
+  // 标签map
   const [tagMap, setTagMap] = useState<Map<number, string>>()
 
   // 列表设置
