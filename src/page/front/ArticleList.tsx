@@ -15,33 +15,53 @@ interface Article {
   update_time: string
 }
 
-
 export default function ArticleList(props: any) {
   const [lists, setLists] = useState<Article[]>([])
   // 标签map
   const [tagMap, setTagMap] = useState<Map<number, string>>(new Map())
+
+  // 每页列表的条数
+  const [pageSize, setPageSize] = useState(5)
+  // 当前分页数
+  const [current, setCurrent] = useState(1)
+  // 列表总条数
+  const [total, setTotal] = useState(0)
+
   const [loading, setLoading] = useState(false)
 
   useEffect(function getArticleLIst() {
     // 过滤条件，直接请求列表不过滤，按分类获取用category_name过滤
-    let filter = {}
+    let filter = {
+      filter: '',
+      category_name: '',
+      current: 1,
+      page_size: 5
+    }
+
+    filter.current = current
+    filter.page_size = pageSize
+
     let params = props.match.params
     if (params.hasOwnProperty('category_name')) {
-      let category_name = params.category_name
-      filter = {filter: 'category', category_name: category_name}
+      filter.filter = 'category'
+      filter.category_name = params.category_name
     }
     // 开启加载组件
     setLoading(true)
     // 获取博客文章列表
     request(api.getArticleList, filter).then((res: any) => {
-      setLists(res.data.lists)
+      let data = res.data
+      setLists(data.lists)
+      setCurrent(data.current)
+      setPageSize(data.page_size)
+      setTotal(data.total)
     }).finally(() => setLoading(false))
 
     // 设置导航高亮
     if (props.hasOwnProperty('setNavigatorKey')) {
       props.setNavigatorKey('article')
     }
-  }, [props])
+  }, [props, current, pageSize])
 
   // 获取标签map
   useEffect(function getTagMap() {
@@ -65,6 +85,10 @@ export default function ArticleList(props: any) {
       itemLayout="vertical"
       dataSource={lists}
       loading={loading}
+      pagination={{
+        // @ts-ignore
+        pageSize: pageSize, current: current, total: total, onChange: setCurrent
+      }}
       renderItem={(item: any) => (
         <List.Item
           actions={[
