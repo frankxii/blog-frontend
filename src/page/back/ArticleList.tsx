@@ -20,7 +20,7 @@ export default function ArticleList(props: any) {
   const [total, setTotal] = useState(0)
 
   // 标签map
-  const [tagMap, setTagMap] = useState<Map<number, string>>()
+  const [tagMap, setTagMap] = useState<Map<number, string>>(new Map())
 
   // 列表设置
   const columns = [
@@ -47,7 +47,7 @@ export default function ArticleList(props: any) {
       title: "标签",
       dataIndex: "tags",
       width: 300,
-      render: renderTags
+      render: (tagIds: number[]) => <ArticleTag tagIds={tagIds} tagMap={tagMap}/>
     },
     {
       key: "create_time",
@@ -69,21 +69,6 @@ export default function ArticleList(props: any) {
       render: renderOperate
     }
   ]
-
-  // 渲染标签
-  function renderTags(tagIds: number[]) {
-    let tagNameList: string[] = []
-    // 标签字典和有属性值时才渲染
-    if (tagMap && tagIds) {
-      // 从map里通过id取出对应的name，组合成string[]
-      for (let tagId of tagIds) {
-        tagNameList.push(tagMap.get(tagId) as string)
-      }
-      return (
-        <ArticleTag tagList={tagNameList}/>
-      )
-    }
-  }
 
   function renderOperate(id: number) {
     if (id) {

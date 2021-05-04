@@ -6,15 +6,23 @@ import request from "../../request"
 import ArticleTag from "../../component/ArticleTag"
 import {FieldTimeOutlined, UnorderedListOutlined} from '@ant-design/icons'
 
+interface Article {
+  id: number,
+  category_name: string,
+  tags: number[],
+  title: string,
+  create_time: string,
+  update_time: string
+}
+
+
 export default function ArticleList(props: any) {
-  const [lists, setLists] = useState([])
+  const [lists, setLists] = useState<Article[]>([])
+  // 标签map
+  const [tagMap, setTagMap] = useState<Map<number, string>>(new Map())
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    if (props.hasOwnProperty('setNavigatorKey')) {
-      props.setNavigatorKey('article')
-    }
-
+  useEffect(function getArticleLIst() {
     // 过滤条件，直接请求列表不过滤，按分类获取用category_name过滤
     let filter = {}
     let params = props.match.params
@@ -28,7 +36,28 @@ export default function ArticleList(props: any) {
     request(api.getArticleList, filter).then((res: any) => {
       setLists(res.data.lists)
     }).finally(() => setLoading(false))
+
+    // 设置导航高亮
+    if (props.hasOwnProperty('setNavigatorKey')) {
+      props.setNavigatorKey('article')
+    }
   }, [props])
+
+  // 获取标签map
+  useEffect(function getTagMap() {
+    request(api.getTagMap)
+      .then(res => {
+        let tempTagMap = new Map<number, string>()
+        // object to map
+        for (const key in res.data) {
+          if (res.data.hasOwnProperty(key)) {
+            tempTagMap.set(Number(key), res.data[key])
+          }
+        }
+        setTagMap(tempTagMap)
+      })
+  }, [props])
+
 
   return (
     <List
@@ -60,7 +89,7 @@ export default function ArticleList(props: any) {
                 <p>{item.title}</p>
               </Link>
             }
-            description={<ArticleTag tagList={['abc','cbd']}/>}
+            description={<ArticleTag tagIds={item.tags} tagMap={tagMap}/>}
           />
           "Ant Design, a design language for background applications, is refined by Ant UED Team"
           "Ant Design, a design language for background applications, is refined by Ant UED Team"
