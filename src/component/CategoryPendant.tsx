@@ -40,17 +40,20 @@ export default function CategoryPendant(props: any) {
   if (categories[0].name !== '') {
     return (
       <Card
-        style={{width: 200, borderRadius: 8}}
+        style={{width: 232, borderRadius: 8}}
       >
         <p style={{textAlign: 'center'}}>分类</p>
         <Divider/>
-        {categories.map(category => {
-          return (
-            <Link to={`/blog/category/${category.name}`} key={category.name}>
+        <div style={{paddingLeft: 18}}>
+          {categories.map(category =>
+            <Link
+              to={`/blog/category/${category.name}`}
+              key={category.name}
+            >
               <p>{getCategoryText(category.name, category.count)}</p>
             </Link>
-          )
-        })}
+          )}
+        </div>
       </Card>
     )
   } else {

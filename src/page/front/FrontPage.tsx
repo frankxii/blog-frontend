@@ -12,6 +12,7 @@ import ArticleList from "./ArticleList"
 import Welcome from "./Welcome"
 import Navigator from "./Navigator"
 import CategoryPendant from "../../component/CategoryPendant"
+import TagCloudPendant from "../../component/TagCloudPendant"
 
 export default function FrontPage(props: any) {
 
@@ -62,10 +63,16 @@ export default function FrontPage(props: any) {
                 />
               </Card>
             </Col>
-            {/*分类挂件*/}
             <Col offset={1}>
               <Affix offsetTop={113}>
-                <CategoryPendant/>
+                {/*分类挂件*/}
+                <Row>
+                  <CategoryPendant/>
+                </Row>
+                {/*标签云*/}
+                <Row style={{marginTop:10}}>
+                  <TagCloudPendant/>
+                </Row>
               </Affix>
             </Col>
           </Row>
