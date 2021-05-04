@@ -12,7 +12,7 @@ export default function TagCloudPendant() {
   useEffect(function getTagArchive() {
     request(api.getArchive, {'cate': 'tag'})
       .then(res => setTagList(res.data))
-  })
+  }, [])
 
   return (
     <Card

@@ -34,6 +34,7 @@ export default function ArticleList(props: any) {
     let filter = {
       filter: '',
       category_name: '',
+      tag_name: '',
       current: 1,
       page_size: 5
     }
@@ -45,6 +46,10 @@ export default function ArticleList(props: any) {
     if (params.hasOwnProperty('category_name')) {
       filter.filter = 'category'
       filter.category_name = params.category_name
+    }
+    if (params.hasOwnProperty('tag_name')) {
+      filter.filter = 'tag'
+      filter.tag_name = params.tag_name
     }
     // 开启加载组件
     setLoading(true)

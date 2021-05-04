@@ -61,6 +61,14 @@ export default function FrontPage(props: any) {
                     />
                   }
                 />
+                <Route
+                  path={`${props.match.path}/tag/:tag_name`}
+                  component={(props: any) =>
+                    <ArticleList
+                      setNavigatorKey={setNavigatorKey} {...props}
+                    />
+                  }
+                />
               </Card>
             </Col>
             <Col offset={1}>
