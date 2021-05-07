@@ -120,8 +120,7 @@ export default function ArticleList(props: any) {
             }
             description={<ArticleTag tagIds={item.tags} tagMap={tagMap}/>}
           />
-          "Ant Design, a design language for background applications, is refined by Ant UED Team"
-          "Ant Design, a design language for background applications, is refined by Ant UED Team"
+          {item.excerpt}...
         </List.Item>
       )}
     />
