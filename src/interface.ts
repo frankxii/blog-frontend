@@ -1,4 +1,4 @@
 export interface SelectorOption {
-  id: number,
-  name: string
+  value: number,
+  text: string
 }

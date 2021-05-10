@@ -17,10 +17,10 @@ export default function Selector(
 
   return (
     <Select
-      value={current.name}
+      value={current.text}
       style={{width: 120}}
       onChange={(value: string, option: any) => setCurrent({id: parseInt(option.key), name: value})}
     >
-      {optionList.map(option => <Option key={option.id} value={option.name}>{option.name}</Option>)}
+      {optionList.map(option => <Option key={option.value} value={option.text}>{option.text}</Option>)}
     </Select>)
 }

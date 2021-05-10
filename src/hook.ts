@@ -10,7 +10,7 @@ export function useTagList() {
     request(api.getTagMap)
       .then(res => {
         let tempTagList: SelectorOption[] = []
-        Object.keys(res.data).forEach(key => tempTagList.push({id: Number(key), name: res.data[key]}))
+        Object.keys(res.data).forEach(key => tempTagList.push({value: Number(key), text: res.data[key]}))
         setTagList(tempTagList)
       })
   }, [])
@@ -45,7 +45,11 @@ export function useCategoryList() {
 
   useEffect(() => {
     request(api.getCategoryList).then(res => {
-      setCategoryList(res.data)
+      let tempList: SelectorOption[] = []
+      res.data.forEach((item: { id: number, name: string }) => {
+        tempList.push({value: item.id, text: item.name})
+      })
+      setCategoryList(tempList)
     })
   }, [])
 

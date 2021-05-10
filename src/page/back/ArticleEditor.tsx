@@ -20,7 +20,7 @@ export default function ArticleEditor(props: any) {
   // 分类下拉列表
   const [categories, setCategories] = useState([{id: 0, name: ''}])
   // 当前选择分类
-  const [category, setCategory] = useState<SelectorOption>({id: 0, name: ''})
+  const [category, setCategory] = useState<SelectorOption>({value: 0, text: ''})
   // 标签列表
   const [tagList, setTagList] = useState<SelectorOption[]>([])
   // 当前选择标签
@@ -62,7 +62,7 @@ export default function ArticleEditor(props: any) {
           inputRef.current.state.value = article.title
           setValue(article.body)
           setId(id)
-          setCategory({id: article.category_id, name: article.category_name})
+          setCategory({value: article.category_id, text: article.category_name})
           setSelectedTags(article.tags)
         })
     } else {
@@ -86,7 +86,7 @@ export default function ArticleEditor(props: any) {
       }
       // 创建或修改文章
       request(id === 0 ? api.addArticle : api.updateArticle,
-        {id: id, title: title, body: value, category_id: category.id, tags: selectedTags}
+        {id: id, title: title, body: value, category_id: category.value, tags: selectedTags}
       ).then(res => {
         message.success(id === 0 ? '创建成功' : '保存成功', 2).then()
         if ('data' in res) {
@@ -111,7 +111,7 @@ export default function ArticleEditor(props: any) {
             value={category.name}
             style={{width: 120}}
             // 修改类别id
-            onChange={(value: string, option: any) => setCategory({id: parseInt(option.key), name: value})}
+            onChange={(value: string, option: any) => setCategory({value: parseInt(option.key), text: value})}
           >
             {categories.map(category => <Option key={category.id} value={category.name}>{category.name}</Option>)}
           </Select>
@@ -126,7 +126,7 @@ export default function ArticleEditor(props: any) {
             // @ts-ignore
             onChange={(keys: number | string[]) => setSelectedTags(keys)}
           >
-            {tagList.map(tag => <Option key={tag.id} value={tag.id}>{tag.name}</Option>)}
+            {tagList.map(tag => <Option key={tag.value} value={tag.value}>{tag.text}</Option>)}
           </Select>
         </Col>
         {/*保存按钮*/}
