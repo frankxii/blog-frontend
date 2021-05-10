@@ -18,6 +18,28 @@ export function useTagList() {
   return tagList
 }
 
+export function useTagMap() {
+  // 标签map
+  const [tagMap, setTagMap] = useState<Map<number, string>>(new Map())
+
+  // 获取标签map
+  useEffect(() => {
+    request(api.getTagMap)
+      .then(res => {
+        let tempTagMap = new Map<number, string>()
+        // object to map
+        for (const key in res.data) {
+          if (res.data.hasOwnProperty(key)) {
+            tempTagMap.set(Number(key), res.data[key])
+          }
+        }
+        setTagMap(tempTagMap)
+      })
+  }, [])
+
+  return tagMap
+}
+
 export function useCategoryList() {
   const [categoryList, setCategoryList] = useState<SelectorOption[]>([])
 
@@ -26,5 +48,6 @@ export function useCategoryList() {
       setCategoryList(res.data)
     })
   }, [])
+
   return categoryList
 }
