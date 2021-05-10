@@ -6,16 +6,8 @@ import {Row, Col} from "antd"
 
 import {api} from "../../api"
 import request from "../../request"
+import {SelectorOption} from "../../interface"
 
-interface Category {
-  id: number,
-  name: string
-}
-
-interface Tag {
-  id: number,
-  name: string
-}
 
 export default function ArticleEditor(props: any) {
 
@@ -28,9 +20,9 @@ export default function ArticleEditor(props: any) {
   // 分类下拉列表
   const [categories, setCategories] = useState([{id: 0, name: ''}])
   // 当前选择分类
-  const [category, setCategory] = useState<Category>({id: 0, name: ''})
+  const [category, setCategory] = useState<SelectorOption>({id: 0, name: ''})
   // 标签列表
-  const [tagList, setTagList] = useState<Tag[]>([])
+  const [tagList, setTagList] = useState<SelectorOption[]>([])
   // 当前选择标签
   const [selectedTags, setSelectedTags] = useState<[string | number][]>([])
   const {Option} = Select
@@ -50,7 +42,7 @@ export default function ArticleEditor(props: any) {
     setSelectedTags([])
     request(api.getTagMap)
       .then(res => {
-        let tempTagList: Tag[] = []
+        let tempTagList: SelectorOption[] = []
         // @ts-ignore
         Object.keys(res.data).forEach(key => tempTagList.push({id: Number(key), name: res.data[key]}))
         setTagList(tempTagList)
