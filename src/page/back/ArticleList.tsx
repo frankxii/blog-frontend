@@ -3,6 +3,7 @@ import {Table, Button, Space, message} from "antd"
 import request from "../../request"
 import {api} from "../../api"
 import ArticleTag from "../../component/ArticleTag"
+import {useCategoryList, useTagList, useTagMap} from "../../hook"
 
 
 export default function ArticleList(props: any) {
@@ -12,15 +13,22 @@ export default function ArticleList(props: any) {
   const [refresh, setRefresh] = useState(0)
   // 列表loading特性开关
   const [loading, setLoading] = useState(false)
-  // 每页列表的条数
-  const [pageSize, setPageSize] = useState(5)
-  // 当前分页数
-  const [current, setCurrent] = useState(1)
-  // 列表总条数
-  const [total, setTotal] = useState(0)
+
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 5,
+    total: 0
+  })
+
+  const [filters, setFilters] = useState({
+    category_ids: [],
+    tag_ids: []
+  })
 
   // 标签map
-  const [tagMap, setTagMap] = useState<Map<number, string>>(new Map())
+  const tagMap = useTagMap()
+  const categoryList = useCategoryList()
+  const TagList = useTagList()
 
   // 列表设置
   const columns = [
@@ -40,13 +48,15 @@ export default function ArticleList(props: any) {
       key: "category_name",
       title: "分类",
       dataIndex: "category_name",
-      width: 200
+      width: 200,
+      filters: categoryList
     },
     {
       key: "tags",
       title: "标签",
       dataIndex: "tags",
       width: 300,
+      filters: TagList,
       render: (tagIds: number[]) => <ArticleTag tagIds={tagIds} tagMap={tagMap}/>
     },
     {
@@ -101,35 +111,33 @@ export default function ArticleList(props: any) {
       })
   }
 
-  // 获取标签map
-  useEffect(function getTagMap() {
-    request(api.getTagMap)
-      .then(res => {
-        let tempTagMap = new Map<number, string>()
-        // object to map
-        for (const key in res.data) {
-          if (res.data.hasOwnProperty(key)) {
-            tempTagMap.set(Number(key), res.data[key])
-          }
-        }
-        setTagMap(tempTagMap)
-      })
-  }, [])
 
   useEffect(function constructor() {
+    console.log(filters)
     setLoading(true)
-    request(api.getArticleList, {current: current, page_size: pageSize})
+    request(api.getArticleList, {
+      pagination: {
+        current: pagination.current,
+        page_size: pagination.pageSize,
+      },
+      filters: filters
+    })
       .then(res => {
         let data = res.data
         setArticleList(data.lists)
-        setCurrent(data.current)
-        setPageSize(data.page_size)
-        setTotal(data.total)
+        setPagination({current: data.current, pageSize: data.page_size, total: data.total})
       })
       .finally(() => setLoading(false))
-  }, [refresh, current, pageSize])
+    // eslint-disable-next-line
+  }, [refresh])
 
-  // @ts-ignore
+  function changePage(pagination: any, filters: any) {
+    setPagination(pagination)
+    setFilters({category_ids: filters.category_name, tag_ids: filters.tags})
+    setRefresh(refresh + 1)
+  }
+
+
   return (
     <div>
       <Table
@@ -139,11 +147,8 @@ export default function ArticleList(props: any) {
         dataSource={articleList}
         columns={columns}
         loading={loading}
-
-        pagination={{
-          // @ts-ignore
-          pageSize: pageSize, current: current, total: total, onChange: setCurrent
-        }}
+        pagination={pagination}
+        onChange={changePage}
       />
     </div>
   )
