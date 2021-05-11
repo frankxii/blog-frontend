@@ -139,6 +139,11 @@ export default function ArticleList(props: any) {
 
   return (
     <div>
+      <Button
+        type={'primary'}
+        style={{marginBottom: 10}}
+        onClick={() => props.history.push('/backend/addArticle')}
+      >新增</Button>
       <Table
         //解决antd Table key缺失警告
         //https://www.jianshu.com/p/2e99e7c0b241?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation

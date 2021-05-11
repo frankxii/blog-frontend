@@ -17,9 +17,9 @@ export default function Siderbar(props: any) {
       onClick={event => setSelectedKey(event.key.toString())}
     >
       <SubMenu key='articles' title="文章编辑">
-        <Menu.Item key="addArticle">
-          <Link to={`${props.match.path}/addArticle`}>新建文章</Link>
-        </Menu.Item>
+        {/*<Menu.Item key="addArticle">*/}
+        {/*  <Link to={`${props.match.path}/addArticle`}>新建文章</Link>*/}
+        {/*</Menu.Item>*/}
         <Menu.Item key='articleList'>
           <Link to={`${props.match.path}/article`}>文章列表</Link>
         </Menu.Item>
