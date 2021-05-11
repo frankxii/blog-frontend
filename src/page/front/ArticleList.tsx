@@ -30,37 +30,28 @@ export default function ArticleList(props: any) {
   const [loading, setLoading] = useState(false)
 
   useEffect(function getArticleLIst() {
-    // 过滤条件，直接请求列表不过滤，按分类获取用category_name过滤
-    let filter = {
-      filter: '',
-      category_name: '',
-      tag_name: '',
-      current: 1,
-      page_size: 5
-    }
 
-    filter.current = current
-    filter.page_size = pageSize
+    let pagination = {current: current, page_size: pageSize}
 
+    let filters: any = {}
     let params = props.match.params
     if (params.hasOwnProperty('category_name')) {
-      filter.filter = 'category'
-      filter.category_name = params.category_name
+      filters = {category_name: params.category_name}
     }
     if (params.hasOwnProperty('tag_name')) {
-      filter.filter = 'tag'
-      filter.tag_name = params.tag_name
+      filters = {tag_name: params.tag_name}
     }
     // 开启加载组件
     setLoading(true)
     // 获取博客文章列表
-    request(api.getArticleList, filter).then((res: any) => {
-      let data = res.data
-      setLists(data.lists)
-      setCurrent(data.current)
-      setPageSize(data.page_size)
-      setTotal(data.total)
-    }).finally(() => setLoading(false))
+    request(api.getArticleList, {pagination: pagination, filters: filters})
+      .then((res: any) => {
+        let data = res.data
+        setLists(data.lists)
+        setCurrent(data.current)
+        setPageSize(data.page_size)
+        setTotal(data.total)
+      }).finally(() => setLoading(false))
 
     // 设置导航高亮
     if (props.hasOwnProperty('setNavigatorKey')) {

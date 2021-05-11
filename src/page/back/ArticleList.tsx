@@ -112,8 +112,7 @@ export default function ArticleList(props: any) {
   }
 
 
-  useEffect(function constructor() {
-    console.log(filters)
+  useEffect(function getArticleLIst() {
     setLoading(true)
     request(api.getArticleList, {
       pagination: {
