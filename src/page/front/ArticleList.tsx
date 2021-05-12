@@ -4,16 +4,9 @@ import {Link} from "react-router-dom"
 import {api} from "../../api"
 import request from "../../request"
 import ArticleTag from "../../component/ArticleTag"
-import {FieldTimeOutlined, UnorderedListOutlined} from '@ant-design/icons'
+import {EyeOutlined, FieldTimeOutlined, UnorderedListOutlined} from '@ant-design/icons'
+import {Article} from "../../interface"
 
-interface Article {
-  id: number,
-  category_name: string,
-  tags: number[],
-  title: string,
-  create_time: string,
-  update_time: string
-}
 
 export default function ArticleList(props: any) {
   const [lists, setLists] = useState<Article[]>([])
@@ -85,14 +78,16 @@ export default function ArticleList(props: any) {
         // @ts-ignore
         pageSize: pageSize, current: current, total: total, onChange: setCurrent
       }}
-      renderItem={(item: any) => (
+      renderItem={(article: Article) => (
         <List.Item
           actions={[
             <Space>
               <UnorderedListOutlined/>
-              {item.category_name}
+              {article.category_name}
+              <EyeOutlined/>
+              {article.visit}
               <FieldTimeOutlined/>
-              {item.create_time}
+              {article.create_time}
             </Space>
           ]}
           extra={
@@ -105,13 +100,13 @@ export default function ArticleList(props: any) {
         >
           <List.Item.Meta
             title={
-              <Link to={`/blog/article/${item.id}`}>
-                <p>{item.title}</p>
+              <Link to={`/blog/article/${article.id}`}>
+                <p>{article.title}</p>
               </Link>
             }
-            description={<ArticleTag tagIds={item.tags} tagMap={tagMap}/>}
+            description={<ArticleTag tagIds={article.tags} tagMap={tagMap}/>}
           />
-          {item.excerpt}...
+          {article.excerpt}...
         </List.Item>
       )}
     />

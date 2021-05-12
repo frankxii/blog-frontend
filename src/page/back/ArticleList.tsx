@@ -58,6 +58,11 @@ export default function ArticleList(props: any) {
       width: 300,
       filters: TagList,
       render: (tagIds: number[]) => <ArticleTag tagIds={tagIds} tagMap={tagMap}/>
+    }, {
+      key: "visit",
+      title: "访问数",
+      dataIndex: "visit",
+      width: 150
     },
     {
       key: "create_time",

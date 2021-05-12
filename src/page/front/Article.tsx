@@ -9,7 +9,7 @@ export default function Article(props: any) {
 
   useEffect(() => {
     let id = props.match.params.id
-    request(api.getArticle, {id: id}).then((res: any) => {
+    request(api.getArticle, {id: id, _ref: 'front'}).then((res: any) => {
       setArticle(res.data)
     })
   }, [props])
