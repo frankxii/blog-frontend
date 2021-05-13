@@ -1,5 +1,5 @@
-import {Button, Table} from "antd"
-import AddUser from "../../../component/AddUser"
+import {Button, message, Space, Table} from "antd"
+import AddUser from "./AddUser"
 import {useEffect, useState} from "react"
 import request from "../../../request"
 import {api} from "../../../api"
@@ -9,12 +9,11 @@ import {User} from "../../../interface"
 export default function UserList() {
   // 新增组件相关
   const [showAddUser, setShowAddUser] = useState<boolean>(false)
-  const [addButtonText, setAddButtonText] = useState<string>('新增')
-
 
   // 列表相关
   const [userList, setUserList] = useState<User[]>([])
   const [loading, setLoading] = useState<boolean>(false)
+  const [refresh, setRefresh] = useState<number>(0)
 
   const columns = [
     {
@@ -46,57 +45,68 @@ export default function UserList() {
       key: "operation",
       title: "操作",
       // dataIndex: "is_active",
-      render: renderActiveOperation
+      render: renderOperation
     }
   ]
 
-  function renderActiveOperation(record: User) {
+
+  function renderOperation(record: User) {
     if (record.id) {
-      if (record.is_active) {
-        return (
-          <Button
-            danger={true}
-          >{record.is_active ? "冻结" : "激活"}
-          </Button>)
-      }
+      return (
+        <div>
+          <Space>
+            <Button
+              danger={true}
+            >{record.is_active ? "冻结" : "激活"}
+            </Button>
+            <Button
+              type="primary"
+              danger={true}
+              onClick={() => deleteUser(record.id)}
+            >
+              删除
+            </Button>
+          </Space>
+        </div>
+      )
     }
   }
 
-  // 新增按钮onclick
-  function handleAddClick() {
-    setShowAddUser(!showAddUser)
-    setAddButtonText(showAddUser ? '新增' : '收起')
-  }
 
   useEffect(function getUserList() {
     setLoading(true)
     request(api.getUserList)
       .then(res => {
-        console.log(res)
         setUserList(res.data)
       })
       .finally(() =>
         setLoading(false)
       )
-  }, [])
+  }, [refresh])
+
+  function deleteUser(id: number) {
+    request(api.deleteUser, {id: id})
+      .then((res: any) => {
+        message.success(res.msg).then()
+        setRefresh(refresh + 1)
+      })
+  }
 
   return (
     <div>
       <Button
         type={"primary"}
         style={{marginBottom: 10}}
-        onClick={handleAddClick}
-      >{addButtonText}
+        onClick={() => setShowAddUser(!showAddUser)}
+      >{showAddUser ? '收起' : '新增'}
       </Button>
-      <AddUser show={showAddUser}/>
+      <AddUser show={showAddUser} refreshProp={[refresh, setRefresh]}/>
 
       <Table
         style={{marginTop: 10}}
         loading={loading}
         dataSource={userList}
         columns={columns}
-      >
-
-      </Table>
+      />
     </div>)
 }

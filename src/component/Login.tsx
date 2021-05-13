@@ -21,29 +21,29 @@ export default function Login() {
         name="username"
         // rules={[{required: true, message: 'Please input your username!'}]}
       >
-        <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="Username"/>
+        <Input prefix={<UserOutlined/>} placeholder="用户名"/>
       </Form.Item>
       <Form.Item
         name="password"
         // rules={[{required: true, message: 'Please input your password!'}]}
       >
         <Input
-          prefix={<LockOutlined className="site-form-item-icon"/>}
+          prefix={<LockOutlined/>}
           type="password"
-          placeholder="Password"
+          placeholder="密码"
         />
       </Form.Item>
       <Form.Item shouldUpdate>
         {() => (
           <Button
-            type="primary"
+            // type="primary"
             htmlType="submit"
             disabled={
               !form.isFieldsTouched(true) ||
               !!form.getFieldsError().filter(({errors}) => errors.length).length
             }
           >
-            Log in
+            登录
           </Button>
         )}
       </Form.Item>

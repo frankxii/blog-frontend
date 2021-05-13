@@ -21,3 +21,8 @@ export interface User {
   create_time: string,
   last_login: string
 }
+
+export interface Group {
+  id: number,
+  name: string
+}
