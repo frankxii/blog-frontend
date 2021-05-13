@@ -12,6 +12,7 @@ import Category from "./Category"
 import ArticleEditor from "./ArticleEditor"
 import GroupList from "./GroupList"
 import UserList from "./UserList"
+import Login from "../../component/Login"
 
 const {Header, Content, Sider} = Layout
 export default function BackPage(props: any) {
@@ -19,7 +20,7 @@ export default function BackPage(props: any) {
     <div>
       <Layout>
         <Header style={{height: 48, backgroundColor: "#141414"}}>
-          <Row>
+          <Row align={"middle"} wrap={false}>
             <Col>
               <Menu
                 theme="dark"
@@ -33,13 +34,8 @@ export default function BackPage(props: any) {
                 </Menu.Item>
               </Menu>
             </Col>
-            <Col>
-              {/*<Menu>*/}
-              {/*  <Menu.Item*/}
-              {/*    icon={<CustomerServiceOutlined/>}>*/}
-              {/*    frankxii's blog*/}
-              {/*  </Menu.Item>*/}
-              {/*</Menu>*/}
+            <Col offset={14}>
+              <Login/>
             </Col>
           </Row>
         </Header>

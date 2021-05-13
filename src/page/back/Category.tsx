@@ -118,6 +118,7 @@ export default function Category() {
       {/*新增按钮*/}
       <Button
         type={"primary"}
+        style={{marginBottom: 10}}
         onClick={() => {
           setModalProps({type: 'add', id: 0, name: ''})
           setIsModalVisible(true)
