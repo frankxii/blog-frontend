@@ -10,6 +10,8 @@ import Siderbar from "./Siderbar"
 import ArticleList from "./ArticleList"
 import Category from "./Category"
 import ArticleEditor from "./ArticleEditor"
+import GroupList from "./GroupList"
+import UserList from "./UserList"
 
 const {Header, Content, Sider} = Layout
 export default function BackPage(props: any) {
@@ -46,6 +48,10 @@ export default function BackPage(props: any) {
           <Content style={{padding: 24}}>
             <Switch>
               <Route exact path={`${props.match.path}`} component={Welcome}/>
+              {/*权限相关*/}
+              <Route path={`${props.match.path}/user`} component={UserList}/>
+              <Route path={`${props.match.path}/group`} component={GroupList}/>
+              {/*文章相关*/}
               <Route exact path={`${props.match.path}/article`} component={ArticleList}/>
               <Route path={`${props.match.path}/article/:id`} component={About}/>
               <Route path={`${props.match.path}/category`} component={Category}/>
