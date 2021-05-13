@@ -1,5 +1,17 @@
 export const api = {
 
+  // 用户
+  addUser: ['/blog/user', 'post'],
+  updateUser: ['/blog/user', 'put'],
+  deleteUser: ['/blog/user', 'delete'],
+  getUserList:['/blog/userList','get'],
+
+  // 权限组
+  addGroup: ['/blog/group', 'post'],
+  updateGroup: ['/blog/group', 'put'],
+  deleteGroup: ['/blog/group', 'delete'],
+  getGroupList:['/blog/groupList','get'],
+
   // 文章
   getArticle: ['/blog/article', 'get'],
   addArticle: ['/blog/article', 'post'],

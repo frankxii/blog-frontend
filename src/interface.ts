@@ -13,3 +13,11 @@ export interface Article {
   create_time: string,
   update_time: string
 }
+
+export interface User {
+  id: number,
+  is_active: boolean,
+  username: string,
+  create_time: string,
+  last_login: string
+}
