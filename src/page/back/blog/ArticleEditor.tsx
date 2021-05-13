@@ -4,10 +4,10 @@ import MDEditor from '@uiw/react-md-editor'
 import {Input, Divider, Button, message, Select, Space} from "antd"
 import {Row, Col} from "antd"
 
-import {api} from "../../api"
-import request from "../../request"
-import {SelectorOption} from "../../interface"
-import {useTagList} from "../../hook"
+import {api} from "../../../api"
+import request from "../../../request"
+import {SelectorOption} from "../../../interface"
+import {useTagList} from "../../../hook"
 
 
 export default function ArticleEditor(props: any) {

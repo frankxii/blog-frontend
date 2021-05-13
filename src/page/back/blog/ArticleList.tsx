@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react"
 import {Table, Button, Space, message} from "antd"
-import request from "../../request"
-import {api} from "../../api"
-import ArticleTag from "../../component/ArticleTag"
-import {useCategoryList, useTagList, useTagMap} from "../../hook"
+import request from "../../../request"
+import {api} from "../../../api"
+import ArticleTag from "../../../component/ArticleTag"
+import {useCategoryList, useTagList, useTagMap} from "../../../hook"
 
 
 export default function ArticleList(props: any) {

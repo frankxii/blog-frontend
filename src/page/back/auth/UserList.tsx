@@ -1,10 +1,10 @@
 import {Button, Table} from "antd"
-import AddUser from "../../component/AddUser"
+import AddUser from "../../../component/AddUser"
 import {useEffect, useState} from "react"
-import request from "../../request"
-import {api} from "../../api"
+import request from "../../../request"
+import {api} from "../../../api"
 
-import {User} from "../../interface"
+import {User} from "../../../interface"
 
 export default function UserList() {
   // 新增组件相关

@@ -7,11 +7,11 @@ import {CustomerServiceOutlined} from "@ant-design/icons"
 import About from "../front/About"
 import Welcome from "../front/Welcome"
 import Siderbar from "./Siderbar"
-import ArticleList from "./ArticleList"
-import Category from "./Category"
-import ArticleEditor from "./ArticleEditor"
-import GroupList from "./GroupList"
-import UserList from "./UserList"
+import ArticleList from "./blog/ArticleList"
+import CategoryList from "./blog/CategoryList"
+import ArticleEditor from "./blog/ArticleEditor"
+import GroupList from "./auth/GroupList"
+import UserList from "./auth/UserList"
 import Login from "../../component/Login"
 
 const {Header, Content, Sider} = Layout
@@ -50,7 +50,7 @@ export default function BackPage(props: any) {
               {/*文章相关*/}
               <Route exact path={`${props.match.path}/article`} component={ArticleList}/>
               <Route path={`${props.match.path}/article/:id`} component={About}/>
-              <Route path={`${props.match.path}/category`} component={Category}/>
+              <Route path={`${props.match.path}/category`} component={CategoryList}/>
               <Route path={`${props.match.path}/addArticle`} component={ArticleEditor}/>
               <Route path={`${props.match.path}/editArticle/:id`} component={ArticleEditor}/>
             </Switch>

@@ -1,9 +1,9 @@
 import React, {useEffect, useRef, useState} from "react"
 import {Table, Button, Space, Modal, Input, message} from "antd"
-import request from "../../request"
-import {api} from "../../api"
+import request from "../../../request"
+import {api} from "../../../api"
 
-export default function Category() {
+export default function CategoryList() {
   // 分类列表数据
   const [categories, setCategories] = useState([{id: null, name: ''}])
   // 弹窗展示bool值
