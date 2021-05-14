@@ -10,8 +10,11 @@ export default function AddGroup(props: { show: boolean, freshProp: Array<any> }
 
   const [form] = Form.useForm()
 
-  // eslint-disable-next-line
-  useEffect(() => form.resetFields, [show])
+  useEffect(() => {
+      if (!show) form.resetFields()
+    },
+    // eslint-disable-next-line
+    [show])
 
   function onFinish(value: { groupName: string }) {
     request(api.addGroup, {name: value.groupName})
