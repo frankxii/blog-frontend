@@ -1,18 +1,24 @@
 import {useEffect, useState} from "react"
-import {Button, message, Table} from "antd"
+import {Button, message, Space, Table} from "antd"
 import AddGroup from "./AddGroup"
 import request from "../../../request"
 import {api} from "../../../api"
 
 import {Group} from "../../../interface"
+import MemberModal from "./MemberModal"
 
 export default function GroupList() {
-
+  // 新建权限组 组件开关
   const [showAddGroup, setShowAddGroup] = useState<boolean>(false)
 
+  // 权限组列表相关
   const [groupList, setGroupList] = useState<Group[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   const [refresh, setRefresh] = useState<number>(0)
+
+  // 成员维护组件相关
+  const [visible, setVisible] = useState<boolean>(false)
+  const [currentGroupId, setCurrentGroupId] = useState<number>(0)
 
   const columns = [
     {
@@ -37,11 +43,23 @@ export default function GroupList() {
     if (record.id) {
       return (
         <div>
-          <Button
-            type="primary"
-            danger={true}
-            onClick={() => deleteGroup(record.id)}
-          >删除</Button>
+          <Space>
+            <Button
+              type="primary"
+              onClick={() => {
+                setCurrentGroupId(record.id)
+                setVisible(true)
+              }}
+            >
+              成员维护
+            </Button>
+            <Button type="primary">权限设置</Button>
+            <Button
+              type="primary"
+              danger={true}
+              onClick={() => deleteGroup(record.id)}
+            >删除</Button>
+          </Space>
         </div>
       )
     } else {
@@ -82,5 +100,6 @@ export default function GroupList() {
         dataSource={groupList}
         columns={columns}
       />
+      <MemberModal visibleProp={[visible, setVisible]} currentGroupId={currentGroupId}/>
     </div>)
 }

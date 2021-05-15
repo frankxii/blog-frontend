@@ -4,13 +4,18 @@ export const api = {
   addUser: ['/blog/user', 'post'],
   updateUser: ['/blog/user', 'put'],
   deleteUser: ['/blog/user', 'delete'],
-  getUserList:['/blog/userList','get'],
+  getUserList: ['/blog/userList', 'get'],
+  getUserSearchList: ['/blog/userSearchList', 'get'],
 
   // 权限组
   addGroup: ['/blog/group', 'post'],
   updateGroup: ['/blog/group', 'put'],
   deleteGroup: ['/blog/group', 'delete'],
-  getGroupList:['/blog/groupList','get'],
+  getGroupList: ['/blog/groupList', 'get'],
+
+  // 权限组成员
+  getGroupMembers: ['/blog/group/members', 'get'],
+  updateGroupMembers: ['/blog/group/members', 'put'],
 
   // 文章
   getArticle: ['/blog/article', 'get'],
