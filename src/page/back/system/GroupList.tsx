@@ -6,6 +6,7 @@ import {api} from "../../../api"
 
 import {Group} from "../../../interface"
 import MemberModal from "./MemberModal"
+import AuthorityModal from "./AuthorityModal"
 
 export default function GroupList() {
   // 新建权限组 组件开关
@@ -16,8 +17,9 @@ export default function GroupList() {
   const [loading, setLoading] = useState<boolean>(false)
   const [refresh, setRefresh] = useState<number>(0)
 
-  // 成员维护组件相关
-  const [visible, setVisible] = useState<boolean>(false)
+  // 操作按钮相关
+  const [showMemberModal, setShowMemberModal] = useState<boolean>(false)
+  const [showAuthorityModal, setShowAuthorityModal] = useState<boolean>(false)
   const [currentGroupId, setCurrentGroupId] = useState<number>(0)
 
   const columns = [
@@ -48,12 +50,16 @@ export default function GroupList() {
               type="primary"
               onClick={() => {
                 setCurrentGroupId(record.id)
-                setVisible(true)
+                setShowMemberModal(true)
               }}
-            >
-              成员维护
-            </Button>
-            <Button type="primary">权限设置</Button>
+            >成员维护</Button>
+            <Button
+              type="primary"
+              onClick={() => {
+                setCurrentGroupId(record.id)
+                setShowAuthorityModal(true)
+              }}
+            >权限设置</Button>
             <Button
               type="primary"
               danger={true}
@@ -100,6 +106,7 @@ export default function GroupList() {
         dataSource={groupList}
         columns={columns}
       />
-      <MemberModal visibleProp={[visible, setVisible]} currentGroupId={currentGroupId}/>
+      <MemberModal visibleProp={[showMemberModal, setShowMemberModal]} currentGroupId={currentGroupId}/>
+      <AuthorityModal visibleProp={[showAuthorityModal, setShowAuthorityModal]} currentGroupId={currentGroupId}/>
     </div>)
 }

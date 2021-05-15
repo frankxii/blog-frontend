@@ -16,7 +16,7 @@ import TagCloudPendant from "../../component/TagCloudPendant"
 
 export default function FrontPage(props: any) {
 
-  const [navigatorKey, setNavigatorKey] = useState('/blog')
+  const [navigatorKey, setNavigatorKey] = useState('/front')
 
   return (
     <div>
@@ -78,7 +78,7 @@ export default function FrontPage(props: any) {
                   <CategoryPendant/>
                 </Row>
                 {/*标签云*/}
-                <Row style={{marginTop:10}}>
+                <Row style={{marginTop: 10}}>
                   <TagCloudPendant/>
                 </Row>
               </Affix>

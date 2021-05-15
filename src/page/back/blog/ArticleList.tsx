@@ -93,7 +93,7 @@ export default function ArticleList(props: any) {
             type="primary"
             size={"small"}
             // 点击编辑后，跳转路由到编辑
-            onClick={() => props.history.push(`/backend/editArticle/${id}`)}
+            onClick={() => props.history.push(`/back/blog/editArticle/${id}`)}
           >编辑
           </Button>
           <Button
@@ -147,7 +147,7 @@ export default function ArticleList(props: any) {
       <Button
         type={'primary'}
         style={{marginBottom: 10}}
-        onClick={() => props.history.push('/backend/addArticle')}
+        onClick={() => props.history.push('/back/blog/addArticle')}
       >新增</Button>
       <Table
         //解决antd Table key缺失警告

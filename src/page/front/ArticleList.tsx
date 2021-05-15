@@ -100,7 +100,7 @@ export default function ArticleList(props: any) {
         >
           <List.Item.Meta
             title={
-              <Link to={`/blog/article/${article.id}`}>
+              <Link to={`/front/article/${article.id}`}>
                 <p>{article.title}</p>
               </Link>
             }

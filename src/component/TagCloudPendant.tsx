@@ -24,7 +24,7 @@ export default function TagCloudPendant() {
         {/*tag:[name:string, count:number]*/}
         {tagList.map(tag =>
           <Link
-            to={`/blog/tag/${tag[0]}`}
+            to={`/front/tag/${tag[0]}`}
             key={tag[0]}
           >
             {`${tag[0]}·${tag[1]}`}

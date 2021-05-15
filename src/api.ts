@@ -17,6 +17,9 @@ export const api = {
   getGroupMembers: ['/blog/group/members', 'get'],
   updateGroupMembers: ['/blog/group/members', 'put'],
 
+  // 后台菜单
+  getMenu: ['/blog/menu', 'get'],
+
   // 文章
   getArticle: ['/blog/article', 'get'],
   addArticle: ['/blog/article', 'post'],

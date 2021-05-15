@@ -4,14 +4,13 @@ import {Menu} from "antd"
 import {Layout, Row, Col} from "antd"
 import {CustomerServiceOutlined} from "@ant-design/icons"
 
-import About from "../front/About"
 import Welcome from "../front/Welcome"
 import Siderbar from "./Siderbar"
 import ArticleList from "./blog/ArticleList"
 import CategoryList from "./blog/CategoryList"
 import ArticleEditor from "./blog/ArticleEditor"
-import GroupList from "./auth/GroupList"
-import UserList from "./auth/UserList"
+import GroupList from "./system/GroupList"
+import UserList from "./system/UserList"
 import Login from "../../component/Login"
 
 const {Header, Content, Sider} = Layout
@@ -27,7 +26,7 @@ export default function BackPage(props: any) {
                 style={{backgroundColor: "#141414", width: 200}}>
                 <Menu.Item
                   onClick={() => {
-                    props.history.push("/blog")
+                    props.history.push("/front")
                   }}
                   icon={<CustomerServiceOutlined/>}>
                   frankxii's blog
@@ -45,14 +44,14 @@ export default function BackPage(props: any) {
             <Switch>
               <Route exact path={`${props.match.path}`} component={Welcome}/>
               {/*权限相关*/}
-              <Route path={`${props.match.path}/user`} component={UserList}/>
-              <Route path={`${props.match.path}/group`} component={GroupList}/>
+              <Route path={`${props.match.path}/system/user`} component={UserList}/>
+              <Route path={`${props.match.path}/system/group`} component={GroupList}/>
               {/*文章相关*/}
-              <Route exact path={`${props.match.path}/article`} component={ArticleList}/>
-              <Route path={`${props.match.path}/article/:id`} component={About}/>
-              <Route path={`${props.match.path}/category`} component={CategoryList}/>
-              <Route path={`${props.match.path}/addArticle`} component={ArticleEditor}/>
-              <Route path={`${props.match.path}/editArticle/:id`} component={ArticleEditor}/>
+              <Route exact path={`${props.match.path}/blog/article`} component={ArticleList}/>
+              {/*<Route path={`${props.match.path}/blog/article/:id`} component={About}/>*/}
+              <Route path={`${props.match.path}/blog/category`} component={CategoryList}/>
+              <Route path={`${props.match.path}/blog/addArticle`} component={ArticleEditor}/>
+              <Route path={`${props.match.path}/blog/editArticle/:id`} component={ArticleEditor}/>
             </Switch>
           </Content>
         </Layout>

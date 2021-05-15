@@ -41,14 +41,14 @@ export default function CategoryPendant() {
         <p style={{textAlign: 'center'}}>分类</p>
         <Divider/>
 
-          {categories.map(category =>
-            <Link
-              to={`/blog/category/${category.name}`}
-              key={category.name}
-            >
-              <p>{getCategoryText(category.name, category.count)}</p>
-            </Link>
-          )}
+        {categories.map(category =>
+          <Link
+            to={`/front/category/${category.name}`}
+            key={category.name}
+          >
+            <p>{getCategoryText(category.name, category.count)}</p>
+          </Link>
+        )}
 
       </Card>
     )

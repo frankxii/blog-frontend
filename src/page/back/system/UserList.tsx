@@ -92,6 +92,7 @@ export default function UserList() {
       })
   }
 
+  if (!userList) return null
   return (
     <div>
       <Button

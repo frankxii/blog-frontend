@@ -125,7 +125,7 @@ export default function ArticleEditor(props: any) {
         {/*保存按钮*/}
         <Col>
           <Space>
-            <Button onClick={() => props.history.push('/backend/article')}>返回</Button>
+            <Button onClick={() => props.history.push('/back/blog/article')}>返回</Button>
             <Button type={"primary"} onClick={saveArticle}>保存</Button>
           </Space>
         </Col>

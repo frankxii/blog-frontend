@@ -40,7 +40,7 @@ export default function Navigator(props: any) {
       <Menu.Item key="guidang"><Link to={`${props.match.path}/guidang`}>归档</Link></Menu.Item>
       <Menu.Item key="about"><Link to={`${props.match.path}/about`}>关于</Link></Menu.Item>
       <Menu.Item key="leave"><Link to={`${props.match.path}/leave`}>留言</Link></Menu.Item>
-      <Menu.Item key="backend"><Link to="/backend">后台</Link></Menu.Item>
+      <Menu.Item key="back"><Link to="/back">后台</Link></Menu.Item>
     </Menu>
   )
 }
