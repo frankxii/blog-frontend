@@ -31,3 +31,15 @@ export interface Member {
   id: number,
   username: string
 }
+
+export interface MenuItem {
+  key: string,
+  title: string,
+  link: string
+}
+
+export interface MySubMenu {
+  key: string,
+  title: string,
+  children: Array<MenuItem>
+}
