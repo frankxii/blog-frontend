@@ -20,7 +20,7 @@ export default function Siderbar(props: any) {
 
   return (
     <Menu
-      style={{width: 208, height: "100vh"}}
+      style={{width: 208, height: "94vh"}}
       defaultOpenKeys={["system", "blog"]}
       selectedKeys={[selectedKey]}
       mode="inline"

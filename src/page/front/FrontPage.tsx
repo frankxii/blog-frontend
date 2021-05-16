@@ -71,14 +71,14 @@ export default function FrontPage(props: any) {
                 />
               </Card>
             </Col>
-            <Col offset={1}>
+            <Col offset={2}>
               <Affix offsetTop={113}>
                 {/*分类挂件*/}
                 <Row>
                   <CategoryPendant/>
                 </Row>
                 {/*标签云*/}
-                <Row style={{marginTop: 10}}>
+                <Row style={{marginTop: 20}}>
                   <TagCloudPendant/>
                 </Row>
               </Affix>

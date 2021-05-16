@@ -40,7 +40,7 @@ export default function BackPage(props: any) {
         </Header>
         <Layout>
           <Sider><Route path={`${props.match.path}`} component={Siderbar}/></Sider>
-          <Content style={{padding: 24}}>
+          <Content style={{paddingLeft:"2vw",paddingTop:24,paddingRight:"1vh"}}>
             <Switch>
               <Route exact path={`${props.match.path}`} component={Welcome}/>
               {/*权限相关*/}
