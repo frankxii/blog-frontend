@@ -1,4 +1,4 @@
-import {Card, Divider, Space} from "antd"
+import {Card, Divider, Space, Tag} from "antd"
 import React, {useEffect, useState} from "react"
 import {Link} from "react-router-dom"
 import request from "../request"
@@ -16,7 +16,7 @@ export default function TagCloudPendant() {
 
   return (
     <Card
-      style={{width: 232, borderRadius: 8}}
+      style={{width: 260, borderRadius: 8}}
     >
       <p style={{textAlign: 'center'}}>标签</p>
       <Divider/>
@@ -27,7 +27,7 @@ export default function TagCloudPendant() {
             to={`/front/tag/${tag[0]}`}
             key={tag[0]}
           >
-            {`${tag[0]}·${tag[1]}`}
+            <Tag>{`${tag[0]}(${tag[1]})`}</Tag>
           </Link>)}
       </Space>
     </Card>
