@@ -1,7 +1,7 @@
 import {Button, Form, Input, message} from "antd"
 import React, {useEffect} from "react"
 import request from "../../../request"
-import {api} from "../../../api"
+import {backSystemApi} from "../../../api"
 
 export default function AddGroup(props: { show: boolean, freshProp: Array<any> }) {
   let show = props.show
@@ -17,7 +17,7 @@ export default function AddGroup(props: { show: boolean, freshProp: Array<any> }
     [show])
 
   function onFinish(value: { groupName: string }) {
-    request(api.addGroup, {name: value.groupName})
+    request(backSystemApi.addGroup, {name: value.groupName})
       .then((res: any) => {
         message.success(res.msg).then()
         form.resetFields()

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {List, Space} from "antd"
 import {Link} from "react-router-dom"
-import {api} from "../../api"
+import {frontBlogApi} from "../../api"
 import request from "../../request"
 import ArticleTag from "../../component/ArticleTag"
 import {EyeOutlined, FieldTimeOutlined, UnorderedListOutlined} from '@ant-design/icons'
@@ -37,7 +37,7 @@ export default function ArticleList(props: any) {
     // 开启加载组件
     setLoading(true)
     // 获取博客文章列表
-    request(api.getArticleList, {pagination: pagination, filters: filters})
+    request(frontBlogApi.getArticles, {pagination: pagination, filters: filters})
       .then((res: any) => {
         let data = res.data
         setLists(data.lists)
@@ -54,7 +54,7 @@ export default function ArticleList(props: any) {
 
   // 获取标签map
   useEffect(function getTagMap() {
-    request(api.getTagMap)
+    request(frontBlogApi.getTagMap)
       .then(res => {
         let tempTagMap = new Map<number, string>()
         // object to map

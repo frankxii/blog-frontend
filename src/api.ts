@@ -1,51 +1,53 @@
-export const api = {
+export const frontBlogApi = {
+  // 文章
+  getArticle: ['/front/article', 'get'],
+  getArticles: ['/front/articles', 'get'],
+  // 标签
+  getTagMap: ['/front/tagMap', 'get'],
+  // 归档
+  getArchive: ['/front/archive', 'get']
+}
 
-  // 用户
-  addUser: ['/blog/user', 'post'],
-  updateUser: ['/blog/user', 'put'],
-  deleteUser: ['/blog/user', 'delete'],
-  getUserList: ['/blog/userList', 'get'],
-  getUserSearchList: ['/blog/userSearchList', 'get'],
-
-  // 权限组
-  addGroup: ['/blog/group', 'post'],
-  updateGroup: ['/blog/group', 'put'],
-  deleteGroup: ['/blog/group', 'delete'],
-  getGroupList: ['/blog/groupList', 'get'],
-
-  // 权限组成员
-  getGroupMembers: ['/blog/group/members', 'get'],
-  updateGroupMembers: ['/blog/group/members', 'put'],
-
-  // 权限树结构
-  getPermissionTree: ['/blog/permission/tree', 'get'],
-
-  // 权限组权限
-  getGroupPermission: ['/blog/group/permission', 'get'],
-  updateGroupPermission: ['/blog/group/permission', 'put'],
-
-  // 后台菜单
-  getMenu: ['/blog/menu', 'get'],
+export const backBlogApi = {
 
   // 文章
-  getArticle: ['/blog/article', 'get'],
-  addArticle: ['/blog/article', 'post'],
-  updateArticle: ['/blog/article', 'put'],
-  deleteArticle: ['/blog/article', 'delete'],
-
-  // 文章列表
-  getArticleList: ['/blog/articleList', 'get'],
-  getCategoryList: ['/blog/categoryList', 'get'],
-
+  getArticle: ['/back/blog/article', 'get'],
+  addArticle: ['/back/blog/article', 'post'],
+  updateArticle: ['/back/blog/article', 'put'],
+  deleteArticle: ['/back/blog/article', 'delete'],
+  getArticles: ['back/blog/articles', 'get'],
   // 分类
-  getCategory: ['/blog/category', 'get'],
-  addCategory: ['/blog/category', 'post'],
-  updateCategory: ['/blog/category', 'put'],
-  deleteCategory: ['/blog/category', 'delete'],
+  getCategory: ['/back/blog/category', 'get'],
+  addCategory: ['/back/blog/category', 'post'],
+  updateCategory: ['/back/blog/category', 'put'],
+  deleteCategory: ['/back/blog/category', 'delete'],
+  getCategories: ['/back/blog/categories', 'get'],
 
-  // 标签
-  getTagMap: ['/blog/tagMap', 'get'],
 
-  // 归档
-  getArchive: ['/blog/archive', 'get']
+}
+
+export const backSystemApi = {
+  // 用户
+  addUser: ['/back/system/user', 'post'],
+  updateUser: ['/back/system/user', 'put'],
+  deleteUser: ['/back/system/user', 'delete'],
+  getUsers: ['/back/system/users', 'get'],
+  getUserSearchList: ['/back/system/user/searchList', 'get'],
+
+  // 权限组
+  addGroup: ['/back/system/group', 'post'],
+  updateGroup: ['/back/system/group', 'put'],
+  deleteGroup: ['/back/system/group', 'delete'],
+  getGroups: ['/back/system/groups', 'get'],
+
+  // 权限组成员
+  getGroupMembers: ['/back/system/group/members', 'get'],
+  updateGroupMembers: ['/back/system/group/members', 'put'],
+
+  // 权限组权限
+  getGroupPermission: ['/back/system/group/permission', 'get'],
+  updateGroupPermission: ['/back/system/group/permission', 'put'],
+  // 菜单和权限
+  getMenu: ['/back/system/menu', 'get'],
+  getPermissionTree: ['/back/system/permission/tree', 'get'],
 }

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react"
 import {Menu} from "antd"
 import {Link} from "react-router-dom"
 import request from "../../request"
-import {api} from "../../api"
+import {backSystemApi} from "../../api"
 import {MySubMenu} from "../../interface"
 
 const {SubMenu} = Menu
@@ -12,7 +12,7 @@ export default function Siderbar(props: any) {
   const [menu, setMenu] = useState<MySubMenu[]>([])
 
   useEffect(() => {
-    request(api.getMenu)
+    request(backSystemApi.getMenu)
       .then(res => {
         setMenu(res.data)
       })

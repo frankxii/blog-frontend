@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react"
 import {Table, Button, Space, message} from "antd"
 import request from "../../../request"
-import {api} from "../../../api"
+import {backBlogApi} from "../../../api"
 import ArticleTag from "../../../component/ArticleTag"
 import {useCategoryList, useTagList, useTagMap} from "../../../hook"
 
@@ -109,7 +109,7 @@ export default function ArticleList(props: any) {
   }
 
   function handleDelete(id: number) {
-    request(api.deleteArticle, {id: id})
+    request(backBlogApi.deleteArticle, {id: id})
       .then(() => {
         message.success('删除成功', 2).then()
         setRefresh(refresh + 1)
@@ -119,7 +119,7 @@ export default function ArticleList(props: any) {
 
   useEffect(function getArticleLIst() {
     setLoading(true)
-    request(api.getArticleList, {
+    request(backBlogApi.getArticles, {
       pagination: {
         current: pagination.current,
         page_size: pagination.pageSize,

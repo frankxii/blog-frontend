@@ -2,7 +2,7 @@ import {useEffect, useState} from "react"
 import {Button, message, Space, Table} from "antd"
 import AddGroup from "./AddGroup"
 import request from "../../../request"
-import {api} from "../../../api"
+import {backSystemApi} from "../../../api"
 
 import {Group} from "../../../interface"
 import MemberModal from "./MemberModal"
@@ -74,7 +74,7 @@ export default function GroupList() {
   }
 
   function deleteGroup(id: number) {
-    request(api.deleteGroup, {id: id})
+    request(backSystemApi.deleteGroup, {id: id})
       .then((res: any) => {
         message.success(res.msg).then()
         setRefresh(refresh + 1)
@@ -83,7 +83,7 @@ export default function GroupList() {
 
   useEffect(function getGroupList() {
     setLoading(true)
-    request(api.getGroupList)
+    request(backSystemApi.getGroups)
       .then((res: any) => {
         setGroupList(res.data)
       })

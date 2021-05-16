@@ -1,13 +1,13 @@
 import {SelectorOption} from "./interface"
 import {useEffect, useState} from "react"
 import request from "./request"
-import {api} from "./api"
+import {frontBlogApi, backBlogApi} from "./api"
 
 export function useTagList() {
   const [tagList, setTagList] = useState<SelectorOption[]>([])
 
   useEffect(() => {
-    request(api.getTagMap)
+    request(frontBlogApi.getTagMap)
       .then(res => {
         let tempTagList: SelectorOption[] = []
         Object.keys(res.data).forEach(key => tempTagList.push({value: Number(key), text: res.data[key]}))
@@ -24,7 +24,7 @@ export function useTagMap() {
 
   // 获取标签map
   useEffect(() => {
-    request(api.getTagMap)
+    request(frontBlogApi.getTagMap)
       .then(res => {
         let tempTagMap = new Map<number, string>()
         // object to map
@@ -44,7 +44,7 @@ export function useCategoryList() {
   const [categoryList, setCategoryList] = useState<SelectorOption[]>([])
 
   useEffect(() => {
-    request(api.getCategoryList).then(res => {
+    request(backBlogApi.getCategories).then(res => {
       let tempList: SelectorOption[] = []
       res.data.forEach((item: { id: number, name: string }) => {
         tempList.push({value: item.id, text: item.name})

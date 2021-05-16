@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {Card, Divider} from 'antd'
 import {Link} from "react-router-dom"
 import request from "../request"
-import {api} from '../api'
+import {frontBlogApi} from '../api'
 
 export default function CategoryPendant() {
   const [categories, setCategories] = useState([{name: '', count: 0}])
@@ -10,7 +10,7 @@ export default function CategoryPendant() {
   let index = 0
 
   useEffect(() => {
-    request(api.getArchive, {cate: 'category'})
+    request(frontBlogApi.getArchive, {cate: 'category'})
       .then(res => {
         setCategories(res.data)
       })

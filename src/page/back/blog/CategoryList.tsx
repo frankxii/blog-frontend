@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react"
 import {Table, Button, Space, Modal, Input, message} from "antd"
 import request from "../../../request"
-import {api} from "../../../api"
+import {backBlogApi} from "../../../api"
 
 export default function CategoryList() {
   // 分类列表数据
@@ -77,7 +77,7 @@ export default function CategoryList() {
     // @ts-ignore
     let data = {id: modalProps.id, name: inputRef.current.state.value}
 
-    request(isAdd ? api.addCategory : api.updateCategory, data)
+    request(isAdd ? backBlogApi.addCategory : backBlogApi.updateCategory, data)
       .then(() => {
         setIsModalVisible(false)
         message.success(`${isAdd ? '新增' : '更新'}分类成功`, duration).then()
@@ -88,7 +88,7 @@ export default function CategoryList() {
 
   // 删除分类
   function handleDelete(record: any) {
-    request(api.deleteCategory, {id: record.id})
+    request(backBlogApi.deleteCategory, {id: record.id})
       .then(() => {
         message.success('删除成功', duration).then()
         setRefresh(refresh + 1)
@@ -98,7 +98,7 @@ export default function CategoryList() {
   // 刷新表格
   useEffect(() => {
     setListLoading(true)
-    request(api.getCategoryList)
+    request(backBlogApi.getCategories)
       .then(res => {
         setCategories(res.data)
       })

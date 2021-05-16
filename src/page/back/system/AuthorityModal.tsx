@@ -2,7 +2,7 @@ import {message, Modal, Tree} from "antd"
 import {useEffect, useState} from "react"
 import {PermissionNode} from "../../../interface"
 import request from "../../../request"
-import {api} from "../../../api"
+import {backSystemApi} from "../../../api"
 
 export default function AuthorityModal(props: { visibleProp: any[], currentGroupId: number }) {
 
@@ -16,11 +16,11 @@ export default function AuthorityModal(props: { visibleProp: any[], currentGroup
   useEffect(function getTreeData() {
     if (visible) {
       setCheckedKeys([])
-      request(api.getPermissionTree)
+      request(backSystemApi.getPermissionTree)
         .then(res => {
           setTreeData(res.data)
         })
-      request(api.getGroupPermission, {group: props.currentGroupId})
+      request(backSystemApi.getGroupPermission, {group: props.currentGroupId})
         .then(res => {
           setCheckedKeys(res.data)
         })
@@ -30,7 +30,7 @@ export default function AuthorityModal(props: { visibleProp: any[], currentGroup
 
   function onOk() {
     setLoading(true)
-    request(api.updateGroupPermission,
+    request(backSystemApi.updateGroupPermission,
       {
         group: props.currentGroupId,
         checked_keys: checkedKeys

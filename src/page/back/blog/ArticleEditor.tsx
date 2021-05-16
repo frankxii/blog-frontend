@@ -4,7 +4,7 @@ import MDEditor from '@uiw/react-md-editor'
 import {Input, Divider, Button, message, Select, Space} from "antd"
 import {Row, Col} from "antd"
 
-import {api} from "../../../api"
+import {backBlogApi} from "../../../api"
 import request from "../../../request"
 import {SelectorOption} from "../../../interface"
 import {useTagList} from "../../../hook"
@@ -32,7 +32,7 @@ export default function ArticleEditor(props: any) {
 
   // 获取分类
   useEffect(function getCategories() {
-    request(api.getCategoryList).then(res => {
+    request(backBlogApi.getCategories).then(res => {
       let categories = res.data
       setCategories(categories)
       setCategory(categories[0])
@@ -45,7 +45,7 @@ export default function ArticleEditor(props: any) {
     let id = props.match.params.id
     // 如果路由带id，说明是编辑，请求文章详情填充编辑器
     if (id !== undefined) {
-      request(api.getArticle, {id: id})
+      request(backBlogApi.getArticle, {id: id})
         .then(res => {
           let article = res.data
           // 填充标题、文章内容、分类、标签
@@ -76,7 +76,7 @@ export default function ArticleEditor(props: any) {
         return
       }
       // 创建或修改文章
-      request(id === 0 ? api.addArticle : api.updateArticle,
+      request(id === 0 ? backBlogApi.addArticle : backBlogApi.updateArticle,
         {id: id, title: title, body: value, category_id: category.value, tags: selectedTags}
       ).then(res => {
         message.success(id === 0 ? '创建成功' : '保存成功', 2).then()

@@ -2,7 +2,7 @@ import {Card, Divider, Space} from "antd"
 import React, {useEffect, useState} from "react"
 import {Link} from "react-router-dom"
 import request from "../request"
-import {api} from "../api"
+import {frontBlogApi} from "../api"
 
 
 export default function TagCloudPendant() {
@@ -10,7 +10,7 @@ export default function TagCloudPendant() {
   const [tagList, setTagList] = useState([])
 
   useEffect(function getTagArchive() {
-    request(api.getArchive, {'cate': 'tag'})
+    request(frontBlogApi.getArchive, {'cate': 'tag'})
       .then(res => setTagList(res.data))
   }, [])
 

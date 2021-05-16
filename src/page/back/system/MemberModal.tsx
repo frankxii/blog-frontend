@@ -2,7 +2,7 @@ import {Divider, message, Modal, Select, Tag} from "antd"
 import {useEffect, useState} from "react"
 import {Member} from "../../../interface"
 import request from "../../../request"
-import {api} from "../../../api"
+import {backSystemApi} from "../../../api"
 
 export default function MemberModal(props: { visibleProp: Array<any>, currentGroupId: number }) {
 
@@ -23,7 +23,7 @@ export default function MemberModal(props: { visibleProp: Array<any>, currentGro
       // 填充下拉
       onSearch("")
       // 填充成员标签
-      request(api.getGroupMembers, {group: props.currentGroupId})
+      request(backSystemApi.getGroupMembers, {group: props.currentGroupId})
         .then((res: any) => {
           setOldMembers(res.data)
         })
@@ -47,7 +47,7 @@ export default function MemberModal(props: { visibleProp: Array<any>, currentGro
       idOfNewMembers.push(id)
     })
     request(
-      api.updateGroupMembers,
+      backSystemApi.updateGroupMembers,
       {
         group: props.currentGroupId,
         old_members: idOfOldMembers,
@@ -63,7 +63,7 @@ export default function MemberModal(props: { visibleProp: Array<any>, currentGro
 
   // 下拉输入时回调，查询对应模糊搜索的结果填充选项
   function onSearch(fuzzyName: string) {
-    request(api.getUserSearchList, {fuzzy_name: fuzzyName})
+    request(backSystemApi.getUserSearchList, {fuzzy_name: fuzzyName})
       .then((res: any) => {
         setOptions(res.data)
       })

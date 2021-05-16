@@ -1,7 +1,7 @@
 import {Button, Form, Input, message} from "antd"
 import React, {useEffect} from "react"
 import request from "../../../request"
-import {api} from "../../../api"
+import {backSystemApi} from "../../../api"
 
 export default function AddUser(
   props: { show: boolean, refreshProp: Array<any> }
@@ -13,7 +13,7 @@ export default function AddUser(
 
   function onFinish(value: { username: string, password: string }) {
 
-    request(api.addUser, value)
+    request(backSystemApi.addUser, value)
       .then((res: any) => {
         message.success(res.msg).then()
         form.resetFields()

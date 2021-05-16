@@ -2,7 +2,7 @@ import {Button, message, Space, Table} from "antd"
 import AddUser from "./AddUser"
 import {useEffect, useState} from "react"
 import request from "../../../request"
-import {api} from "../../../api"
+import {backSystemApi} from "../../../api"
 
 import {User} from "../../../interface"
 
@@ -75,7 +75,7 @@ export default function UserList() {
 
   useEffect(function getUserList() {
     setLoading(true)
-    request(api.getUserList)
+    request(backSystemApi.getUsers)
       .then(res => {
         setUserList(res.data)
       })
@@ -85,7 +85,7 @@ export default function UserList() {
   }, [refresh])
 
   function deleteUser(id: number) {
-    request(api.deleteUser, {id: id})
+    request(backSystemApi.deleteUser, {id: id})
       .then((res: any) => {
         message.success(res.msg).then()
         setRefresh(refresh + 1)
