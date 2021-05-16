@@ -43,3 +43,9 @@ export interface MySubMenu {
   title: string,
   children: Array<MenuItem>
 }
+
+export interface PermissionNode {
+  key: string,
+  title: string,
+  children: Array<PermissionNode>
+}

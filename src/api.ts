@@ -17,6 +17,13 @@ export const api = {
   getGroupMembers: ['/blog/group/members', 'get'],
   updateGroupMembers: ['/blog/group/members', 'put'],
 
+  // 权限树结构
+  getPermissionTree: ['/blog/permission/tree', 'get'],
+
+  // 权限组权限
+  getGroupPermission: ['/blog/group/permission', 'get'],
+  updateGroupPermission: ['/blog/group/permission', 'put'],
+
   // 后台菜单
   getMenu: ['/blog/menu', 'get'],
 
