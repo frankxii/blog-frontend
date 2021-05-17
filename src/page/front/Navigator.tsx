@@ -17,14 +17,13 @@ export default function Navigator(props: any) {
     let key = url.split("/").pop()
     // @ts-ignore
     if (key) {
-      if (['blog', 'article', 'guidang', 'about', 'leave', 'backend'].includes(key)) {
+      if (['front', 'article', 'records', 'about', 'leave', 'backend'].includes(key)) {
         setCurrent(key)
       } else {
         // 如果路由里没有取到匹配的key，从父组件里面取key
-        setCurrent(props.navigatorKey)
       }
     }
-  }, [props])
+  }, [])
 
 
   return (
@@ -35,7 +34,7 @@ export default function Navigator(props: any) {
       style={{borderBottomWidth: 0}}
     >
       <Menu.Item/>
-      <Menu.Item key="blog"><Link to={`${props.match.path}`}>首页</Link></Menu.Item>
+      <Menu.Item key="front"><Link to={`${props.match.path}`}>首页</Link></Menu.Item>
       <Menu.Item key="article"><Link to={`${props.match.path}/article`}>文章</Link></Menu.Item>
       <Menu.Item key="records"><Link to={`${props.match.path}/records`}>记录</Link></Menu.Item>
       <Menu.Item key="about"><Link to={`${props.match.path}/about`}>关于</Link></Menu.Item>

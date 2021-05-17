@@ -46,10 +46,6 @@ export default function ArticleList(props: any) {
         setTotal(data.total)
       }).finally(() => setLoading(false))
 
-    // 设置导航高亮
-    if (props.hasOwnProperty('setNavigatorKey')) {
-      props.setNavigatorKey('article')
-    }
   }, [props, current, pageSize])
 
   // 获取标签map

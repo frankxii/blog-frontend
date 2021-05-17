@@ -12,9 +12,6 @@ export default function Article(props: any) {
     request(frontBlogApi.getArticle, {id: id, _ref: 'front'}).then((res: any) => {
       setArticle(res.data)
     })
-    if (props.hasOwnProperty('setNavigatorKey')) {
-      props.setNavigatorKey('article')
-    }
     // eslint-disable-next-line
   }, [])
 

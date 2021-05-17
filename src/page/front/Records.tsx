@@ -6,17 +6,14 @@ import request from "../../request"
 import {frontBlogApi} from "../../api"
 import {Record} from "../../interface"
 
-export default function Records(props: { setNavigatorKey: CallableFunction }) {
+export default function Records() {
   const [records, setRecords] = useState<Record[]>([])
-
 
   useEffect(function getRecords() {
     request(frontBlogApi.getRecords)
       .then(res => {
         setRecords(res.data)
-        props.setNavigatorKey('records')
       })
-    // eslint-disable-next-line
   }, [])
 
   return (

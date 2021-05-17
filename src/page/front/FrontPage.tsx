@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React from "react"
 
 import {Row, Col, Layout, Card, Affix} from "antd"
 import {Content} from "antd/es/layout/layout"
@@ -17,8 +17,6 @@ import Records from "./Records"
 
 export default function FrontPage(props: any) {
 
-  const [navigatorKey, setNavigatorKey] = useState('/front')
-
   return (
     <div>
       {/*导航栏*/}
@@ -31,15 +29,7 @@ export default function FrontPage(props: any) {
             </div>
           </Col>
           <Col span={12}>
-            <Route
-              path={`${props.match.path}`}
-              component={(props: any) =>
-                <Navigator
-                  navigatorKey={navigatorKey}
-                  {...props}
-                />
-              }
-            />
+            <Route path={`${props.match.path}`} component={Navigator}/>
           </Col>
         </Row>
       </Card>
@@ -52,29 +42,13 @@ export default function FrontPage(props: any) {
               <Card style={{borderRadius: 8, minHeight: 200}}>
                 <Route exact path={`${props.match.path}`} component={Welcome}/>
                 <Route exact path={`${props.match.path}/article`} component={ArticleList}/>
-                <Route path={`${props.match.path}/article/:id`} component={
-                  (props: any) => <Article setNavigatorKey={setNavigatorKey}{...props}/>
-                }/>
-                <Route path={`${props.match.path}/records`}
-                       component={() => <Records setNavigatorKey={setNavigatorKey}/>}
-                />
+                <Route path={`${props.match.path}/article/:id`} component={Article}/>
+                <Route path={`${props.match.path}/records`} component={Records}/>
                 <Route path={`${props.match.path}/about`} component={About}/>
                 <Route
                   path={`${props.match.path}/category/:category_name`}
-                  component={(props: any) =>
-                    <ArticleList
-                      setNavigatorKey={setNavigatorKey} {...props}
-                    />
-                  }
-                />
-                <Route
-                  path={`${props.match.path}/tag/:tag_name`}
-                  component={(props: any) =>
-                    <ArticleList
-                      setNavigatorKey={setNavigatorKey} {...props}
-                    />
-                  }
-                />
+                  component={ArticleList}/>
+                <Route path={`${props.match.path}/tag/:tag_name`} component={ArticleList}/>
               </Card>
             </Col>
             <Col offset={2}>
