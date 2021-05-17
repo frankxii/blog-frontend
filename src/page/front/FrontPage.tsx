@@ -13,6 +13,7 @@ import Welcome from "./Welcome"
 import Navigator from "./Navigator"
 import CategoryPendant from "../../component/CategoryPendant"
 import TagCloudPendant from "../../component/TagCloudPendant"
+import Records from "./Records"
 
 export default function FrontPage(props: any) {
 
@@ -51,7 +52,12 @@ export default function FrontPage(props: any) {
               <Card style={{borderRadius: 8, minHeight: 200}}>
                 <Route exact path={`${props.match.path}`} component={Welcome}/>
                 <Route exact path={`${props.match.path}/article`} component={ArticleList}/>
-                <Route path={`${props.match.path}/article/:id`} component={Article}/>
+                <Route path={`${props.match.path}/article/:id`} component={
+                  (props: any) => <Article setNavigatorKey={setNavigatorKey}{...props}/>
+                }/>
+                <Route path={`${props.match.path}/records`}
+                       component={() => <Records setNavigatorKey={setNavigatorKey}/>}
+                />
                 <Route path={`${props.match.path}/about`} component={About}/>
                 <Route
                   path={`${props.match.path}/category/:category_name`}

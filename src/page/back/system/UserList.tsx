@@ -17,7 +17,7 @@ export default function UserList() {
 
   const columns = [
     {
-      key: "id",
+      key: "user id",
       title: "id",
       dataIndex: "id",
       width: 150
@@ -106,6 +106,7 @@ export default function UserList() {
       <AddUser show={showAddUser} refreshProp={[refresh, setRefresh]}/>
 
       <Table
+        rowKey={record => `user${record.id}`}
         style={{marginTop: 10}}
         loading={loading}
         dataSource={userList}

@@ -23,7 +23,7 @@ export default function AddUser(
 
 
   useEffect(() => {
-      if (!show) form.resetFields()
+      if (show) form.resetFields()
     },
     // eslint-disable-next-line
     [show])

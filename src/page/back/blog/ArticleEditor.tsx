@@ -26,7 +26,7 @@ export default function ArticleEditor(props: any) {
   const tagList = useTagList()
 
   // 当前选择标签
-  const [selectedTags, setSelectedTags] = useState<[string | number][]>([])
+  const [selectedTags, setSelectedTags] = useState<string[]>([])
   const {Option} = Select
 
 
@@ -117,9 +117,9 @@ export default function ArticleEditor(props: any) {
             // @ts-ignore
             value={selectedTags}
             // @ts-ignore
-            onChange={(keys: [number | string][]) => setSelectedTags(keys)}
+            onChange={(keys: number[]) => setSelectedTags(keys)}
           >
-            {tagList.map(tag => <Option key={tag.value} value={tag.value}>{tag.text}</Option>)}
+            {tagList.map(tag => <Option key={tag.text} value={tag.text}>{tag.text}</Option>)}
           </Select>
         </Col>
         {/*保存按钮*/}

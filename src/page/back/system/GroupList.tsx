@@ -102,6 +102,7 @@ export default function GroupList() {
       </Button>
       <AddGroup show={showAddGroup} freshProp={[refresh, setRefresh]}/>
       <Table
+        rowKey={record => `group${record.id}`}
         style={{marginTop: 10}}
         loading={loading}
         dataSource={groupList}

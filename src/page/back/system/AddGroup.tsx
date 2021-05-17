@@ -11,7 +11,7 @@ export default function AddGroup(props: { show: boolean, freshProp: Array<any> }
   const [form] = Form.useForm()
 
   useEffect(() => {
-      if (!show) form.resetFields()
+      if (show) form.resetFields()
     },
     // eslint-disable-next-line
     [show])
