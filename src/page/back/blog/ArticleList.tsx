@@ -90,7 +90,6 @@ export default function ArticleList(props: any) {
       return (
         <Space>
           <Button
-            type="primary"
             size={"small"}
             // 点击编辑后，跳转路由到编辑
             onClick={() => props.history.push(`/back/blog/editArticle/${id}`)}

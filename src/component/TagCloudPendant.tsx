@@ -27,7 +27,7 @@ export default function TagCloudPendant() {
             to={`/front/tag/${tag[0]}`}
             key={tag[0]}
           >
-            <Tag>{`${tag[0]}(${tag[1]})`}</Tag>
+            <Tag color={"geekblue"}>{`${tag[0]}(${tag[1]})`}</Tag>
           </Link>)}
       </Space>
     </Card>

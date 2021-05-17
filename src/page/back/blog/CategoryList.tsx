@@ -47,7 +47,6 @@ export default function CategoryList() {
       return (
         <Space>
           <Button
-            type="primary"
             size={"small"}
             onClick={() => showEditModal(record)}
           >编辑

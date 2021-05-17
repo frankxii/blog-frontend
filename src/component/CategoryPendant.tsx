@@ -33,7 +33,7 @@ export default function CategoryPendant() {
             key={category.name}
           >
             <span>{category.name}</span>
-            <Tag>{category.count}</Tag>
+            <Tag color={"geekblue"}>{category.count}</Tag>
           </Link>
         )}
       </Card>

@@ -47,14 +47,14 @@ export default function GroupList() {
         <div>
           <Space>
             <Button
-              type="primary"
+              size={"small"}
               onClick={() => {
                 setCurrentGroupId(record.id)
                 setShowMemberModal(true)
               }}
             >成员维护</Button>
             <Button
-              type="primary"
+              size={"small"}
               onClick={() => {
                 setCurrentGroupId(record.id)
                 setShowAuthorityModal(true)
@@ -62,6 +62,7 @@ export default function GroupList() {
             >权限设置</Button>
             <Button
               type="primary"
+              size={"small"}
               danger={true}
               onClick={() => deleteGroup(record.id)}
             >删除</Button>
@@ -93,7 +94,7 @@ export default function GroupList() {
   return (
     <div>
       <Button
-        type="primary"
+        type={"primary"}
         style={{marginBottom: 10}}
         onClick={() => setShowAddGroup(!showAddGroup)}
       >

@@ -44,7 +44,6 @@ export default function AddUser(
         </Form.Item>
         <Form.Item>
           <Button
-            type="primary"
             htmlType="submit"
           >保存</Button>
         </Form.Item>

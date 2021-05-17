@@ -56,11 +56,13 @@ export default function UserList() {
         <div>
           <Space>
             <Button
+              size={"small"}
               danger={true}
             >{record.is_active ? "冻结" : "激活"}
             </Button>
             <Button
               type="primary"
+              size={"small"}
               danger={true}
               onClick={() => deleteUser(record.id)}
             >

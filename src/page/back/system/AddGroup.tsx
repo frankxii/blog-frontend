@@ -33,7 +33,6 @@ export default function AddGroup(props: { show: boolean, freshProp: Array<any> }
         </Form.Item>
         <Form.Item>
           <Button
-            type="primary"
             htmlType="submit"
           >保存</Button>
         </Form.Item>

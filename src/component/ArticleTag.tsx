@@ -20,7 +20,7 @@ export default function ArticleTag(props: TagProps) {
     }
     return (
       <Space>
-        {tagNameList.map((tagName: string) => <Tag key={tagName} color="blue">{tagName}</Tag>)}
+        {tagNameList.map((tagName: string) => <Tag key={tagName} color="geekblue">{tagName}</Tag>)}
       </Space>
     )
   } else {
