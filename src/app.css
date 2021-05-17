@@ -1,0 +1,12 @@
+.category-item{
+    display: flex;
+    justify-content: space-between;
+    /*color: #597ef7;*/
+    padding: 7px 0 7px 14px
+}
+
+.category-item:hover{
+    border-radius: 4px;
+    color: #597ef7;
+    background-color: #FAFAFA;
+}

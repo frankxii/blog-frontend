@@ -24,16 +24,12 @@ export default function CategoryPendant() {
         <Divider/>
         {categories.map(category =>
           <Link
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              margin:5,
-            }}
+            className="category-item"
             to={`/front/category/${category.name}`}
             key={category.name}
           >
             <span>{category.name}</span>
-            <Tag color={"geekblue"}>{category.count}</Tag>
+            <Tag style={{border:"none",fontSize:14}}>{category.count}</Tag>
           </Link>
         )}
       </Card>
