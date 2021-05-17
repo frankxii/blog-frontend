@@ -2,7 +2,6 @@ import React from "react"
 
 import {Row, Col, Layout, Card, Affix} from "antd"
 import {Content} from "antd/es/layout/layout"
-import {CustomerServiceOutlined} from "@ant-design/icons"
 
 import {Route} from "react-router-dom"
 
@@ -14,6 +13,7 @@ import Navigator from "./Navigator"
 import CategoryPendant from "../../component/CategoryPendant"
 import TagCloudPendant from "../../component/TagCloudPendant"
 import Records from "./Records"
+import SiteLogo from "../../component/SiteLogo"
 
 export default function FrontPage(props: any) {
 
@@ -23,13 +23,10 @@ export default function FrontPage(props: any) {
       <Card style={{borderRadius: 8, width: '100%'}} bodyStyle={{padding: 0}}>
         <Row align="middle">
           <Col offset={6}>
-            <div>
-              <CustomerServiceOutlined/>
-              <span style={{marginLeft: 10}}>frankxii's blog</span>
-            </div>
+            <SiteLogo theme={"black"}/>
           </Col>
           <Col span={12}>
-            <Route path={`${props.match.path}`} component={Navigator}/>
+            <Navigator/>
           </Col>
         </Row>
       </Card>
@@ -57,7 +54,7 @@ export default function FrontPage(props: any) {
                   {/*分类挂件*/}
                   <CategoryPendant/>
                   {/*标签云*/}
-                  <div style={{marginTop:20}}>
+                  <div style={{marginTop: 20}}>
                     <TagCloudPendant/>
                   </div>
                 </div>
