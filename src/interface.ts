@@ -49,3 +49,9 @@ export interface PermissionNode {
   title: string,
   children: Array<PermissionNode>
 }
+
+//网站更新记录
+export interface Record {
+  datetime: string,
+  event: string
+}

@@ -5,7 +5,9 @@ export const frontBlogApi = {
   // 标签
   getTagMap: ['/front/tagMap', 'get'],
   // 归档
-  getArchive: ['/front/archive', 'get']
+  getArchive: ['/front/archive', 'get'],
+  // 网站更新记录
+  getRecords: ['/front/records', 'get']
 }
 
 export const backBlogApi = {
