@@ -39,11 +39,13 @@ export default function ArticleList(props: any) {
     // 获取博客文章列表
     request(frontBlogApi.getArticles, {pagination: pagination, filters: filters})
       .then((res: any) => {
-        let data = res.data
-        setLists(data.lists)
-        setCurrent(data.current)
-        setPageSize(data.page_size)
-        setTotal(data.total)
+        if (res !== undefined) {
+          let data = res.data
+          setLists(data.lists)
+          setCurrent(data.current)
+          setPageSize(data.page_size)
+          setTotal(data.total)
+        }
       }).finally(() => setLoading(false))
 
   }, [props, current, pageSize])
@@ -52,14 +54,16 @@ export default function ArticleList(props: any) {
   useEffect(function getTagMap() {
     request(frontBlogApi.getTagMap)
       .then(res => {
-        let tempTagMap = new Map<number, string>()
-        // object to map
-        for (const key in res.data) {
-          if (res.data.hasOwnProperty(key)) {
-            tempTagMap.set(Number(key), res.data[key])
+        if (res !== undefined) {
+          let tempTagMap = new Map<number, string>()
+          // object to map
+          for (const key in res.data) {
+            if (res.data.hasOwnProperty(key)) {
+              tempTagMap.set(Number(key), res.data[key])
+            }
           }
+          setTagMap(tempTagMap)
         }
-        setTagMap(tempTagMap)
       })
   }, [props])
 

@@ -9,9 +9,10 @@ export default function Article(props: any) {
 
   useEffect(() => {
     let id = props.match.params.id
-    request(frontBlogApi.getArticle, {id: id, _ref: 'front'}).then((res: any) => {
-      setArticle(res.data)
-    })
+    request(frontBlogApi.getArticle, {id: id, _ref: 'front'})
+      .then((res: any) => {
+        if (res !== undefined) setArticle(res.data)
+      })
     // eslint-disable-next-line
   }, [])
 

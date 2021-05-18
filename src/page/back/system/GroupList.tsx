@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react"
-import {Button, message, Space, Table} from "antd"
+import {Button, Space, Table} from "antd"
 import AddGroup from "./AddGroup"
 import request from "../../../request"
 import {backSystemApi} from "../../../api"
@@ -77,8 +77,7 @@ export default function GroupList() {
   function deleteGroup(id: number) {
     request(backSystemApi.deleteGroup, {id: id})
       .then((res: any) => {
-        message.success(res.msg).then()
-        setRefresh(refresh + 1)
+        if (res !== undefined) setRefresh(refresh + 1)
       })
   }
 
@@ -86,7 +85,7 @@ export default function GroupList() {
     setLoading(true)
     request(backSystemApi.getGroups)
       .then((res: any) => {
-        setGroupList(res.data)
+        if (res !== undefined) setGroupList(res.data)
       })
       .finally(() => setLoading(false))
   }, [refresh])

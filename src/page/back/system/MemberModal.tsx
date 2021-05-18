@@ -1,4 +1,4 @@
-import {Divider, message, Modal, Select, Tag} from "antd"
+import {Divider, Modal, Select, Tag} from "antd"
 import {useEffect, useState} from "react"
 import {Member} from "../../../interface"
 import request from "../../../request"
@@ -25,7 +25,7 @@ export default function MemberModal(props: { visibleProp: Array<any>, currentGro
       // 填充成员标签
       request(backSystemApi.getGroupMembers, {group: props.currentGroupId})
         .then((res: any) => {
-          setOldMembers(res.data)
+          if (res !== undefined) setOldMembers(res.data)
         })
     }
     // eslint-disable-next-line
@@ -54,8 +54,7 @@ export default function MemberModal(props: { visibleProp: Array<any>, currentGro
         new_members: idOfNewMembers
       })
       .then((res: any) => {
-        message.success(res.msg).then()
-        setVisible(false)
+        if (res!==undefined)setVisible(false)
       })
       .finally(() => setLoading(false))
   }
@@ -65,7 +64,7 @@ export default function MemberModal(props: { visibleProp: Array<any>, currentGro
   function onSearch(fuzzyName: string) {
     request(backSystemApi.getUserSearchList, {fuzzy_name: fuzzyName})
       .then((res: any) => {
-        setOptions(res.data)
+        if (res!==undefined)setOptions(res.data)
       })
   }
 

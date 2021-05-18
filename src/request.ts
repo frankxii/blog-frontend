@@ -2,22 +2,29 @@ import axios from "axios"
 import {message} from "antd"
 
 axios.defaults.baseURL = 'http://localhost:8000'
+// axios.defaults.baseURL = 'http://www.frankxii.com:8000'
+
+axios.defaults.timeout = 1000 * 4
 
 // axios 拦截器
 // https://www.jianshu.com/p/646ed4edf51f
 axios.interceptors.response.use(
   // @ts-ignore
-  response => {
+  (response) => {
     if (response.data.ret === 0) {
+      // 如果不是get请求，打印msg
+      if (response.config.method !== "get") {
+        message.success(response.data.msg, 2).then()
+      }
       return Promise.resolve(response.data)
     } else {
-      // return Promise.resolve(response)
-      message.error(response.data.msg).then()
-      return Promise.reject(response)
+      message.error(response.data.msg, 2).then()
+      // 不返回promise，后续的回调会收到undefined
+      // return Promise.reject(response)
     }
-  }, error => {
+  }, () => {
     message.error('网络异常').then()
-    return Promise.reject(error)
+    // return Promise.reject(error)
   }
 )
 

@@ -14,7 +14,7 @@ export default function Siderbar(props: any) {
   useEffect(() => {
     request(backSystemApi.getMenu)
       .then(res => {
-        setMenu(res.data)
+        if (res !== undefined) setMenu(res.data)
       })
   }, [])
 

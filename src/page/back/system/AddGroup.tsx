@@ -1,4 +1,4 @@
-import {Button, Form, Input, message} from "antd"
+import {Button, Form, Input} from "antd"
 import React, {useEffect} from "react"
 import request from "../../../request"
 import {backSystemApi} from "../../../api"
@@ -19,9 +19,10 @@ export default function AddGroup(props: { show: boolean, freshProp: Array<any> }
   function onFinish(value: { groupName: string }) {
     request(backSystemApi.addGroup, {name: value.groupName})
       .then((res: any) => {
-        message.success(res.msg).then()
-        form.resetFields()
-        setRefresh(refresh + 1)
+        if (res !== undefined) {
+          form.resetFields()
+          setRefresh(refresh + 1)
+        }
       })
   }
 

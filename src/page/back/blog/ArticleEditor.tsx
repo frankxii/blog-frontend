@@ -21,7 +21,7 @@ export default function ArticleEditor(props: any) {
   // 分类下拉列表
   const [categories, setCategories] = useState([{id: 0, name: ''}])
   // 当前选择分类
-  const [category, setCategory] = useState<SelectorOption>({value: 0, text: ''})
+  const [category, setCategory] = useState<SelectorOption>({value: 0, text: '未分类'})
   // 标签列表
   const tagList = useTagList()
 
@@ -33,9 +33,7 @@ export default function ArticleEditor(props: any) {
   // 获取分类
   useEffect(function getCategories() {
     request(backBlogApi.getCategories).then(res => {
-      let categories = res.data
-      setCategories(categories)
-      setCategory(categories[0])
+      if (res !== undefined) setCategories(res.data)
     })
   }, [props])
 
@@ -47,14 +45,16 @@ export default function ArticleEditor(props: any) {
     if (id !== undefined) {
       request(backBlogApi.getArticle, {id: id})
         .then(res => {
-          let article = res.data
-          // 填充标题、文章内容、分类、标签
-          // @ts-ignore
-          inputRef.current.state.value = article.title
-          setValue(article.body)
-          setId(id)
-          setCategory({value: article.category_id, text: article.category_name})
-          setSelectedTags(article.tags)
+          if (res !== undefined) {
+            let article = res.data
+            // 填充标题、文章内容、分类、标签
+            // @ts-ignore
+            inputRef.current.state.value = article.title
+            setValue(article.body)
+            setId(id)
+            setCategory({value: article.category_id, text: article.category_name})
+            setSelectedTags(article.tags)
+          }
         })
     } else {
       // 清空标题、内容，主要应用场景为编辑后跳转新建页面
@@ -78,9 +78,8 @@ export default function ArticleEditor(props: any) {
       // 创建或修改文章
       request(id === 0 ? backBlogApi.addArticle : backBlogApi.updateArticle,
         {id: id, title: title, body: value, category_id: category.value, tags: selectedTags}
-      ).then(res => {
-        message.success(id === 0 ? '创建成功' : '保存成功', 2).then()
-        if ('data' in res) {
+      ).then((res: any) => {
+        if (res !== undefined && 'data' in res) {
           setId(res.data.id)
         }
       })
@@ -103,9 +102,14 @@ export default function ArticleEditor(props: any) {
             value={category.text}
             style={{width: 120}}
             // 修改类别id
-            onChange={(text: string, option: any) => setCategory({value: parseInt(option.key), text: text})}
+            onChange={(text: string, option: any) =>
+              setCategory({value: parseInt(option.key.split('category')[1]), text: text})
+            }
           >
-            {categories.map(category => <Option key={category.id} value={category.name}>{category.name}</Option>)}
+            {categories.map(category =>
+              <Option key={'category' + category.id}
+                      value={category.name}>{category.name}
+              </Option>)}
           </Select>
         </Col>
         {/*标签*/}

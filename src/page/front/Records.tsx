@@ -12,7 +12,7 @@ export default function Records() {
   useEffect(function getRecords() {
     request(frontBlogApi.getRecords)
       .then(res => {
-        setRecords(res.data)
+        if (res !== undefined) setRecords(res.data)
       })
   }, [])
 

@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react"
-import {Table, Button, Space, Modal, Input, message} from "antd"
+import {Table, Button, Space, Modal, Input} from "antd"
 import request from "../../../request"
 import {backBlogApi} from "../../../api"
 
@@ -18,8 +18,6 @@ export default function CategoryList() {
   const [refresh, setRefresh] = useState(0)
   // 弹窗input组件引用
   const inputRef = useRef(null)
-  // loading加载时间
-  const duration = 2
   // 表格列结构
   const columns = [
     {
@@ -77,10 +75,11 @@ export default function CategoryList() {
     let data = {id: modalProps.id, name: inputRef.current.state.value}
 
     request(isAdd ? backBlogApi.addCategory : backBlogApi.updateCategory, data)
-      .then(() => {
-        setIsModalVisible(false)
-        message.success(`${isAdd ? '新增' : '更新'}分类成功`, duration).then()
-        setRefresh(refresh + 1)
+      .then((res: any) => {
+        if (res !== undefined) {
+          setIsModalVisible(false)
+          setRefresh(refresh + 1)
+        }
       })
       .finally(() => setConfirmLoading(false))
   }
@@ -88,18 +87,17 @@ export default function CategoryList() {
   // 删除分类
   function handleDelete(record: any) {
     request(backBlogApi.deleteCategory, {id: record.id})
-      .then(() => {
-        message.success('删除成功', duration).then()
-        setRefresh(refresh + 1)
-      }).catch(() => message.error('删除失败', duration).then())
+      .then((res: any) => {
+        if (res !== undefined) setRefresh(refresh + 1)
+      })
   }
 
   // 刷新表格
   useEffect(() => {
     setListLoading(true)
-    request(backBlogApi.getCategories)
+    request(backBlogApi.getCategories, {uncategorized: false})
       .then(res => {
-        setCategories(res.data)
+        if (res !== undefined) setCategories(res.data)
       })
       .finally(() => setListLoading(false))
   }, [refresh])

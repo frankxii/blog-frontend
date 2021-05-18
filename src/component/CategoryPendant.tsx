@@ -10,7 +10,7 @@ export default function CategoryPendant() {
   useEffect(() => {
     request(frontBlogApi.getArchive, {cate: 'category'})
       .then(res => {
-        setCategories(res.data)
+        if (res !== undefined) setCategories(res.data)
       })
   }, [])
 
@@ -29,7 +29,7 @@ export default function CategoryPendant() {
             key={category.name}
           >
             <span>{category.name}</span>
-            <Tag style={{border:"none",fontSize:14}}>{category.count}</Tag>
+            <Tag style={{border: "none", fontSize: 14}}>{category.count}</Tag>
           </Link>
         )}
       </Card>

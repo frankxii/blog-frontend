@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {Table, Button, Space, message} from "antd"
+import {Table, Button, Space} from "antd"
 import request from "../../../request"
 import {backBlogApi} from "../../../api"
 import ArticleTag from "../../../component/ArticleTag"
@@ -109,9 +109,8 @@ export default function ArticleList(props: any) {
 
   function handleDelete(id: number) {
     request(backBlogApi.deleteArticle, {id: id})
-      .then(() => {
-        message.success('删除成功', 2).then()
-        setRefresh(refresh + 1)
+      .then((res: any) => {
+        if (res !== undefined) setRefresh(refresh + 1)
       })
   }
 
@@ -126,9 +125,11 @@ export default function ArticleList(props: any) {
       filters: filters
     })
       .then(res => {
-        let data = res.data
-        setArticleList(data.lists)
-        setPagination({current: data.current, pageSize: data.page_size, total: data.total})
+        if (res !== undefined) {
+          let data = res.data
+          setArticleList(data.lists)
+          setPagination({current: data.current, pageSize: data.page_size, total: data.total})
+        }
       })
       .finally(() => setLoading(false))
     // eslint-disable-next-line

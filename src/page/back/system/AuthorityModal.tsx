@@ -1,4 +1,4 @@
-import {message, Modal, Tree} from "antd"
+import {Modal, Tree} from "antd"
 import {useEffect, useState} from "react"
 import {PermissionNode} from "../../../interface"
 import request from "../../../request"
@@ -18,11 +18,11 @@ export default function AuthorityModal(props: { visibleProp: any[], currentGroup
       setCheckedKeys([])
       request(backSystemApi.getPermissionTree)
         .then(res => {
-          setTreeData(res.data)
+          if (res !== undefined) setTreeData(res.data)
         })
       request(backSystemApi.getGroupPermission, {group: props.currentGroupId})
         .then(res => {
-          setCheckedKeys(res.data)
+          if (res !== undefined) setCheckedKeys(res.data)
         })
     }
     // eslint-disable-next-line
@@ -36,8 +36,7 @@ export default function AuthorityModal(props: { visibleProp: any[], currentGroup
         checked_keys: checkedKeys
       }
     ).then((res: any) => {
-      message.success(res.msg).then()
-      setVisible(false)
+      if (res !== undefined) setVisible(false)
     }).finally(() => setLoading(false))
   }
 
