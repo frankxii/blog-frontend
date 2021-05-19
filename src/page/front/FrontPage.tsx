@@ -10,7 +10,7 @@ import Article from "./Article"
 import ArticleList from "./ArticleList"
 import Welcome from "./Welcome"
 import Navigator from "./Navigator"
-import CategoryPendant from "../../component/CategoryPendant"
+import CommonPendant from "../../component/CommonPendant"
 import TagCloudPendant from "../../component/TagCloudPendant"
 import Records from "./Records"
 import SiteLogo from "../../component/SiteLogo"
@@ -46,13 +46,18 @@ export default function FrontPage(props: any) {
                   path={`${props.match.path}/category/:category_name`}
                   component={ArticleList}/>
                 <Route path={`${props.match.path}/tag/:tag_name`} component={ArticleList}/>
+                <Route path={`${props.match.path}/month/:month`} component={ArticleList}/>
               </Card>
             </Col>
             <Col offset={2}>
               <Affix offsetTop={113}>
                 <div>
                   {/*分类挂件*/}
-                  <CategoryPendant/>
+                  <CommonPendant cate='category'/>
+                  {/*时间挂件*/}
+                  <div style={{marginTop: 20}}>
+                    <CommonPendant cate='month'/>
+                  </div>
                   {/*标签云*/}
                   <div style={{marginTop: 20}}>
                     <TagCloudPendant/>

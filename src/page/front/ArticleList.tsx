@@ -34,6 +34,9 @@ export default function ArticleList(props: any) {
     if (params.hasOwnProperty('tag_name')) {
       filters = {tag_name: params.tag_name}
     }
+    if (params.hasOwnProperty('month')) {
+      filters = {month: params.month}
+    }
     // 开启加载组件
     setLoading(true)
     // 获取博客文章列表
@@ -47,7 +50,6 @@ export default function ArticleList(props: any) {
           setTotal(data.total)
         }
       }).finally(() => setLoading(false))
-
   }, [props, current, pageSize])
 
   // 获取标签map
