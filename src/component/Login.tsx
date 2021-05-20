@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import {Form, Input, Button} from 'antd';
 import {UserOutlined, LockOutlined} from '@ant-design/icons'
+import request from "../request"
+import {backSystemApi} from "../api"
 
 export default function Login() {
   const [form] = Form.useForm()
@@ -11,8 +13,15 @@ export default function Login() {
     forceUpdate({})
   }, [])
 
-  const onFinish = (values: any) => {
-    console.log('Finish:', values)
+  const onFinish = (userInfo: { username: string, password: string }) => {
+    request(backSystemApi.addToken, userInfo)
+      .then(res => {
+        if (res !== undefined) {
+          form.resetFields()
+          localStorage.setItem('token', res.data)
+          window.location.reload()
+        }
+      })
   }
 
   return (

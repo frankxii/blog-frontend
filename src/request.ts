@@ -8,6 +8,17 @@ axios.defaults.timeout = 1000 * 4
 
 // axios 拦截器
 // https://www.jianshu.com/p/646ed4edf51f
+
+axios.interceptors.request.use((request) => {
+  if (request.url?.includes('back')) {
+    let token = localStorage.getItem('token')
+    if (token) {
+      request.headers.Authorization = 'Bearer ' + token
+    }
+  }
+  return request
+})
+
 axios.interceptors.response.use(
   // @ts-ignore
   (response) => {
