@@ -9,9 +9,11 @@ export function useTagList() {
   useEffect(() => {
     request(frontBlogApi.getTagMap)
       .then(res => {
-        let tempTagList: SelectorOption[] = []
-        Object.keys(res.data).forEach(key => tempTagList.push({value: Number(key), text: res.data[key]}))
-        setTagList(tempTagList)
+        if (res !== undefined) {
+          let tempTagList: SelectorOption[] = []
+          Object.keys(res.data).forEach(key => tempTagList.push({value: Number(key), text: res.data[key]}))
+          setTagList(tempTagList)
+        }
       })
   }, [])
 
@@ -26,14 +28,16 @@ export function useTagMap() {
   useEffect(() => {
     request(frontBlogApi.getTagMap)
       .then(res => {
-        let tempTagMap = new Map<number, string>()
-        // object to map
-        for (const key in res.data) {
-          if (res.data.hasOwnProperty(key)) {
-            tempTagMap.set(Number(key), res.data[key])
+        if (res !== undefined) {
+          let tempTagMap = new Map<number, string>()
+          // object to map
+          for (const key in res.data) {
+            if (res.data.hasOwnProperty(key)) {
+              tempTagMap.set(Number(key), res.data[key])
+            }
           }
+          setTagMap(tempTagMap)
         }
-        setTagMap(tempTagMap)
       })
   }, [])
 
@@ -45,11 +49,13 @@ export function useCategoryList() {
 
   useEffect(() => {
     request(backBlogApi.getCategories).then(res => {
-      let tempList: SelectorOption[] = []
-      res.data.forEach((item: { id: number, name: string }) => {
-        tempList.push({value: item.id, text: item.name})
-      })
-      setCategoryList(tempList)
+      if (res !== undefined) {
+        let tempList: SelectorOption[] = []
+        res.data.forEach((item: { id: number, name: string }) => {
+          tempList.push({value: item.id, text: item.name})
+        })
+        setCategoryList(tempList)
+      }
     })
   }, [])
 
