@@ -29,7 +29,12 @@ axios.interceptors.response.use(
       }
       return Promise.resolve(response.data)
     } else {
+
       message.error(response.data.msg, 2).then()
+      if ([10011, 10012, 11013].includes(response.data.ret)) {
+        localStorage.clear()
+        window.location.href = '/back'
+      }
       // 不返回promise，后续的回调会收到undefined
       // return Promise.reject(response)
     }

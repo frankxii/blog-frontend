@@ -12,10 +12,13 @@ export default function Siderbar(props: any) {
   const [menu, setMenu] = useState<MySubMenu[]>([])
 
   useEffect(() => {
-    request(backSystemApi.getMenu)
-      .then(res => {
-        if (res !== undefined) setMenu(res.data)
-      })
+    const token = localStorage.getItem('token')
+    if (token) {
+      request(backSystemApi.getMenu)
+        .then(res => {
+          if (res !== undefined) setMenu(res.data)
+        })
+    }
   }, [])
 
   return (
