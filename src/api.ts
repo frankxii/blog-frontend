@@ -35,8 +35,10 @@ export const backSystemApi = {
   deleteUser: ['/back/system/user', 'delete'],
   getUsers: ['/back/system/users', 'get'],
   getUserSearchList: ['/back/system/user/searchList', 'get'],
-  //token
+  // 登录
   addToken: ['back/system/user/token', 'post'],
+  // 激活或冻结
+  updateUserValidity:['back/system/user/validity','put'],
 
   // 权限组
   addGroup: ['/back/system/group', 'post'],

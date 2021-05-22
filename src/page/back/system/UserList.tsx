@@ -63,6 +63,7 @@ export default function UserList() {
             <Button
               size={"small"}
               danger={true}
+              onClick={() => activeUser(record.id, record.is_active)}
             >{record.is_active ? "冻结" : "激活"}
             </Button>
             <Button
@@ -90,6 +91,13 @@ export default function UserList() {
         setLoading(false)
       )
   }, [refresh])
+
+  function activeUser(id: number, validity: boolean) {
+    request(backSystemApi.updateUserValidity, {id: id, active: !validity})
+      .then(res => {
+        if (res !== undefined) setRefresh(refresh + 1)
+      })
+  }
 
   function deleteUser(id: number) {
     request(backSystemApi.deleteUser, {id: id})
