@@ -7,7 +7,7 @@ import {Row, Col} from "antd"
 import {backBlogApi} from "../../../api"
 import request from "../../../request"
 import {SelectorOption} from "../../../interface"
-import {useTagList} from "../../../hook"
+import {useCategoryList, useTagList} from "../../../hook"
 
 
 export default function ArticleEditor(props: any) {
@@ -19,23 +19,17 @@ export default function ArticleEditor(props: any) {
   // 标题输入框引用
   const inputRef = useRef(null)
   // 分类下拉列表
-  const [categories, setCategories] = useState([{id: 0, name: ''}])
+  // const [categories, setCategories] = useState([{id: 0, name: ''}])
+  const categories = useCategoryList()
   // 当前选择分类
   const [category, setCategory] = useState<SelectorOption>({value: 0, text: '未分类'})
+
   // 标签列表
   const tagList = useTagList()
 
   // 当前选择标签
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const {Option} = Select
-
-
-  // 获取分类
-  useEffect(function getCategories() {
-    request(backBlogApi.getCategories).then(res => {
-      if (res !== undefined) setCategories(res.data)
-    })
-  }, [props])
 
 
   // 填充编辑器
@@ -107,8 +101,8 @@ export default function ArticleEditor(props: any) {
             }
           >
             {categories.map(category =>
-              <Option key={'category' + category.id}
-                      value={category.name}>{category.name}
+              <Option key={'category' + category.value}
+                      value={category.text}>{category.text}
               </Option>)}
           </Select>
         </Col>

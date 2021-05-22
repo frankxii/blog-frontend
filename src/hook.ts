@@ -44,6 +44,20 @@ export function useTagMap() {
   return tagMap
 }
 
+// 获取标签归档后的标签列表
+export function useTagArchive() {
+  const [tagList, setTagList] = useState([])
+
+  useEffect(function getTagArchive() {
+    request(frontBlogApi.getArchive, {'cate': 'tag'})
+      .then(res => {
+          if (res !== undefined) setTagList(res.data)
+        }
+      )
+  }, [])
+  return tagList
+}
+
 export function useCategoryList() {
   const [categoryList, setCategoryList] = useState<SelectorOption[]>([])
 

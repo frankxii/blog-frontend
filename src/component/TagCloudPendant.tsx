@@ -1,21 +1,11 @@
 import {Card, Divider, Space, Tag} from "antd"
-import React, {useEffect, useState} from "react"
+import React from "react"
 import {Link} from "react-router-dom"
-import request from "../request"
-import {frontBlogApi} from "../api"
+import {useTagArchive} from "../hook"
 
 
 export default function TagCloudPendant() {
-
-  const [tagList, setTagList] = useState([])
-
-  useEffect(function getTagArchive() {
-    request(frontBlogApi.getArchive, {'cate': 'tag'})
-      .then(res => {
-          if (res !== undefined) setTagList(res.data)
-        }
-      )
-  }, [])
+  const tagList=useTagArchive()
 
   return (
     <Card

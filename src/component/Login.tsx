@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import {Form, Input, Button} from 'antd';
 import {UserOutlined, LockOutlined} from '@ant-design/icons'
 import request from "../request"
@@ -6,12 +6,6 @@ import {backSystemApi} from "../api"
 
 export default function Login() {
   const [form] = Form.useForm()
-  const [, forceUpdate] = useState({})
-
-  // To disable submit button at the beginning.
-  useEffect(() => {
-    forceUpdate({})
-  }, [])
 
   const onFinish = (userInfo: { username: string, password: string }) => {
     request(backSystemApi.addToken, userInfo)

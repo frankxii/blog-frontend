@@ -1,31 +1,26 @@
 import React, {useEffect, useState} from 'react'
-import {List, Space} from "antd"
+
 import {Link} from "react-router-dom"
+import {List, Space} from "antd"
+import {EyeOutlined, FieldTimeOutlined, UnorderedListOutlined} from '@ant-design/icons'
+
 import {frontBlogApi} from "../../api"
 import request from "../../request"
-import ArticleTag from "../../component/ArticleTag"
-import {EyeOutlined, FieldTimeOutlined, UnorderedListOutlined} from '@ant-design/icons'
 import {Article} from "../../interface"
-
+import {useTagMap} from "../../hook"
+import ArticleTag from "../../component/ArticleTag"
 
 export default function ArticleList(props: any) {
   const [lists, setLists] = useState<Article[]>([])
-  // 标签map
-  const [tagMap, setTagMap] = useState<Map<number, string>>(new Map())
 
-  // 每页列表的条数
-  const [pageSize, setPageSize] = useState(5)
-  // 当前分页数
-  const [current, setCurrent] = useState(1)
-  // 列表总条数
-  const [total, setTotal] = useState(0)
+  // 标签map
+  // const [tagMap, setTagMap] = useState<Map<number, string>>(new Map())
+
+  const tagMap=useTagMap()
 
   const [loading, setLoading] = useState(false)
 
   useEffect(function getArticleLIst() {
-
-    let pagination = {current: current, page_size: pageSize}
-
     let filters: any = {}
     let params = props.match.params
     if (params.hasOwnProperty('category_name')) {
@@ -40,35 +35,14 @@ export default function ArticleList(props: any) {
     // 开启加载组件
     setLoading(true)
     // 获取博客文章列表
-    request(frontBlogApi.getArticles, {pagination: pagination, filters: filters})
+    request(frontBlogApi.getArticles, {filters: filters})
       .then((res: any) => {
         if (res !== undefined) {
           let data = res.data
           setLists(data.lists)
-          setCurrent(data.current)
-          setPageSize(data.page_size)
-          setTotal(data.total)
         }
       }).finally(() => setLoading(false))
-  }, [props, current, pageSize])
-
-  // 获取标签map
-  useEffect(function getTagMap() {
-    request(frontBlogApi.getTagMap)
-      .then(res => {
-        if (res !== undefined) {
-          let tempTagMap = new Map<number, string>()
-          // object to map
-          for (const key in res.data) {
-            if (res.data.hasOwnProperty(key)) {
-              tempTagMap.set(Number(key), res.data[key])
-            }
-          }
-          setTagMap(tempTagMap)
-        }
-      })
   }, [props])
-
 
   return (
     <List
@@ -76,10 +50,7 @@ export default function ArticleList(props: any) {
       itemLayout="vertical"
       dataSource={lists}
       loading={loading}
-      pagination={{
-        // @ts-ignore
-        pageSize: pageSize, current: current, total: total, onChange: setCurrent
-      }}
+      pagination={{pageSize:5}}
       renderItem={(article: Article) => (
         <List.Item
           actions={[
