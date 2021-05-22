@@ -4,7 +4,6 @@ import {Row, Col, Layout, Card, Affix} from "antd"
 import {Content} from "antd/es/layout/layout"
 
 import {Route} from "react-router-dom"
-
 import About from "./About"
 import Article from "./Article"
 import ArticleList from "./ArticleList"
@@ -19,6 +18,13 @@ export default function FrontPage(props: any) {
 
   return (
     <div>
+      {/*Fork me on Github*/}
+      <a className="github-fork-ribbon"
+         href="https://github.com/frankxii"
+         target="_blank"
+         rel="noreferrer"
+         data-ribbon="Fork me on Github"
+      >fork me</a>
       {/*导航栏*/}
       <Card style={{borderRadius: 8, width: '100%'}} bodyStyle={{padding: 0}}>
         <Row align="middle">
