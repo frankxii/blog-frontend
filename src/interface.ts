@@ -55,3 +55,10 @@ export interface Record {
   datetime: string,
   event: string
 }
+
+//分页
+export interface Pagination {
+  current: number,
+  pageSize: number,
+  total: number
+}

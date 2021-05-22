@@ -2,20 +2,29 @@ import React, {useEffect, useRef, useState} from "react"
 import {Table, Button, Space, Modal, Input} from "antd"
 import request from "../../../request"
 import {backBlogApi} from "../../../api"
+import {Pagination} from "../../../interface"
 
 export default function CategoryList() {
   // 分类列表数据
   const [categories, setCategories] = useState([{id: null, name: ''}])
+  // 列表loading值
+  const [listLoading, setListLoading] = useState(false)
+  // 分页
+  const [pagination, setPagination] = useState<Pagination>({
+    current: 1,
+    pageSize: 10,
+    total: 0
+  })
+  // 提交成功后刷新列表
+  const [refresh, setRefresh] = useState(0)
   // 弹窗展示bool值
   const [isModalVisible, setIsModalVisible] = useState(false)
   // 弹窗内部属性，type:操作类型，id:类别id，name：类别名称
   const [modalProps, setModalProps] = useState({type: 'add', id: 0, name: ''})
   // 弹窗确定按钮loading bool值
   const [confirmLoading, setConfirmLoading] = useState(false)
-  // 列表loading值
-  const [listLoading, setListLoading] = useState(false)
-  // 提交成功后刷新列表
-  const [refresh, setRefresh] = useState(0)
+
+
   // 弹窗input组件引用
   const inputRef = useRef(null)
   // 表格列结构
@@ -126,6 +135,8 @@ export default function CategoryList() {
         dataSource={categories}
         columns={columns}
         loading={listLoading}
+        pagination={pagination}
+        onChange={(pagination: any) => setPagination(pagination)}
       />
       {/*模态弹窗组件，内含一个输入框*/}
       <Modal

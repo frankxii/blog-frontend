@@ -4,6 +4,7 @@ import request from "../../../request"
 import {backBlogApi} from "../../../api"
 import ArticleTag from "../../../component/ArticleTag"
 import {useCategoryList, useTagList, useTagMap} from "../../../hook"
+import {Pagination} from "../../../interface"
 
 
 export default function ArticleList(props: any) {
@@ -14,15 +15,15 @@ export default function ArticleList(props: any) {
   // 列表loading特性开关
   const [loading, setLoading] = useState(false)
 
-  const [pagination, setPagination] = useState({
+  const [pagination, setPagination] = useState<Pagination>({
     current: 1,
-    pageSize: 5,
+    pageSize: 10,
     total: 0
   })
 
   const [filters, setFilters] = useState({
-    category_ids: [],
-    tag_ids: []
+    category_ids: null,
+    tag_ids: null
   })
 
   // 标签map
@@ -118,27 +119,42 @@ export default function ArticleList(props: any) {
   useEffect(function getArticleLIst() {
     setLoading(true)
     request(backBlogApi.getArticles, {
-      pagination: {
-        current: pagination.current,
-        page_size: pagination.pageSize,
-      },
+      // pagination: {
+      //   current: pagination.current,
+      //   page_size: pagination.pageSize,
+      // },
       filters: filters
     })
       .then(res => {
         if (res !== undefined) {
           let data = res.data
           setArticleList(data.lists)
-          setPagination({current: data.current, pageSize: data.page_size, total: data.total})
+          // 05-22 去掉后端分页，利用前端分页提高体验
+          // setPagination({current: data.current, pageSize: data.page_size, total: data.total})
         }
       })
       .finally(() => setLoading(false))
     // eslint-disable-next-line
   }, [refresh])
 
-  function changePage(pagination: any, filters: any) {
+  function changePage(pagination: any, tFilters: any) {
+    // 设置分页
     setPagination(pagination)
-    setFilters({category_ids: filters.category_name, tag_ids: filters.tags})
-    setRefresh(refresh + 1)
+    // 转换当前filter数据
+    let cate_filter = JSON.stringify(tFilters.category_name)
+    let tag_filter = JSON.stringify(tFilters.tags)
+    // 转换上一次的filter数据
+    let old_cate_filter = JSON.stringify(filters.category_ids)
+    let old_tag_filter = JSON.stringify(filters.tag_ids)
+    // 当filter数据有变化时才执行
+    if (cate_filter !== old_cate_filter || tag_filter !== old_tag_filter) {
+      // 重置分页
+      setPagination({current: 1, pageSize: 1, total: 0})
+      // 设置filter
+      setFilters({category_ids: tFilters.category_name, tag_ids: tFilters.tags})
+      // 刷新页面
+      setRefresh(refresh + 1)
+    }
   }
 
 

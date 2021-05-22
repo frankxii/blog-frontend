@@ -4,7 +4,7 @@ import {useEffect, useState} from "react"
 import request from "../../../request"
 import {backSystemApi} from "../../../api"
 
-import {User} from "../../../interface"
+import {Pagination, User} from "../../../interface"
 
 export default function UserList() {
   // 新增组件相关
@@ -13,6 +13,11 @@ export default function UserList() {
   // 列表相关
   const [userList, setUserList] = useState<User[]>([])
   const [loading, setLoading] = useState<boolean>(false)
+  const [pagination, setPagination] = useState<Pagination>({
+    current: 1,
+    pageSize: 10,
+    total: 0
+  })
   const [refresh, setRefresh] = useState<number>(0)
 
   const columns = [
@@ -110,6 +115,8 @@ export default function UserList() {
         loading={loading}
         dataSource={userList}
         columns={columns}
+        pagination={pagination}
+        onChange={(pageInfo: any) => setPagination(pageInfo)}
       />
     </div>)
 }

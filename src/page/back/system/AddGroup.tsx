@@ -5,9 +5,7 @@ import {backSystemApi} from "../../../api"
 
 export default function AddGroup(props: { show: boolean, freshProp: Array<any> }) {
   let show = props.show
-
   const [refresh, setRefresh] = props.freshProp
-
   const [form] = Form.useForm()
 
   useEffect(() => {

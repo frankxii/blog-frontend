@@ -4,6 +4,7 @@ import {Link} from "react-router-dom"
 import request from "../request"
 import {frontBlogApi} from '../api'
 
+// 分类和日期挂件
 export default function CommonPendant(props: { cate: string }) {
   const [records, setRecords] = useState([{text: '', count: 0}])
 

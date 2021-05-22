@@ -24,7 +24,7 @@ export default function ArticleTag(props: TagProps) {
       </Space>
     )
   } else {
-    return <span/>
+    return null
   }
 }
 

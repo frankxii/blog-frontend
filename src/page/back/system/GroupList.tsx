@@ -4,7 +4,7 @@ import AddGroup from "./AddGroup"
 import request from "../../../request"
 import {backSystemApi} from "../../../api"
 
-import {Group} from "../../../interface"
+import {Group, Pagination} from "../../../interface"
 import MemberModal from "./MemberModal"
 import AuthorityModal from "./AuthorityModal"
 
@@ -15,6 +15,11 @@ export default function GroupList() {
   // 权限组列表相关
   const [groupList, setGroupList] = useState<Group[]>([])
   const [loading, setLoading] = useState<boolean>(false)
+  const [pagination, setPagination] = useState<Pagination>({
+    current: 1,
+    pageSize: 10,
+    total: 0
+  })
   const [refresh, setRefresh] = useState<number>(0)
 
   // 操作按钮相关
@@ -106,6 +111,8 @@ export default function GroupList() {
         loading={loading}
         dataSource={groupList}
         columns={columns}
+        pagination={pagination}
+        onChange={(pagination: any) => setPagination(pagination)}
       />
       <MemberModal visibleProp={[showMemberModal, setShowMemberModal]} currentGroupId={currentGroupId}/>
       <AuthorityModal visibleProp={[showAuthorityModal, setShowAuthorityModal]} currentGroupId={currentGroupId}/>
