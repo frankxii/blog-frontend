@@ -21,58 +21,27 @@ export default function FrontPage(props: any) {
   const width = window.outerWidth
 
 
-  let ForkMe: CallableFunction = () => (
-    <a className="github-fork-ribbon"
-       href="https://github.com/frankxii"
-       target="_blank"
-       rel="noreferrer"
-       data-ribbon="Fork me on Github"
-    >fork me</a>
-  )
-  let MySiteLogo: CallableFunction = () => <SiteLogo theme={"black"}/>
-
-  let ArchivePendant: CallableFunction = () =>
-    <Col
-      lg={{offset:1}}
-      xl={{}}
-    >
-      <Affix offsetTop={120}>
-        <div>
-          {/*分类挂件*/}
-          <CommonPendant cate='category'/>
-          {/*时间挂件*/}
-          <div>
-            <CommonPendant cate='month'/>
-          </div>
-          {/*标签云*/}
-          <div>
-            <TagCloudPendant/>
-          </div>
-        </div>
-      </Affix>
-    </Col>
-
-
-  // 小屏幕上不展示ForkMe和Logo
-  if (width < 500) {
-    ForkMe = () => null
-    MySiteLogo = () => null
-    ArchivePendant = () => null
-  }
-
   return (
     <div>
       <Affix>
         <Row align={"middle"} style={{backgroundColor: "white", border: "1px solid white", borderRadius: 8}}>
           {/*Fork me on Github*/}
-          <ForkMe/>
+          {width < 500 ? null :
+            <a className="github-fork-ribbon"
+               href="https://github.com/frankxii"
+               target="_blank"
+               rel="noreferrer"
+               data-ribbon="Fork me on Github"
+            >fork me</a>}
           <Col
             md={{offset: 2}}
             lg={{offset: 3}}
             xl={{offset: 3}}
             xxl={{offset: 2}}
           >
-            <MySiteLogo/>
+            {width < 500 ? null :
+              <SiteLogo theme={"black"}/>
+            }
           </Col>
           <Col
             md={{offset: 1}}
@@ -88,14 +57,14 @@ export default function FrontPage(props: any) {
       {/*content容器*/}
       <Layout>
         <Content style={{backgroundColor: '#FAFAFA'}}>
-          <Row style={{minHeight:"94vh"}}>
+          <Row style={{minHeight: "94vh"}}>
             {/*主要内容区域*/}
             <Col
               xs={{span: 24}}
               md={{span: 15}}
-              lg={{span:15, offset:1}}
-              xl={{span:16,offset:2}}
-              xxl={{}}
+              lg={{span: 15, offset: 1}}
+              xl={{span: 15, offset: 2}}
+              xxl={{span: 15, offset: 3}}
             >
               <Card style={{borderRadius: 8}}>
                 <Route exact path={`${props.match.path}`} component={Welcome}/>
@@ -110,7 +79,23 @@ export default function FrontPage(props: any) {
                 <Route path={`${props.match.path}/month/:month`} component={ArticleList}/>
               </Card>
             </Col>
-            <ArchivePendant/>
+            {width < 500 ? null :
+              <Col lg={{offset: 1}}>
+                <Affix offsetTop={120}>
+                  <div>
+                    {/*分类挂件*/}
+                    <CommonPendant cate='category'/>
+                    {/*时间挂件*/}
+                    <div>
+                      <CommonPendant cate='month'/>
+                    </div>
+                    {/*标签云*/}
+                    <div>
+                      <TagCloudPendant/>
+                    </div>
+                  </div>
+                </Affix>
+              </Col>}
           </Row>
         </Content>
       </Layout>

@@ -12,12 +12,8 @@ import ArticleTag from "../../component/ArticleTag"
 
 export default function ArticleList(props: any) {
   const [lists, setLists] = useState<Article[]>([])
-
-  // 标签map
-  // const [tagMap, setTagMap] = useState<Map<number, string>>(new Map())
-
-  const tagMap=useTagMap()
-
+  const width = window.outerWidth
+  const tagMap = useTagMap()
   const [loading, setLoading] = useState(false)
 
   useEffect(function getArticleLIst() {
@@ -50,7 +46,7 @@ export default function ArticleList(props: any) {
       itemLayout="vertical"
       dataSource={lists}
       loading={loading}
-      pagination={{pageSize:5}}
+      pagination={{pageSize: 5}}
       renderItem={(article: Article) => (
         <List.Item
           actions={[
@@ -64,12 +60,12 @@ export default function ArticleList(props: any) {
             </Space>
           ]}
           extra={
-            <img
-              width={272}
-              alt="logo"
-              src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-            />
-          }
+            width < 1000 ? null :
+              <img
+                width={width * 0.14}
+                alt="logo"
+                src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+              />}
         >
           <List.Item.Meta
             title={

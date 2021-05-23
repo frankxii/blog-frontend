@@ -9,6 +9,13 @@ import {Record} from "../../interface"
 export default function Records() {
   const [records, setRecords] = useState<Record[]>([])
 
+  const width = window.outerWidth
+
+  // 响应式调整记录列数
+  let column = 2
+  if (width > 1300) column = 3
+  if (width > 1500) column = 4
+
   useEffect(function getRecords() {
     request(frontBlogApi.getRecords)
       .then(res => {
@@ -18,7 +25,7 @@ export default function Records() {
 
   return (
     <List
-      grid={{gutter: 16, column: 4}}
+      grid={{gutter: 16, column: column}}
       dataSource={records}
       renderItem={(record: Record) => (
         <List.Item>
