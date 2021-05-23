@@ -33,7 +33,7 @@ export default function Navigator() {
       onClick={(e: any) => setCurrent(e.key)}
       mode={"horizontal"}
       selectedKeys={[current]}
-      style={{borderBottomWidth: 0, marginLeft: "2vw"}}
+      style={{borderBottomWidth: 0}}
     >
       {menuInfo.map(item =>
         <Menu.Item key={item.key}>

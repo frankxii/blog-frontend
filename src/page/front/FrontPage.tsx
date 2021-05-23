@@ -1,7 +1,6 @@
 import React from "react"
 
 import {Row, Col, Layout, Card, Affix} from "antd"
-import {Content} from "antd/es/layout/layout"
 
 import {Route} from "react-router-dom"
 import About from "./About"
@@ -14,35 +13,91 @@ import TagCloudPendant from "../../component/TagCloudPendant"
 import Records from "./Records"
 import SiteLogo from "../../component/SiteLogo"
 
+
 export default function FrontPage(props: any) {
+
+  const {Content} = Layout
+
+  const width = window.outerWidth
+
+
+  let ForkMe: CallableFunction = () => (
+    <a className="github-fork-ribbon"
+       href="https://github.com/frankxii"
+       target="_blank"
+       rel="noreferrer"
+       data-ribbon="Fork me on Github"
+    >fork me</a>
+  )
+  let MySiteLogo: CallableFunction = () => <SiteLogo theme={"black"}/>
+
+  let ArchivePendant: CallableFunction = () =>
+    <Col
+      lg={{offset:1}}
+      xl={{}}
+    >
+      <Affix offsetTop={120}>
+        <div>
+          {/*分类挂件*/}
+          <CommonPendant cate='category'/>
+          {/*时间挂件*/}
+          <div>
+            <CommonPendant cate='month'/>
+          </div>
+          {/*标签云*/}
+          <div>
+            <TagCloudPendant/>
+          </div>
+        </div>
+      </Affix>
+    </Col>
+
+
+  // 小屏幕上不展示ForkMe和Logo
+  if (width < 500) {
+    ForkMe = () => null
+    MySiteLogo = () => null
+    ArchivePendant = () => null
+  }
 
   return (
     <div>
-      {/*Fork me on Github*/}
-      <a className="github-fork-ribbon"
-         href="https://github.com/frankxii"
-         target="_blank"
-         rel="noreferrer"
-         data-ribbon="Fork me on Github"
-      >fork me</a>
-      {/*导航栏*/}
-      <Card style={{borderRadius: 8, width: '100%'}} bodyStyle={{padding: 0}}>
-        <Row align="middle">
-          <Col offset={6}>
-            <SiteLogo theme={"black"}/>
+      <Affix>
+        <Row align={"middle"} style={{backgroundColor: "white", border: "1px solid white", borderRadius: 8}}>
+          {/*Fork me on Github*/}
+          <ForkMe/>
+          <Col
+            md={{offset: 2}}
+            lg={{offset: 3}}
+            xl={{offset: 3}}
+            xxl={{offset: 2}}
+          >
+            <MySiteLogo/>
           </Col>
-          <Col span={12}>
+          <Col
+            md={{offset: 1}}
+            lg={{offset: 4}}
+            xl={{offset: 8}}
+            xxl={{offset: 12}}
+          >
             <Navigator/>
           </Col>
         </Row>
-      </Card>
+      </Affix>
+
       {/*content容器*/}
       <Layout>
-        <Content style={{padding: '64px 50px', minHeight: 895, backgroundColor: '#FAFAFA'}}>
-          <Row>
+        <Content style={{backgroundColor: '#FAFAFA'}}>
+          <Row style={{minHeight:"94vh"}}>
             {/*主要内容区域*/}
-            <Col span={13} offset={4}>
-              <Card style={{borderRadius: 8, minHeight: 200}}>
+            <Col
+              xs={{span: 24}}
+              md={{span: 15}}
+              lg={{span:15, offset:1}}
+              xl={{span:16,offset:2}}
+              xxl={{}}
+            >
+              <Card style={{borderRadius: 8}}>
                 <Route exact path={`${props.match.path}`} component={Welcome}/>
                 <Route exact path={`${props.match.path}/article`} component={ArticleList}/>
                 <Route path={`${props.match.path}/article/:id`} component={Article}/>
@@ -55,22 +110,7 @@ export default function FrontPage(props: any) {
                 <Route path={`${props.match.path}/month/:month`} component={ArticleList}/>
               </Card>
             </Col>
-            <Col offset={2}>
-              <Affix offsetTop={113}>
-                <div>
-                  {/*分类挂件*/}
-                  <CommonPendant cate='category'/>
-                  {/*时间挂件*/}
-                  <div style={{marginTop: 20}}>
-                    <CommonPendant cate='month'/>
-                  </div>
-                  {/*标签云*/}
-                  <div style={{marginTop: 20}}>
-                    <TagCloudPendant/>
-                  </div>
-                </div>
-              </Affix>
-            </Col>
+            <ArchivePendant/>
           </Row>
         </Content>
       </Layout>
