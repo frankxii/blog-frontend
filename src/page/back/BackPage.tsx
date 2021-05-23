@@ -40,7 +40,8 @@ export default function BackPage(props: any) {
         </Sider>
         <Content style={{
           paddingLeft: "2vw",
-          // width: "100vw",
+          width: "100vw",
+          height:"94vh",
           paddingTop: "3vh",
           paddingRight: "1vh"
         }}>

@@ -83,18 +83,19 @@ export default function ArticleEditor(props: any) {
 
   return (
     <div>
-      <Row gutter={20}>
+      <Row gutter={20} align={"middle"}
+      >
         {/*标题输入框*/}
-        <Col span={8}>
-          <Input ref={inputRef} addonBefore="标题"/>
+        <Col>
+          <Input style={{width:"20vw"}} ref={inputRef} addonBefore="标题"/>
         </Col>
         {/*类别*/}
         <Col>
           <label>分类：</label>
           <Select
+            style={{width:"10vw"}}
             // @ts-ignore
             value={category.text}
-            style={{width: 120}}
             // 修改类别id
             onChange={(text: string, option: any) =>
               setCategory({value: parseInt(option.key.split('category')[1]), text: text})
@@ -107,11 +108,11 @@ export default function ArticleEditor(props: any) {
           </Select>
         </Col>
         {/*标签*/}
-        <Col span={6}>
+        <Col>
           <label>标签：</label>
           <Select
+            style={{width:"15vw"}}
             mode="tags"
-            style={{width: '80%'}}
             // @ts-ignore
             value={selectedTags}
             // @ts-ignore

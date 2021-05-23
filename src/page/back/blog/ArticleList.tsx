@@ -37,51 +37,51 @@ export default function ArticleList(props: any) {
       key: "id",
       title: "id",
       dataIndex: "id",
-      width: 150,
+      width: "6vw",
     },
     {
       key: "title",
       title: "标题",
       dataIndex: "title",
-      width: 300,
+      width: "15vw",
     },
     {
       key: "category_name",
       title: "分类",
       dataIndex: "category_name",
-      width: 200,
+      width: "9vw",
       filters: categoryList
     },
     {
       key: "tags",
       title: "标签",
       dataIndex: "tags",
-      width: 300,
+      width: "15vw",
       filters: TagList,
       render: (tagIds: number[]) => <ArticleTag tagIds={tagIds} tagMap={tagMap}/>
     }, {
       key: "visit",
       title: "访问数",
       dataIndex: "visit",
-      width: 150
+      width: "7vw"
     },
     {
       key: "create_time",
       title: "创建时间",
       dataIndex: "create_time",
-      width: 200
+      width: "10vw"
     },
     {
       key: "update_time",
       title: "更新时间",
       dataIndex: "update_time",
-      width: 200
+      width: "10vw"
     },
     {
       key: "action",
       title: "操作",
       dataIndex: "id",
-      width: 200,
+      width: "10vw",
       render: renderOperate
     }
   ]
