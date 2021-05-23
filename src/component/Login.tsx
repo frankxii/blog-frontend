@@ -1,55 +1,89 @@
-import React from 'react'
-import {Form, Input, Button} from 'antd';
-import {UserOutlined, LockOutlined} from '@ant-design/icons'
+import React, {useState} from 'react'
+
+import {Form, Input, Button, Avatar, Space} from 'antd';
+import {UserOutlined, LockOutlined, CheckOutlined} from '@ant-design/icons'
+
 import request from "../request"
 import {backSystemApi} from "../api"
 
 export default function Login() {
   const [form] = Form.useForm()
+  const hasLogin = !!localStorage.getItem('token')
+  const [loginClicked, setLoginClicked] = useState<boolean>(false)
+  const username = localStorage.getItem('username') || 'Guest'
 
-  const onFinish = (userInfo: { username: string, password: string }) => {
-    request(backSystemApi.addToken, userInfo)
-      .then(res => {
-        if (res !== undefined) {
-          form.resetFields()
-          localStorage.setItem('token', res.data)
-          window.location.reload()
-        }
-      })
+  const onLogIn = (userInfo: { username: string, password: string }) => {
+    if (userInfo.username && userInfo.password) {
+      request(backSystemApi.addToken, userInfo)
+        .then(res => {
+          if (res !== undefined) {
+            let data = res.data
+            form.resetFields()
+            localStorage.setItem('token', data.token)
+            localStorage.setItem('username', data.username)
+            setTimeout(()=>window.location.reload(),1000)
+          }
+        })
+    }
   }
 
-  return (
-    <Form form={form} name="horizontal_login" layout="inline" onFinish={onFinish}>
-      <Form.Item
-        name="username"
-        // rules={[{required: true, message: 'Please input your username!'}]}
-      >
-        <Input prefix={<UserOutlined/>} placeholder="用户名"/>
+  const onLogOut = () => {
+    localStorage.clear()
+    window.location.reload()
+  }
+
+  const LogIn =
+    <Form
+      form={form} name="horizontal_login"
+      layout="inline" onFinish={onLogIn}
+    >
+      <Form.Item name="username">
+        <Input style={{width: "6vw"}} prefix={<UserOutlined/>}/>
       </Form.Item>
-      <Form.Item
-        name="password"
-        // rules={[{required: true, message: 'Please input your password!'}]}
-      >
+      <Form.Item name="password">
         <Input
+          style={{width: "6vw"}}
           prefix={<LockOutlined/>}
           type="password"
-          placeholder="密码"
         />
       </Form.Item>
       <Form.Item shouldUpdate>
-        {() => (
-          <Button
-            // type="primary"
-            htmlType="submit"
-            disabled={
-              !form.isFieldsTouched(true) ||
-              !!form.getFieldsError().filter(({errors}) => errors.length).length
-            }
-          >
-            登录
-          </Button>
-        )}
+        <Button htmlType="submit">
+          <CheckOutlined/>
+        </Button>
       </Form.Item>
     </Form>
+
+
+  const LogOut = (
+    <div>
+      <Avatar
+        style={{backgroundColor: "#141414", marginBottom: 4}}
+        shape="square"
+        size="small"
+        icon={<UserOutlined/>}
+      />
+      <Space>
+        <span style={{color: "white"}}>{username}</span>
+        <Button
+          style={{color: "white"}}
+          type="link"
+          onClick={onLogOut}
+        >Log out</Button>
+      </Space>
+    </div>
   )
+
+
+  const LoginLink =
+    <Button
+      style={{color: "white"}}
+      type="link"
+      onClick={() => setLoginClicked(true)}
+    >Log in</Button>
+
+
+  if (hasLogin) return LogOut
+
+  return loginClicked ? LogIn : LoginLink
 }

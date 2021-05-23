@@ -16,11 +16,16 @@ const {Content, Sider} = Layout
 export default function BackPage(props: any) {
   return (
     <div>
-      <Row align={"middle"} style={{height: 48, backgroundColor: '#141414'}}>
+      <Row align={"middle"} style={{
+        height: 48,
+        backgroundColor: '#141414',
+        display:"flex",
+        justifyContent:"space-between"
+      }}>
         <Col offset={1}>
           <SiteLogo theme={"white"}/>
         </Col>
-        <Col offset={12}>
+        <Col style={{marginRight:"3vw"}}>
           <Login/>
         </Col>
       </Row>
