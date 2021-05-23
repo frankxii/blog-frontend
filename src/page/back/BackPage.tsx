@@ -16,22 +16,34 @@ const {Content, Sider} = Layout
 export default function BackPage(props: any) {
   return (
     <div>
-      <Row align={"middle"} style={{
+      <Row align="middle" justify="space-between" style={{
         height: 48,
         backgroundColor: '#141414',
-        display:"flex",
-        justifyContent:"space-between"
       }}>
         <Col offset={1}>
           <SiteLogo theme={"white"}/>
         </Col>
-        <Col style={{marginRight:"3vw"}}>
+        <Col style={{marginRight: "3vw"}}>
           <Login/>
         </Col>
       </Row>
       <Layout>
-        <Sider><Route path={`${props.match.path}`} component={Siderbar}/></Sider>
-        <Content style={{paddingLeft: "2vw", paddingTop: 24, paddingRight: "1vh"}}>
+        <Sider
+          style={{height: "94vh"}}
+          theme={"light"}
+          collapsible={true}
+        >
+          <Route
+            path={`${props.match.path}`}
+            component={Siderbar}
+          />
+        </Sider>
+        <Content style={{
+          paddingLeft: "2vw",
+          // width: "100vw",
+          paddingTop: "3vh",
+          paddingRight: "1vh"
+        }}>
           <Switch>
             <Route exact path={`${props.match.path}`} component={Welcome}/>
             {/*权限相关*/}
