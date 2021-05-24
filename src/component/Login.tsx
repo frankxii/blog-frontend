@@ -21,7 +21,7 @@ export default function Login() {
             form.resetFields()
             localStorage.setItem('token', data.token)
             localStorage.setItem('username', data.username)
-            setTimeout(()=>window.location.reload(),1000)
+            setTimeout(() => window.location.reload(), 1000)
           }
         })
     }
@@ -57,6 +57,11 @@ export default function Login() {
 
   const LogOut = (
     <div>
+      <Button
+        style={{color: "white"}}
+        type="link"
+        onClick={() => window.location.href = "/front"}
+      >back to front</Button>
       <Avatar
         style={{backgroundColor: "#141414", marginBottom: 4}}
         shape="square"
@@ -76,11 +81,18 @@ export default function Login() {
 
 
   const LoginLink =
-    <Button
-      style={{color: "white"}}
-      type="link"
-      onClick={() => setLoginClicked(true)}
-    >Log in</Button>
+    <div>
+      <Button
+        style={{color: "white"}}
+        type="link"
+        onClick={() => window.location.href = "/front"}
+      >back to front</Button>
+      <Button
+        style={{color: "white"}}
+        type="link"
+        onClick={() => setLoginClicked(true)}
+      >Log in</Button>
+    </div>
 
 
   if (hasLogin) return LogOut

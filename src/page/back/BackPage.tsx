@@ -2,7 +2,6 @@ import React from 'react'
 import {Route, Switch} from "react-router-dom"
 import {Layout, Row, Col} from "antd"
 
-import Welcome from "../front/Welcome"
 import Siderbar from "./Siderbar"
 import ArticleList from "./blog/ArticleList"
 import CategoryList from "./blog/CategoryList"
@@ -11,6 +10,7 @@ import GroupList from "./system/GroupList"
 import UserList from "./system/UserList"
 import Login from "../../component/Login"
 import SiteLogo from "../../component/SiteLogo"
+import BackIndex from "./BackIndex"
 
 const {Content, Sider} = Layout
 export default function BackPage(props: any) {
@@ -41,12 +41,12 @@ export default function BackPage(props: any) {
         <Content style={{
           paddingLeft: "2vw",
           width: "100vw",
-          height:"94vh",
+          height: "94vh",
           paddingTop: "3vh",
           paddingRight: "1vh"
         }}>
           <Switch>
-            <Route exact path={`${props.match.path}`} component={Welcome}/>
+            <Route exact path={`${props.match.path}`} component={BackIndex}/>
             {/*权限相关*/}
             <Route path={`${props.match.path}/system/user`} component={UserList}/>
             <Route path={`${props.match.path}/system/group`} component={GroupList}/>
