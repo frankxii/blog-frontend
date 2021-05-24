@@ -50,13 +50,22 @@ export default function ArticleList(props: any) {
       renderItem={(article: Article) => (
         <List.Item
           actions={[
-            <Space>
-              <UnorderedListOutlined/>
-              {article.category_name}
-              <EyeOutlined/>
-              {article.visit}
-              <FieldTimeOutlined/>
-              {article.create_time}
+            <Space size={"large"}>
+              <div><Space>
+                <UnorderedListOutlined/>
+                {article.category_name}
+              </Space></div>
+
+              {width < 500 ? null :
+                <div><Space>
+                  <EyeOutlined/>
+                  {article.visit}
+                </Space></div>}
+
+              <div><Space>
+                <FieldTimeOutlined/>
+                {article.create_time}
+              </Space></div>
             </Space>
           ]}
           extra={

@@ -9,7 +9,7 @@ export default function TagCloudPendant() {
 
   return (
     <Card
-      style={{width: 260, borderRadius: 8}}
+      style={{width: 260}}
     >
       <p style={{textAlign: 'center'}}>标签</p>
       <Divider/>

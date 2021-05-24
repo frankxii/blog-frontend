@@ -20,11 +20,13 @@ export default function FrontPage(props: any) {
 
   const width = window.outerWidth
 
+  let marginTop = 0
+  if (width > 500) marginTop = 65
 
   return (
     <div>
       <Affix>
-        <Row align={"middle"} style={{backgroundColor: "white", border: "1px solid white", borderRadius: 8}}>
+        <Row align={"middle"} style={{backgroundColor: "white",}}>
           {/*Fork me on Github*/}
           {width < 500 ? null :
             <a className="github-fork-ribbon"
@@ -33,22 +35,12 @@ export default function FrontPage(props: any) {
                rel="noreferrer"
                data-ribbon="Fork me on Github"
             >fork me</a>}
-          <Col
-            md={{offset: 2}}
-            lg={{offset: 3}}
-            xl={{offset: 3}}
-            xxl={{offset: 2}}
-          >
+          <Col md={{offset: 1}} lg={{offset: 2}} xl={{offset: 3}} xxl={{offset: 5}}>
             {width < 500 ? null :
               <SiteLogo theme={"black"}/>
             }
           </Col>
-          <Col
-            md={{offset: 1}}
-            lg={{offset: 4}}
-            xl={{offset: 8}}
-            xxl={{offset: 12}}
-          >
+          <Col md={{offset: 1}} lg={{offset: 1}} xl={{offset: 2}} xxl={{offset: 2}}>
             <Navigator/>
           </Col>
         </Row>
@@ -57,16 +49,19 @@ export default function FrontPage(props: any) {
       {/*content容器*/}
       <Layout>
         <Content style={{backgroundColor: '#FAFAFA'}}>
-          <Row style={{minHeight: "94vh"}}>
+          <Row style={{
+            minHeight: width < 500 ? "94vh" : "88vh",
+            marginTop: marginTop
+          }}>
             {/*主要内容区域*/}
             <Col
               xs={{span: 24}}
-              md={{span: 15}}
+              md={{span: 14, offset: 1}}
               lg={{span: 15, offset: 1}}
-              xl={{span: 15, offset: 2}}
-              xxl={{span: 15, offset: 3}}
+              xl={{span: 14, offset: 2}}
+              xxl={{span: 14, offset: 3}}
             >
-              <Card style={{borderRadius: 8}}>
+              <Card>
                 <Route exact path={`${props.match.path}`} component={Welcome}/>
                 <Route exact path={`${props.match.path}/article`} component={ArticleList}/>
                 <Route path={`${props.match.path}/article/:id`} component={Article}/>
@@ -80,17 +75,17 @@ export default function FrontPage(props: any) {
               </Card>
             </Col>
             {width < 500 ? null :
-              <Col lg={{offset: 1}}>
-                <Affix offsetTop={120}>
+              <Col lg={{offset: 1}} xl={{offset: 2}}>
+                <Affix offsetTop={marginTop + 48}>
                   <div>
                     {/*分类挂件*/}
                     <CommonPendant cate='category'/>
                     {/*时间挂件*/}
-                    <div>
+                    <div style={{marginTop: "2vh"}}>
                       <CommonPendant cate='month'/>
                     </div>
                     {/*标签云*/}
-                    <div>
+                    <div style={{marginTop: "2vh"}}>
                       <TagCloudPendant/>
                     </div>
                   </div>

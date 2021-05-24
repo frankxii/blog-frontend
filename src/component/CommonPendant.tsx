@@ -28,7 +28,7 @@ export default function CommonPendant(props: { cate: string }) {
   if (records && records[0].text !== '') {
     return (
       <Card
-        style={{width: 260, borderRadius: 8}}
+        style={{width: 260}}
       >
         <p style={{textAlign: 'center'}}>{title}</p>
         <Divider/>
