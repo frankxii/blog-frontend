@@ -24,7 +24,7 @@ export default function BackPage(props: any) {
           <SiteLogo theme={"white"}/>
         </Col>
         <Col style={{marginRight: "3vw"}}>
-          <Login/>
+          <Route path={`${props.match.path}`} component={Login}/>
         </Col>
       </Row>
       <Layout>

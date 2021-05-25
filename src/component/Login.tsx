@@ -6,7 +6,7 @@ import {UserOutlined, LockOutlined, CheckOutlined} from '@ant-design/icons'
 import request from "../request"
 import {backSystemApi} from "../api"
 
-export default function Login() {
+export default function Login(props: any) {
   const [form] = Form.useForm()
   const hasLogin = !!localStorage.getItem('token')
   const [loginClicked, setLoginClicked] = useState<boolean>(false)
@@ -29,7 +29,7 @@ export default function Login() {
 
   const onLogOut = () => {
     localStorage.clear()
-    window.location.reload()
+    props.history.push('/back')
   }
 
   const LogIn =
@@ -54,14 +54,16 @@ export default function Login() {
       </Form.Item>
     </Form>
 
+  const FrontLink = () =>
+    <Button
+      style={{color: "white"}}
+      type="link"
+      onClick={() => props.history.push('/front/article')}
+    >back to front</Button>
 
   const LogOut = (
     <div>
-      <Button
-        style={{color: "white"}}
-        type="link"
-        onClick={() => window.location.href = "/front"}
-      >back to front</Button>
+      <FrontLink/>
       <Avatar
         style={{backgroundColor: "#141414", marginBottom: 4}}
         shape="square"
@@ -82,11 +84,7 @@ export default function Login() {
 
   const LoginLink =
     <div>
-      <Button
-        style={{color: "white"}}
-        type="link"
-        onClick={() => window.location.href = "/front"}
-      >back to front</Button>
+      <FrontLink/>
       <Button
         style={{color: "white"}}
         type="link"

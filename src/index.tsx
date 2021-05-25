@@ -17,7 +17,7 @@ ReactDOM.render(
         <Route path="/front" component={FrontPage}/>
         <Route path="/back" component={BackPage}/>
         {/*react 重定向 https://www.jianshu.com/p/a5268ac7b566*/}
-        <Redirect to="/front"/>
+        <Redirect to="/front/article"/>
       </Switch>
     </Router>
   </React.Fragment>,
