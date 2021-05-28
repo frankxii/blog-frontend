@@ -14,6 +14,13 @@ export interface Article {
   update_time: string
 }
 
+export interface Mood {
+  id: number,
+  content: string,
+  create_time: string,
+  is_visible: boolean
+}
+
 export interface User {
   id: number,
   is_active: boolean,

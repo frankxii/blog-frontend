@@ -24,8 +24,12 @@ export const backBlogApi = {
   updateCategory: ['/back/blog/category', 'put'],
   deleteCategory: ['/back/blog/category', 'delete'],
   getCategories: ['/back/blog/categories', 'get'],
-
-
+  // 说说
+  addMood: ['/back/blog/mood', 'post'],
+  deleteMood: ['/back/blog/mood', 'delete'],
+  updateMood: ['/back/blog/mood', 'put'],
+  getMoods: ['/back/blog/moods', 'get'],
+  getMoodDetail: ['/back/blog/mood', 'get']
 }
 
 export const backSystemApi = {
@@ -38,7 +42,7 @@ export const backSystemApi = {
   // 登录
   addToken: ['back/system/user/token', 'post'],
   // 激活或冻结
-  updateUserValidity:['back/system/user/validity','put'],
+  updateUserValidity: ['back/system/user/validity', 'put'],
 
   // 权限组
   addGroup: ['/back/system/group', 'post'],

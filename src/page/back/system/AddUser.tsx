@@ -30,7 +30,6 @@ export default function AddUser(
     [show])
 
   if (show) {
-
     return (
       <Form form={form} layout="inline" onFinish={onFinish}>
         <Form.Item name="username" rules={[{required: true, message: '用户名不能为空'}]}>
@@ -51,6 +50,6 @@ export default function AddUser(
       </Form>
     )
   } else {
-    return (<span/>)
+    return null
   }
 }

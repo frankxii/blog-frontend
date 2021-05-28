@@ -11,6 +11,7 @@ import UserList from "./system/UserList"
 import Login from "../../component/Login"
 import SiteLogo from "../../component/SiteLogo"
 import BackIndex from "./BackIndex"
+import MoodList from "./blog/MoodList"
 
 const {Content, Sider} = Layout
 export default function BackPage(props: any) {
@@ -53,6 +54,7 @@ export default function BackPage(props: any) {
             {/*文章相关*/}
             <Route exact path={`${props.match.path}/blog/article`} component={ArticleList}/>
             <Route path={`${props.match.path}/blog/category`} component={CategoryList}/>
+            <Route path={`${props.match.path}/blog/mood`} component={MoodList}/>
             <Route path={`${props.match.path}/blog/addArticle`} component={ArticleEditor}/>
             <Route path={`${props.match.path}/blog/editArticle/:id`} component={ArticleEditor}/>
           </Switch>
