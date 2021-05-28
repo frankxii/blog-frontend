@@ -17,11 +17,18 @@ import SiteLogo from "../../component/SiteLogo"
 export default function FrontPage(props: any) {
 
   const {Content} = Layout
-
   const width = window.outerWidth
 
   let marginTop = 0
   if (width > 500) marginTop = 65
+
+  let contentMinHeight = "85vh"
+  if (width < 1900) {
+    contentMinHeight = "82vh"
+  }
+  if (width < 500) {
+    contentMinHeight = "91vh"
+  }
 
   return (
     <div>
@@ -50,7 +57,7 @@ export default function FrontPage(props: any) {
       <Layout>
         <Content style={{backgroundColor: '#FAFAFA'}}>
           <Row style={{
-            minHeight: width < 500 ? "94vh" : "88vh",
+            minHeight: contentMinHeight,
             marginTop: marginTop
           }}>
             {/*主要内容区域*/}
@@ -91,6 +98,13 @@ export default function FrontPage(props: any) {
                   </div>
                 </Affix>
               </Col>}
+          </Row>
+          <Row justify="center">
+            <Col>
+              <a href="http://beian.miit.gov.cn" target="_blank" rel="noreferrer">
+                渝ICP备2021005054
+              </a>
+            </Col>
           </Row>
         </Content>
       </Layout>
