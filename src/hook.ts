@@ -1,4 +1,4 @@
-import {SelectorOption} from "./interface"
+import {Mood, SelectorOption} from "./interface"
 import {useEffect, useState} from "react"
 import request from "./request"
 import {frontBlogApi, backBlogApi} from "./api"
@@ -74,4 +74,18 @@ export function useCategoryList() {
   }, [])
 
   return categoryList
+}
+
+// 获取说说数据
+export function useMoodsList() {
+  const [moods, setMoods] = useState<Mood[]>([])
+
+  useEffect(() => {
+    request(frontBlogApi.getMoods)
+      .then(res => {
+        if (res !== undefined) setMoods(res.data)
+      })
+  }, [])
+
+  return moods
 }

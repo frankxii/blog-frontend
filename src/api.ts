@@ -7,7 +7,9 @@ export const frontBlogApi = {
   // 归档
   getArchive: ['/front/archive', 'get'],
   // 网站更新记录
-  getRecords: ['/front/records', 'get']
+  getRecords: ['/front/records', 'get'],
+  // 说说
+  getMoods: ['/front/moods', 'get']
 }
 
 export const backBlogApi = {

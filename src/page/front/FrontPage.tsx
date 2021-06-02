@@ -3,7 +3,7 @@ import React from "react"
 import {Row, Col, Layout, Card, Affix} from "antd"
 
 import {Route} from "react-router-dom"
-import About from "./About"
+// import About from "./About"
 import Article from "./Article"
 import ArticleList from "./ArticleList"
 import Welcome from "./Welcome"
@@ -12,6 +12,7 @@ import CommonPendant from "../../component/CommonPendant"
 import TagCloudPendant from "../../component/TagCloudPendant"
 import Records from "./Records"
 import SiteLogo from "../../component/SiteLogo"
+import Moods from "./Moods"
 
 
 export default function FrontPage(props: any) {
@@ -73,12 +74,13 @@ export default function FrontPage(props: any) {
                 <Route exact path={`${props.match.path}/article`} component={ArticleList}/>
                 <Route path={`${props.match.path}/article/:id`} component={Article}/>
                 <Route path={`${props.match.path}/records`} component={Records}/>
-                <Route path={`${props.match.path}/about`} component={About}/>
+                {/*<Route path={`${props.match.path}/about`} component={About}/>*/}
                 <Route
                   path={`${props.match.path}/category/:category_name`}
                   component={ArticleList}/>
                 <Route path={`${props.match.path}/tag/:tag_name`} component={ArticleList}/>
                 <Route path={`${props.match.path}/month/:month`} component={ArticleList}/>
+                <Route path={`${props.match.path}/moods`} component={Moods}/>
               </Card>
             </Col>
             {width < 500 ? null :

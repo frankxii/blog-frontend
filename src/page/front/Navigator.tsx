@@ -12,7 +12,8 @@ export default function Navigator() {
     {key: "front", link: "/front", text: "首页"},
     {key: "article", link: "/front/article", text: "文章"},
     {key: "records", link: "/front/records", text: "记录"},
-    {key: "about", link: "/front/about", text: "关于"},
+    // {key: "about", link: "/front/about", text: "关于"},
+    {key: "moods", link: "/front/moods", text: "说说"},
     {key: "leave", link: "/front/leave", text: "留言"},
     {key: "back", link: "/back", text: "后台"}
   ]
@@ -22,7 +23,7 @@ export default function Navigator() {
     let url = window.location.pathname
     let key = url.split("/").pop()
     if (key) {
-      if (['front', 'article', 'records', 'about', 'leave', 'back'].includes(key)) {
+      if (['front', 'article', 'records', 'about', 'leave', 'back', 'moods'].includes(key)) {
         setCurrent(key)
       }
     }
