@@ -1,9 +1,10 @@
-import {Button, Space, Table} from "antd"
-import AddUser from "./AddUser"
 import {useEffect, useState} from "react"
+
+import {Button, Space, Table} from "antd"
+
+import AddUser from "./AddUser"
 import request from "../../../request"
 import {backSystemApi} from "../../../api"
-
 import {Pagination, User} from "../../../interface"
 
 export default function UserList() {

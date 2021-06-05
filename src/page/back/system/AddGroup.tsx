@@ -4,7 +4,7 @@ import request from "../../../request"
 import {backSystemApi} from "../../../api"
 
 export default function AddGroup(props: { show: boolean, freshProp: Array<any> }) {
-  let show = props.show
+  const {show} = props
   const [refresh, setRefresh] = props.freshProp
   const [form] = Form.useForm()
 

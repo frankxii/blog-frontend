@@ -6,7 +6,7 @@ import {backSystemApi} from "../../../api"
 export default function AddUser(
   props: { show: boolean, refreshProp: Array<any> }
 ) {
-  let show = props.show
+  const {show} = props
   const [refresh, setRefresh] = props.refreshProp
 
   const [form] = Form.useForm()

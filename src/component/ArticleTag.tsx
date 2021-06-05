@@ -7,8 +7,7 @@ interface TagProps {
 }
 
 export default function ArticleTag(props: TagProps) {
-  const tagMap = props.tagMap
-  const tagIds = props.tagIds
+  const {tagMap, tagIds} = props
 
 
   // 标签字典和有属性值时才渲染
@@ -20,7 +19,8 @@ export default function ArticleTag(props: TagProps) {
     }
     return (
       <Space>
-        {tagNameList.map((tagName: string) => <Tag key={tagName} color="geekblue">{tagName}</Tag>)}
+        {tagNameList.map((tagName: string) =>
+          <Tag key={tagName} color="geekblue">{tagName}</Tag>)}
       </Space>
     )
   } else {

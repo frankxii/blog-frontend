@@ -51,9 +51,8 @@ export function useTagArchive() {
   useEffect(function getTagArchive() {
     request(frontBlogApi.getArchive, {'cate': 'tag'})
       .then(res => {
-          if (res !== undefined) setTagList(res.data)
-        }
-      )
+        if (res !== undefined) setTagList(res.data)
+      })
   }, [])
   return tagList
 }

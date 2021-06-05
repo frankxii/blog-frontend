@@ -15,19 +15,46 @@ import MoodList from "./blog/MoodList"
 
 const {Content, Sider} = Layout
 export default function BackPage(props: any) {
+
+  const routes = [
+    {path: '', component: BackIndex, exact: true},
+    {path: 'system/user', component: UserList},
+    {path: 'system/group', component: GroupList},
+    {path: 'blog/article', component: ArticleList, exact: true},
+    {path: 'blog/category', component: CategoryList},
+    {path: 'blog/mood', component: MoodList},
+    {path: 'blog/addArticle', component: ArticleEditor},
+    {path: 'blog/editArticle/:id', component: ArticleEditor}
+  ]
+
+  const Routes = () =>
+    <Switch>
+      {routes.map(route =>
+        <Route
+          key={route.path}
+          exact={!!route.exact}
+          path={`${props.match.path}/${route.path}`}
+          component={route.component}
+        />
+      )}
+    </Switch>
+
+  const Header = () =>
+    <Row align="middle" justify="space-between" style={{
+      height: 48,
+      backgroundColor: '#141414',
+    }}>
+      <Col offset={1}>
+        <SiteLogo theme={"white"}/>
+      </Col>
+      <Col style={{marginRight: "3vw"}}>
+        <Route path={`${props.match.path}`} component={Login}/>
+      </Col>
+    </Row>
+
   return (
     <div>
-      <Row align="middle" justify="space-between" style={{
-        height: 48,
-        backgroundColor: '#141414',
-      }}>
-        <Col offset={1}>
-          <SiteLogo theme={"white"}/>
-        </Col>
-        <Col style={{marginRight: "3vw"}}>
-          <Route path={`${props.match.path}`} component={Login}/>
-        </Col>
-      </Row>
+      <Header/>
       <Layout>
         <Sider
           style={{height: "94vh"}}
@@ -46,18 +73,7 @@ export default function BackPage(props: any) {
           paddingTop: "3vh",
           paddingRight: "1vh"
         }}>
-          <Switch>
-            <Route exact path={`${props.match.path}`} component={BackIndex}/>
-            {/*权限相关*/}
-            <Route path={`${props.match.path}/system/user`} component={UserList}/>
-            <Route path={`${props.match.path}/system/group`} component={GroupList}/>
-            {/*文章相关*/}
-            <Route exact path={`${props.match.path}/blog/article`} component={ArticleList}/>
-            <Route path={`${props.match.path}/blog/category`} component={CategoryList}/>
-            <Route path={`${props.match.path}/blog/mood`} component={MoodList}/>
-            <Route path={`${props.match.path}/blog/addArticle`} component={ArticleEditor}/>
-            <Route path={`${props.match.path}/blog/editArticle/:id`} component={ArticleEditor}/>
-          </Switch>
+          <Routes/>
         </Content>
       </Layout>
     </div>
