@@ -7,6 +7,9 @@ import {useMoodsList} from "../../hook"
 export default function Moods() {
 
   const moods = useMoodsList()
+  // 设定列表列数
+  const width: number = window.outerWidth
+  const columnNum: number = width < 1300 ? 1 : 2
 
   // 列表渲染
   const ListItem = (mood: Mood) =>
@@ -23,7 +26,7 @@ export default function Moods() {
 
   return (
     <List
-      grid={{gutter: 16, column: 2}}
+      grid={{gutter: 16, column: columnNum}}
       pagination={{pageSize: 10}}
       dataSource={moods}
       renderItem={ListItem}

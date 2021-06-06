@@ -18,10 +18,13 @@ export default function MoodList() {
       key: "mood is",
       title: "id",
       dataIndex: "id",
+      width: "10%"
     }, {
       key: "content",
       title: "内容",
-      dataIndex: "content"
+      dataIndex: "content",
+      width:"40%",
+      ellipsis:true
     },
     {
       key: "create_time",
