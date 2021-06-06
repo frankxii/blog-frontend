@@ -71,7 +71,10 @@ export default function ArticleEditor(props: any) {
       }
       // 创建或修改文章
       request(id === 0 ? backBlogApi.addArticle : backBlogApi.updateArticle,
-        {id: id, title: title, body: value, category_id: category.value, tags: selectedTags}
+        {
+          id: id, title: title, body: value,
+          category_id: category.value, tags: selectedTags
+        }
       ).then((res: any) => {
         if (res !== undefined && 'data' in res) {
           setId(res.data.id)
@@ -80,57 +83,64 @@ export default function ArticleEditor(props: any) {
     }
   }
 
+  const Title = () =>
+    <Col>
+      <Input style={{width: "20vw"}} ref={inputRef} addonBefore="标题"/>
+    </Col>
+
+  const Category = () =>
+    <Col>
+      <label>分类：</label>
+      <Select
+        style={{width: "10vw"}}
+        // @ts-ignore
+        value={category.text}
+        // 修改类别id
+        onChange={(text: string, option: any) =>
+          setCategory({value: parseInt(option.key.split('category')[1]), text: text})
+        }
+      >
+        {categories.map(category =>
+          <Option key={'category' + category.value}
+                  value={category.text}>{category.text}
+          </Option>)}
+      </Select>
+    </Col>
+
+  const Tags = () =>
+    <Col>
+      <label>标签：</label>
+      <Select
+        style={{width: "15vw"}}
+        mode="tags"
+        // @ts-ignore
+        value={selectedTags}
+        // @ts-ignore
+        onChange={(keys: number[]) => setSelectedTags(keys)}
+      >
+        {tagList.map(tag => <Option key={tag.text} value={tag.text}>{tag.text}</Option>)}
+      </Select>
+    </Col>
+
+  const Submit = () =>
+    <Col>
+      <Space>
+        <Button onClick={() => props.history.push('/back/blog/article')}>返回</Button>
+        <Button type={"primary"} onClick={saveArticle}>保存</Button>
+      </Space>
+    </Col>
 
   return (
     <div>
-      <Row gutter={20} align={"middle"}
-      >
-        {/*标题输入框*/}
-        <Col>
-          <Input style={{width:"20vw"}} ref={inputRef} addonBefore="标题"/>
-        </Col>
-        {/*类别*/}
-        <Col>
-          <label>分类：</label>
-          <Select
-            style={{width:"10vw"}}
-            // @ts-ignore
-            value={category.text}
-            // 修改类别id
-            onChange={(text: string, option: any) =>
-              setCategory({value: parseInt(option.key.split('category')[1]), text: text})
-            }
-          >
-            {categories.map(category =>
-              <Option key={'category' + category.value}
-                      value={category.text}>{category.text}
-              </Option>)}
-          </Select>
-        </Col>
-        {/*标签*/}
-        <Col>
-          <label>标签：</label>
-          <Select
-            style={{width:"15vw"}}
-            mode="tags"
-            // @ts-ignore
-            value={selectedTags}
-            // @ts-ignore
-            onChange={(keys: number[]) => setSelectedTags(keys)}
-          >
-            {tagList.map(tag => <Option key={tag.text} value={tag.text}>{tag.text}</Option>)}
-          </Select>
-        </Col>
-        {/*保存按钮*/}
-        <Col>
-          <Space>
-            <Button onClick={() => props.history.push('/back/blog/article')}>返回</Button>
-            <Button type={"primary"} onClick={saveArticle}>保存</Button>
-          </Space>
-        </Col>
+      <Row gutter={20} align={"middle"}>
+        <Title/>
+        <Category/>
+        <Tags/>
+        <Submit/>
       </Row>
       <Divider/>
       <MDEditor
+        highlightEnable
         value={value}
         // @ts-ignore
         onChange={setValue}
