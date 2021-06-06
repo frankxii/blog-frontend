@@ -45,11 +45,10 @@ export default function AddMood(props: {
     if (currentMoodId > 0) {
       request(backBlogApi.getMoodDetail, {id: currentMoodId})
         .then(res => {
-          form.setFields([{name: "textarea", value: res.data.content}])
+          form.setFieldsValue({textarea: res.data.content})
         })
     }
-    // eslint-disable-next-line
-  }, [currentMoodId])
+  }, [currentMoodId, form])
 
 
   if (show) {

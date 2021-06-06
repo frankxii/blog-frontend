@@ -23,6 +23,7 @@ export default function Records() {
       })
   }, [])
 
+  if (records.length === 0) return null
   return (
     <List
       grid={{gutter: 16, column: column}}
