@@ -1,5 +1,7 @@
-import {useEffect} from "react"
-import {Button, Form, Input} from "antd"
+import {useEffect, useState, CSSProperties} from "react"
+import {Button, Form, Input, Space} from "antd"
+
+import MDEditor from "@uiw/react-md-editor"
 
 import request from "../../../request"
 import {backBlogApi} from "../../../api"
@@ -15,6 +17,15 @@ export default function AddMood(props: {
   const [show, setShow] = props.showProps
   const [refresh, setRefresh] = props.refreshProps
   const [currentMoodId, setCurrentMoodId] = props.moodIdProps
+
+  // 监听textarea的值，然后渲染用户侧的展示
+  const [preview, setPreview] = useState("")
+
+  const EditAreaStyle: CSSProperties = {
+    width: "30vw",
+    marginTop: "3vh",
+    fontSize: 14
+  }
 
   function onFinish(formData: { textarea: string }) {
     if (formData.textarea) {
@@ -53,13 +64,23 @@ export default function AddMood(props: {
 
   if (show) {
     return (
-      <Form form={form} onFinish={onFinish}>
-        <Form.Item name="textarea">
-          <TextArea
-            style={{width: "30vw", marginTop: "3vh"}}
-            autoSize={{minRows: 4}}
-            maxLength={120} showCount/>
-        </Form.Item>
+      <Form
+        form={form}
+        onFinish={onFinish}
+        onChange={(event: any) => setPreview(event.target.value)}
+      >
+        <Space align="start" size="large">
+          <Form.Item name="textarea">
+            <TextArea
+              style={EditAreaStyle}
+              autoSize={{minRows: 4}}
+              maxLength={120} showCount/>
+          </Form.Item>
+          <MDEditor.Markdown
+            source={preview}
+            style={EditAreaStyle}
+          />
+        </Space>
         <Form.Item>
           <Button htmlType="submit">
             保存

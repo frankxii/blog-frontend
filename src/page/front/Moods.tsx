@@ -2,6 +2,7 @@ import {Card, Divider, List} from "antd"
 
 import {Mood} from "../../interface"
 import {useMoodsList} from "../../hook"
+import MDEditor from "@uiw/react-md-editor"
 
 
 export default function Moods() {
@@ -17,7 +18,10 @@ export default function Moods() {
       <Card key={mood.id}>
         {mood.create_time}
         <Divider dashed={true} style={{margin: "1vh 0"}}/>
-        {mood.content}
+        <MDEditor.Markdown
+          style={{fontSize: 14}}
+          source={mood.content}
+        />
       </Card>
     </List.Item>
 
