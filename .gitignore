@@ -3,6 +3,9 @@
 # IDE
 .idea
 
+# docker
+blog-front.tar
+
 # dependencies
 /node_modules
 /.pnp
